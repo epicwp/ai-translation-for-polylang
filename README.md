@@ -19,9 +19,9 @@ The tree is the plugin exactly as shipped in the WordPress.org zip, plus what is
 Requires Node.js 20 or newer.
 
     npm ci
-    PLLAT_EDITION=free npm run build:js
+    npm run build:free
 
-This rewrites `dist/admin/translation-dashboard.js` and `dist/admin/single-translator.js` from the sources in `assets/scripts/`. `npm run build:free` produces the same bundles in `dist-free/` instead, which is what the monorepo build uses. The stylesheet `dist/admin/admin.css` is compiled from Tailwind sources that live in the monorepo and is not rebuilt here.
+This writes `dist-free/admin/translation-dashboard.js` and `dist-free/admin/single-translator.js` from the sources in `assets/scripts/`, to compare with the shipped bundles in `dist/admin/`. Two differences are expected: the shipped bundles were built by the release pipeline (its Node and dependency versions), and the monorepo build rewrites the text domain literal `polylang-ai-automatic-translation` to `ai-translation-for-polylang` in them afterwards. The stylesheet `dist/admin/admin.css` is compiled from Tailwind sources that live in the monorepo and is not rebuilt here.
 
 ## Issues and pull requests
 
