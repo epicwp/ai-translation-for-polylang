@@ -1,0 +1,26 @@
+name: Close pull requests
+
+# This repository is a one-way mirror of a private monorepo (see README.md).
+# Pull requests cannot be merged here, so every opened one is closed with a note.
+on:
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Close the pull request
+        run: gh pr close "$PR_URL" --comment "$MESSAGE"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          MESSAGE: >-
+            Thank you for the pull request. This repository is a read-only mirror
+            that is regenerated from a private monorepo on every release, so pull
+            requests cannot be merged here (see the README). For bug reports and
+            questions please use the WordPress.org support forum:
+            https://wordpress.org/support/plugin/ai-translation-for-polylang/
