@@ -1,0 +1,28 @@
+{
+  "devDependencies": {
+    "@semantic-release/exec": "^7.0.3",
+    "@types/jquery": "^3.5.5",
+    "@types/wordpress__admin": "^5.8.4",
+    "@wordpress/scripts": "^30.8.1",
+    "@x-wp/wordpack": "^1",
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.6.2",
+    "webpack": "^5",
+    "webpack-cli": "^5"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build:js": "wp-scripts build --source-path=assets/scripts admin/translation-dashboard=admin/translation-dashboard/index.jsx admin/single-translator=admin/single-translator/index.jsx",
+    "build:free": "PLLAT_EDITION=free PLLAT_DIST_DIR=dist-free npm run build:js",
+    "build": "npm run build:js && npm run build:css",
+    "start": "wp-scripts start --source-path=assets/scripts admin/translation-dashboard=admin/translation-dashboard/index.jsx admin/single-translator=admin/single-translator/index.jsx",
+    "build:css": "tailwindcss build -i ./assets/styles/admin-input.css -o ./dist/admin/admin.css",
+    "watch:css": "tailwindcss build -i ./assets/styles/admin-input.css -o ./dist/admin/admin.css --watch",
+    "test:scripts": "node --test scripts/*.test.js"
+  },
+  "dependencies": {
+    "zustand": "^5.0.5"
+  }
+}

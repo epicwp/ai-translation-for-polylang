@@ -1,0 +1,1831 @@
+# Copyright (C) 2026 EPIC WP
+# This file is distributed under the same license as the Polylang Automatic Translation with AI plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Polylang Automatic Translation with AI 0.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/polylang-ai-automatic-translation\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-04T13:19:09+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: ai-translation-for-polylang\n"
+
+#. Plugin Name of the plugin
+#: polylang-ai-automatic-translation.php
+msgid "Polylang Automatic Translation with AI"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: polylang-ai-automatic-translation.php
+msgid "https://www.epicwpsolutions.com/plugins/polylang-automatic-ai-translation/"
+msgstr ""
+
+#. Description of the plugin
+#: polylang-ai-automatic-translation.php
+msgid "Automatic AI translation for Polylang. Supports OpenAI, Google Gemini, Anthropic Claude, and OpenRouter."
+msgstr ""
+
+#. Author of the plugin
+#: polylang-ai-automatic-translation.php
+msgid "EPIC WP"
+msgstr ""
+
+#. Author URI of the plugin
+#: polylang-ai-automatic-translation.php
+msgid "https://www.epicwpsolutions.com"
+msgstr ""
+
+#: src/App.php:98
+#: src/Modules/Integrations/Integrations/WooCommerce/Handlers/WooCommerce_Variation_Handler.php:59
+#: src/Modules/License/Handlers/License_Notice_Handler.php:63
+#: src/Modules/Settings/Handlers/Settings_Page_Handler.php:70
+msgid "Polylang AI Translation"
+msgstr ""
+
+#: src/App.php:99
+msgid "No Polylang languages are configured yet. AI translation will activate as soon as you add at least one language."
+msgstr ""
+
+#: src/App.php:104
+msgid "Configure Polylang languages"
+msgstr ""
+
+#: src/App.php:116
+msgid "Polylang AI Automatic Translation"
+msgstr ""
+
+#: src/Modules/Activity/Controllers/Activity_REST_Controller.php:43
+msgid "Invalid date format."
+msgstr ""
+
+#: src/Modules/Activity/Controllers/Activity_REST_Controller.php:52
+msgid "Invalid status filter."
+msgstr ""
+
+#: src/Modules/Activity/Services/Activity_Service.php:478
+msgid "Nav menu"
+msgstr ""
+
+#: src/Modules/Admin/Controllers/Dashboard_REST_Controller.php:139
+#: src/Modules/Single_Translator/Controllers/Single_Translation_REST_Controller.php:286
+msgid "Translation index is not ready yet. Use the Re-run prime button to fix this."
+msgstr ""
+
+#: src/Modules/Admin/Controllers/Dashboard_REST_Controller.php:154
+#: src/Modules/Admin/Controllers/Dashboard_REST_Controller.php:183
+#: src/Modules/Single_Translator/Controllers/Single_Translation_REST_Controller.php:268
+msgid "System is not ready for translation. See details."
+msgstr ""
+
+#: src/Modules/Admin/Controllers/Dashboard_REST_Controller.php:171
+msgid "Translation run started successfully"
+msgstr ""
+
+#: src/Modules/Admin/Controllers/Dashboard_REST_Controller.php:220
+msgid "No active translation run found for this content type"
+msgstr ""
+
+#: src/Modules/Admin/Controllers/Dashboard_REST_Controller.php:232
+msgid "Translation run cancelled successfully"
+msgstr ""
+
+#: src/Modules/Admin/Controllers/Dashboard_REST_Controller.php:270
+msgid "Permission denied"
+msgstr ""
+
+#: src/Modules/Admin/Controllers/Dashboard_REST_Controller.php:293
+msgid "type is required"
+msgstr ""
+
+#: src/Modules/Admin/Controllers/Dashboard_REST_Controller.php:301
+msgid "entity is required"
+msgstr ""
+
+#: src/Modules/Admin/Controllers/Dashboard_REST_Controller.php:310
+msgid "type must be either \"post\" or \"term\""
+msgstr ""
+
+#. translators: 1: content type (post or term), 2: the post type or taxonomy name.
+#: src/Modules/Admin/Controllers/Dashboard_REST_Controller.php:324
+#, php-format
+msgid "Invalid %1$s: %2$s"
+msgstr ""
+
+#: src/Modules/Admin/Controllers/Dashboard_REST_Controller.php:344
+msgid "A translation run is already active for this content type"
+msgstr ""
+
+#: src/Modules/Admin/Controllers/Prime_REST_Controller.php:54
+msgid "Could not schedule the priming background job. Please try again or check Action Scheduler."
+msgstr ""
+
+#: src/Modules/Admin/Handlers/Admin_Page_Handler.php:42
+#: src/Modules/Admin/Handlers/Admin_Page_Handler.php:43
+#: src/Modules/Admin/Handlers/Admin_Page_Handler.php:61
+#: src/Modules/Single_Translator/Handlers/Meta_Box_Handler.php:77
+#: src/Modules/Single_Translator/Handlers/Meta_Box_Handler.php:158
+msgid "AI Translation"
+msgstr ""
+
+#. translators: %d: number of failed jobs
+#: src/Modules/Admin/Handlers/Admin_Page_Handler.php:96
+#, php-format
+msgid "%d translation job failed in the last 24 hours. Check the Activity panel for details."
+msgid_plural "%d translation jobs failed in the last 24 hours. Check the Activity panel for details."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Modules/Admin/Handlers/Legacy_Migration_Notice_Handler.php:58
+msgid "Polylang AI Translation: updated to the new translation pipeline."
+msgstr ""
+
+#: src/Modules/Admin/Handlers/Legacy_Migration_Notice_Handler.php:75
+msgid "Open dashboard"
+msgstr ""
+
+#: src/Modules/Admin/Handlers/Legacy_Migration_Notice_Handler.php:76
+msgid "Your content has been automatically re-scanned. Open the Dashboard to review your translations and continue where needed."
+msgstr ""
+
+#: src/Modules/Admin/Handlers/Legacy_Migration_Notice_Handler.php:82
+msgid "Activate license"
+msgstr ""
+
+#: src/Modules/Admin/Handlers/Legacy_Migration_Notice_Handler.php:83
+msgid "Your content has been automatically re-scanned. Activate your license to review your translations and continue where needed."
+msgstr ""
+
+#: src/Modules/Admin/Handlers/Legacy_Migration_Notice_Handler.php:96
+msgid "Dismiss"
+msgstr ""
+
+#: src/Modules/Admin/Handlers/Post_List_Handler.php:71
+msgid "AI"
+msgstr ""
+
+#: src/Modules/Admin/Handlers/Post_List_Handler.php:162
+msgid "All Translation Status"
+msgstr ""
+
+#: src/Modules/Admin/Handlers/Post_List_Handler.php:167
+msgid "Missing Translations"
+msgstr ""
+
+#: src/Modules/Admin/Handlers/Post_List_Handler.php:172
+msgid "All Translated"
+msgstr ""
+
+#: src/Modules/Admin/Handlers/Post_List_Handler.php:177
+msgid "Has Errors"
+msgstr ""
+
+#: src/Modules/Admin/Handlers/Post_List_Handler.php:182
+msgid "Translation Pending"
+msgstr ""
+
+#: src/Modules/Admin/Handlers/Post_List_Handler.php:405
+#: assets/scripts/admin/translation-dashboard/components/StringsTab.jsx:55
+msgid "translated"
+msgstr ""
+
+#: src/Modules/Admin/Handlers/Post_List_Handler.php:409
+msgid "in progress"
+msgstr ""
+
+#: src/Modules/Admin/Handlers/Post_List_Handler.php:413
+msgid "pending"
+msgstr ""
+
+#: src/Modules/Admin/Handlers/Post_List_Handler.php:417
+msgid "failed"
+msgstr ""
+
+#: src/Modules/Admin/Handlers/Post_List_Handler.php:421
+msgid "not started"
+msgstr ""
+
+#: src/Modules/Content/Controllers/Content_Fields_REST_Controller.php:123
+msgid "Description"
+msgstr ""
+
+#: src/Modules/Content/Controllers/Content_Fields_REST_Controller.php:124
+msgid "Name"
+msgstr ""
+
+#: src/Modules/Content/Controllers/Content_Fields_REST_Controller.php:125
+msgid "Post content"
+msgstr ""
+
+#: src/Modules/Content/Controllers/Content_Fields_REST_Controller.php:126
+msgid "Post excerpt"
+msgstr ""
+
+#: src/Modules/Content/Controllers/Content_Fields_REST_Controller.php:127
+msgid "Post slug"
+msgstr ""
+
+#: src/Modules/Content/Controllers/Content_Fields_REST_Controller.php:128
+msgid "Post title"
+msgstr ""
+
+#: src/Modules/Content/Controllers/Content_Fields_REST_Controller.php:129
+msgid "Slug"
+msgstr ""
+
+#: src/Modules/Debug/Handlers/Debug_Cleanup_Handler.php:215
+msgid "PLLAT Debug Logs Warning"
+msgstr ""
+
+#. translators: %s: current debug log size
+#: src/Modules/Debug/Handlers/Debug_Cleanup_Handler.php:220
+#, php-format
+msgid "Debug logs have reached %s. Debug mode has been automatically disabled to prevent disk space issues."
+msgstr ""
+
+#: src/Modules/Debug/Handlers/Debug_Cleanup_Handler.php:227
+msgid "Recommended actions:"
+msgstr ""
+
+#: src/Modules/Debug/Handlers/Debug_Cleanup_Handler.php:230
+msgid "Clear debug logs from the plugin settings page"
+msgstr ""
+
+#: src/Modules/Debug/Handlers/Debug_Cleanup_Handler.php:231
+msgid "Only enable debug mode when actively troubleshooting"
+msgstr ""
+
+#: src/Modules/Debug/Handlers/Debug_Cleanup_Handler.php:232
+msgid "Debug logs are automatically deleted after 7 days"
+msgstr ""
+
+#. translators: %1$s: opening link tag, %2$s: closing link tag
+#: src/Modules/Integrations/Integrations/WooCommerce/Handlers/WooCommerce_Variation_Handler.php:63
+#, php-format
+msgid "WooCommerce detected, but Polylang for WooCommerce (PLLWC) is not installed. Variable products, product variations, and attribute synchronization require %1$sPolylang for WooCommerce%2$s for full translation support."
+msgstr ""
+
+#: src/Modules/Internal_Links/Controllers/Internal_Links_REST_Controller.php:61
+msgid "Could not determine language for this item."
+msgstr ""
+
+#: src/Modules/License/Handlers/License_Form_Handler.php:91
+msgid "License Status: Active"
+msgstr ""
+
+#. translators: %s: human readable time difference
+#: src/Modules/License/Handlers/License_Form_Handler.php:98
+#, php-format
+msgid "Last verified: %s ago"
+msgstr ""
+
+#: src/Modules/License/Handlers/License_Form_Handler.php:112
+msgid "Deactivate License"
+msgstr ""
+
+#: src/Modules/License/Handlers/License_Form_Handler.php:121
+msgid "Deactivating will remove this site's license activation. You can reactivate it later."
+msgstr ""
+
+#: src/Modules/License/Handlers/License_Form_Handler.php:133
+msgid "License Status: Inactive"
+msgstr ""
+
+#. translators: %s: URL to purchase page
+#: src/Modules/License/Handlers/License_Form_Handler.php:139
+#, php-format
+msgid "Enter your license key to unlock Pro features. Don't have a license? %s"
+msgstr ""
+
+#: src/Modules/License/Handlers/License_Form_Handler.php:143
+msgid "Get one here"
+msgstr ""
+
+#: src/Modules/License/Handlers/License_Form_Handler.php:160
+msgid "License Key"
+msgstr ""
+
+#: src/Modules/License/Handlers/License_Form_Handler.php:174
+msgid "Enter your license key from your purchase confirmation email."
+msgstr ""
+
+#: src/Modules/License/Handlers/License_Form_Handler.php:186
+msgid "Activate License"
+msgstr ""
+
+#: src/Modules/License/Handlers/License_Form_Handler.php:208
+msgid "Please enter a license key."
+msgstr ""
+
+#: src/Modules/License/Handlers/License_Form_Handler.php:230
+msgid "License activated successfully!"
+msgstr ""
+
+#: src/Modules/License/Handlers/License_Form_Handler.php:255
+msgid "License deactivated."
+msgstr ""
+
+#: src/Modules/License/Handlers/License_Notice_Handler.php:64
+msgid "A valid license is required to use AI translation features and receive plugin updates."
+msgstr ""
+
+#: src/Modules/License/Handlers/License_Notice_Handler.php:69
+msgid "Enter your license key"
+msgstr ""
+
+#: src/Modules/License/Services/License_API_Client.php:62
+msgid "This license has been revoked."
+msgstr ""
+
+#: src/Modules/License/Services/License_API_Client.php:222
+msgid "License not found."
+msgstr ""
+
+#: src/Modules/License/Services/License_API_Client.php:227
+msgid "Unknown error occurred."
+msgstr ""
+
+#: src/Modules/License/Services/License_Validator_Service.php:66
+msgid "Invalid license response from server."
+msgstr ""
+
+#: src/Modules/License/Services/License_Validator_Service.php:88
+msgid "Your license activation limit has been reached. This can happen when your site URL changes. Please contact support to reset your activation."
+msgstr ""
+
+#: src/Modules/License/Services/License_Validator_Service.php:99
+msgid "Could not activate license for this site."
+msgstr ""
+
+#: src/Modules/Settings/Handlers/Settings_Page_Handler.php:71
+msgid "AI provider is not configured correctly. Translations are disabled."
+msgstr ""
+
+#: src/Modules/Settings/Handlers/Settings_Page_Handler.php:82
+msgid "Go to AI Settings"
+msgstr ""
+
+#: src/Modules/Settings/Handlers/Settings_Page_Handler.php:98
+#: src/Modules/Settings/Handlers/Settings_Page_Handler.php:99
+msgid "AI Settings"
+msgstr ""
+
+#: src/Modules/Settings/Handlers/Settings_Page_Handler.php:115
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: src/Modules/Settings/Handlers/Settings_Page_Handler.php:140
+msgid "You do not have permission to access this page."
+msgstr ""
+
+#: src/Modules/Settings/Handlers/Settings_Page_Handler.php:146
+#: src/Modules/Settings/Handlers/Settings_Page_Handler.php:196
+#: src/Modules/Settings/Handlers/Settings_Page_Handler.php:249
+#: src/Modules/Settings/Handlers/Settings_Page_Handler.php:271
+msgid "Invalid security token."
+msgstr ""
+
+#: src/Modules/Settings/Handlers/Settings_Page_Handler.php:165
+msgid "Log file not found."
+msgstr ""
+
+#: src/Modules/Settings/Handlers/Settings_Page_Handler.php:206
+#: src/Modules/Settings/Services/Support_Access_Service.php:64
+#: src/Modules/Settings/Services/Support_Access_Service.php:174
+msgid "You do not have permission to perform this action."
+msgstr ""
+
+#: src/Modules/Settings/Handlers/Settings_Page_Handler.php:218
+msgid "Debug logs cleared successfully."
+msgstr ""
+
+#: src/Modules/Settings/Handlers/Settings_Page_Handler.php:224
+msgid "Failed to clear debug logs."
+msgstr ""
+
+#. translators: %s: error message
+#: src/Modules/Settings/Handlers/Settings_Page_Handler.php:233
+#, php-format
+msgid "An error occurred: %s"
+msgstr ""
+
+#: src/Modules/Settings/Handlers/Settings_Page_Handler.php:282
+msgid "Support access revoked successfully."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:26
+msgid "Configure your AI translation settings below."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:31
+msgid "Configure advanced translation options including AI context and custom meta fields."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:44
+msgid "BYOK (Bring Your Own Key)"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:46
+msgid "Use your own API key from OpenAI, Claude, or Gemini. You pay the AI provider directly for usage."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:56
+msgid "Credits"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:58
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:101
+msgid "Coming Soon"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:61
+msgid "Purchase translation credits from us. No API key needed - we handle everything."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:75
+msgid "Bulk translation processing is available with a valid license."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:87
+msgid "Self-hosted Processing"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:89
+msgid "Process translations on your own server using Action Scheduler. Works on any hosting environment."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:99
+msgid "External Processor"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:104
+msgid "Faster parallel processing via our external service. Ideal for high-volume translations."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:121
+msgid "(Coming Soon)"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:132
+msgid "Select the AI provider for translations."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:135
+msgid "Note: Your selected provider is not available yet. OpenAI will be used as fallback."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:187
+#: src/Modules/Settings/Services/Settings_Form.php:262
+msgid "Select the AI model to use for translations."
+msgstr ""
+
+#. translators: %s: URL to OpenRouter models page
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:205
+#: src/Modules/Settings/Services/Settings_Form.php:257
+#, php-format
+msgid "Enter any OpenRouter model ID (e.g., anthropic/claude-sonnet-4.5). Browse available models at %s"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:212
+#: src/Modules/Settings/Services/Settings_Form.php:260
+msgid "Use at your own risk:"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:213
+#: src/Modules/Settings/Services/Settings_Form.php:261
+msgid "OpenRouter provides access to many third-party models. We cannot guarantee compatibility with all models - some may not work correctly for translation."
+msgstr ""
+
+#. translators: %s: minimum number of output tokens.
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:234
+#, php-format
+msgid "Maximum number of tokens for AI responses. Higher values allow longer translations but increase costs. Values below %s are raised to that minimum: less room than that cuts translations off mid-sentence."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:254
+msgid "Automatically replace internal links in translated content"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:257
+msgid "When enabled, internal links in translated posts and terms are automatically replaced with their translated equivalents after each translation."
+msgstr ""
+
+#. translators: %s: number of links replaced
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:268
+#, php-format
+msgid "%s links replaced"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:290
+msgid "(Only Pro) Provide context about your website/audience/company to help the AI understand your content better. This improves translation quality."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:295
+msgid "Provide context about your website/audience/company to help the AI understand your content better. This improves translation quality."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:330
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:331
+msgid "(Taxonomy)"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:342
+msgid "WordPress plugins and themes like WooCommerce, Yoast SEO, and Kadence store additional data (like prices, SEO titles, or layout settings) in meta fields. This section lets you control how each field is handled during translation."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:348
+msgid "Use \"Scan for new fields\" to automatically detect and classify fields, or manage them manually per content type."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:360
+msgid "Configure an AI provider to enable scanning."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:363
+msgid "Scan for new fields"
+msgstr ""
+
+#. translators: %s: human-readable time difference, e.g. "2 hours"
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:376
+#, php-format
+msgid "Last scanned %s ago"
+msgstr ""
+
+#. translators: %d: number of translate fields
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:413
+#, php-format
+msgid "Translate (%d)"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:417
+msgid "These fields contain human-readable text and will be sent to AI for translation."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:425
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:453
+msgid "Remove"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:430
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:458
+msgid "Add"
+msgstr ""
+
+#. translators: %d: number of copy fields
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:441
+#, php-format
+msgid "Copy (%d)"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:445
+msgid "These fields contain structural or configuration values. They are duplicated as-is to translated posts without modification."
+msgstr ""
+
+#. translators: %d: number of ignored fields
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:469
+#, php-format
+msgid "Ignored (%d)"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:472
+msgid "Internal or technical fields not relevant for translation. Ignored fields are skipped during scans and translation."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:489
+msgid "No fields classified yet. Click \"Scan for new fields\" to discover meta fields automatically."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Field_Renderer.php:548
+msgid "Enter your API key for this provider."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:118
+msgid "AI Translation Configuration"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:126
+msgid "Advanced Settings"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:138
+msgid "Translation Mode"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:146
+msgid "Translation API Provider"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:156
+msgid "Translation Model"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:164
+msgid "Translation Processing"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:174
+msgid "Website Context"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:182
+msgid "Max Output Tokens"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:190
+msgid "Internal Link Translation"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:198
+msgid "Meta Field Management"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:210
+#, php-format
+msgid "%s API Key"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:291
+msgid "AI Translation Settings"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:297
+msgid "General"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:301
+msgid "Advanced"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:305
+msgid "License"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:309
+msgid "Support"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:317
+msgid "Configuration Issues:"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:329
+msgid "Performance Recommendation"
+msgstr ""
+
+#. translators: %1$s: link to site health page, %2$s: link to setup guide
+#: src/Modules/Settings/Services/Settings_Form.php:335
+#, php-format
+msgid "Your site is using WordPress internal cron. For better translation performance, we recommend setting up server cron. %1$s or %2$s"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:336
+msgid "View Site Health"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:337
+msgid "Read Setup Guide"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:351
+msgid "Action Scheduler Issue Detected"
+msgstr ""
+
+#. translators: %d: number of minutes actions have been stuck
+#: src/Modules/Settings/Services/Settings_Form.php:357
+#, php-format
+msgid "Translation tasks have been pending for %d minutes. This usually means WP-Cron is not running properly."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:364
+msgid "Learn how to set up server cron"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Form.php:374
+#: src/Modules/Settings/Services/Settings_Form.php:384
+msgid "Save Settings"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Service.php:274
+msgid "No translation API selected."
+msgstr ""
+
+#. translators: %s: Provider name
+#: src/Modules/Settings/Services/Settings_Service.php:281
+#, php-format
+msgid "API key for %s is missing."
+msgstr ""
+
+#. translators: %s: Provider name
+#: src/Modules/Settings/Services/Settings_Service.php:290
+#, php-format
+msgid "Model for %s is not configured."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:47
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:161
+msgid "Debug Logs"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:49
+msgid "No debug logs yet. They will appear here once a translation runs."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:50
+msgid "Debug logging is off. Switch on \"Enable debug logging\" above and save to start capturing detailed AI request/response traces here."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:53
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:155
+msgid "Error Logs"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:54
+msgid "No error logs found. This is good - no errors have been recorded."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:97
+msgid "Support Resources"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:102
+msgid "Documentation"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:103
+msgid "View user guides"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:110
+msgid "Create Support Ticket"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:111
+msgid "Get help from our team"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:118
+msgid "Health Check"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:119
+msgid "Check system status"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:129
+msgid "Debug Mode"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:138
+msgid "Enable debug logging"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:140
+msgid "Save"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:143
+msgid "When enabled, detailed logs will be written to help troubleshoot issues."
+msgstr ""
+
+#. translators: %s: formatted file size
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:189
+#, php-format
+msgid "File size: %s"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:213
+msgid "Download Logs"
+msgstr ""
+
+#. translators: %s: formatted file size
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:225
+#, php-format
+msgid "Clear Logs (%s)"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:244
+msgid "Support Access"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:246
+msgid "Grant our support team temporary REST API access to help diagnose issues on your site. This creates a dedicated admin user with an application password."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:255
+msgid "Generate Support Access"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:263
+msgid "Important:"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:264
+msgid "The application password is shown only once. Copy it now."
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:273
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:276
+msgid "Email to Support"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:282
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:311
+msgid "Revoke Access"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:292
+msgid "Support access active"
+msgstr ""
+
+#. translators: %s: formatted date
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:298
+#, php-format
+msgid "since %s"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:384
+msgid "Details:"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:401
+msgid "Exception:"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:408
+msgid "Stack Trace (first 10 lines):"
+msgstr ""
+
+#. translators: %d: number of log entries
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:425
+#, php-format
+msgid "Showing %d entries"
+msgstr ""
+
+#. translators: %1$d: start entry, %2$d: end entry, %3$d: total entries
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:439
+#, php-format
+msgid "Showing %1$d-%2$d of %3$d entries"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:444
+msgid "Prev"
+msgstr ""
+
+#. translators: %1$d: current page, %2$d: total pages
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:450
+#, php-format
+msgid "Page %1$d of %2$d"
+msgstr ""
+
+#: src/Modules/Settings/Services/Settings_Support_Tab_Renderer.php:455
+msgid "Next"
+msgstr ""
+
+#: src/Modules/Settings/Services/Support_Access_Service.php:73
+msgid "Application Passwords are not available on this site."
+msgstr ""
+
+#: src/Modules/Settings/Services/Support_Access_Service.php:80
+msgid "Support access is already active. Revoke it first to regenerate."
+msgstr ""
+
+#: src/Modules/Single_Translator/Controllers/Single_Translation_REST_Controller.php:166
+msgid "Target languages are required."
+msgstr ""
+
+#: src/Modules/Single_Translator/Controllers/Single_Translation_REST_Controller.php:182
+msgid "This post is excluded from translation. Toggle the exclusion off in the Translation panel to enable translation."
+msgstr ""
+
+#. translators: %s: post type slug
+#: src/Modules/Single_Translator/Controllers/Single_Translation_REST_Controller.php:197
+#, php-format
+msgid "The \"%s\" post type is not enabled as translatable in Polylang. Enable it in Polylang → Settings → Custom post types and Taxonomies."
+msgstr ""
+
+#. translators: %s: post status, e.g. "private" or "draft"
+#: src/Modules/Single_Translator/Controllers/Single_Translation_REST_Controller.php:218
+#, php-format
+msgid "This post is set to \"%s\" status and is only translated when published. Publish the post first, then run translation."
+msgstr ""
+
+#. translators: %s: taxonomy slug, e.g. pa_color
+#: src/Modules/Single_Translator/Controllers/Single_Translation_REST_Controller.php:247
+#, php-format
+msgid "The \"%s\" taxonomy is not enabled as translatable in Polylang. Enable it in Polylang → Settings → Custom post types and Taxonomies, or install Polylang for WooCommerce for WC product attributes."
+msgstr ""
+
+#: src/Modules/Single_Translator/Controllers/Single_Translation_REST_Controller.php:319
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:559
+msgid "All selected languages are already translated. Enable force re-translation to overwrite."
+msgstr ""
+
+#: src/Modules/Single_Translator/Controllers/Single_Translation_REST_Controller.php:333
+msgid "Translation started successfully."
+msgstr ""
+
+#: src/Modules/Single_Translator/Controllers/Single_Translation_REST_Controller.php:417
+msgid "Content excluded from AI translation."
+msgstr ""
+
+#: src/Modules/Single_Translator/Controllers/Single_Translation_REST_Controller.php:418
+msgid "Content included in AI translation."
+msgstr ""
+
+#: src/Modules/Single_Translator/Controllers/Single_Translation_REST_Controller.php:442
+msgid "Translation cancelled successfully."
+msgstr ""
+
+#: src/Modules/Single_Translator/Services/Single_Translation_Service.php:101
+msgid "No active translation found for this content."
+msgstr ""
+
+#: src/Modules/Status/Controllers/Preflight_REST_Controller.php:59
+#: src/Modules/Status/Controllers/System_Report_REST_Controller.php:50
+#: src/Modules/Strings/Controllers/Strings_REST_Controller.php:200
+msgid "Admin access required."
+msgstr ""
+
+#: src/Modules/Status/Preflight/Checks/Provider_Connectivity_Check.php:51
+#: src/Modules/Status/Preflight/Checks/Provider_Key_Check.php:58
+msgid "Open AI provider settings"
+msgstr ""
+
+#: src/Modules/Translator/Providers/Claude_Provider.php:159
+msgid "Get your API key from Anthropic Console (https://console.anthropic.com/)"
+msgstr ""
+
+#: src/Modules/Translator/Providers/Claude_Provider.php:292
+msgid "Claude API key is required."
+msgstr ""
+
+#: src/Modules/Translator/Providers/Claude_Provider.php:296
+msgid "Claude model selection is required."
+msgstr ""
+
+#. translators: %s: Model name
+#: src/Modules/Translator/Providers/Claude_Provider.php:300
+#, php-format
+msgid "Invalid Claude model: %s"
+msgstr ""
+
+#: src/Modules/Translator/Providers/Claude_Provider.php:310
+msgid "Claude API key should start with \"sk-ant-\"."
+msgstr ""
+
+#: src/Modules/Translator/Providers/Gemini_Provider.php:175
+msgid "Get your API key from Google AI Studio (https://aistudio.google.com/app/apikey)"
+msgstr ""
+
+#: src/Modules/Translator/Providers/Gemini_Provider.php:312
+msgid "Gemini API key is required."
+msgstr ""
+
+#: src/Modules/Translator/Providers/Gemini_Provider.php:316
+msgid "Gemini model selection is required."
+msgstr ""
+
+#. translators: %s: Model name
+#: src/Modules/Translator/Providers/Gemini_Provider.php:320
+#, php-format
+msgid "Invalid Gemini model: %s"
+msgstr ""
+
+#: src/Modules/Translator/Providers/Gemini_Provider.php:333
+msgid "Gemini API key should start with \"AIza\" or \"AQ.\"."
+msgstr ""
+
+#: src/Modules/Translator/Providers/OpenAI_Provider.php:166
+msgid "Get your API key from OpenAI Platform (https://platform.openai.com/api-keys)"
+msgstr ""
+
+#: src/Modules/Translator/Providers/OpenAI_Provider.php:300
+msgid "OpenAI API key is required."
+msgstr ""
+
+#: src/Modules/Translator/Providers/OpenAI_Provider.php:304
+msgid "OpenAI model selection is required."
+msgstr ""
+
+#. translators: %s: Model name
+#: src/Modules/Translator/Providers/OpenAI_Provider.php:308
+#, php-format
+msgid "Invalid OpenAI model: %s"
+msgstr ""
+
+#: src/Modules/Translator/Providers/OpenAI_Provider.php:315
+msgid "OpenAI API key should start with \"sk-\"."
+msgstr ""
+
+#: src/Modules/Translator/Providers/OpenRouter_Provider.php:128
+msgid "Get your API key from OpenRouter (https://openrouter.ai/settings/keys)"
+msgstr ""
+
+#: src/Modules/Translator/Providers/OpenRouter_Provider.php:266
+msgid "OpenRouter API key is required."
+msgstr ""
+
+#: src/Modules/Translator/Providers/OpenRouter_Provider.php:270
+msgid "OpenRouter model is required."
+msgstr ""
+
+#: src/Modules/Translator/Providers/OpenRouter_Provider.php:278
+msgid "OpenRouter API key should start with \"sk-or-\"."
+msgstr ""
+
+#: assets/scripts/admin/components/FieldSelector.jsx:86
+msgid "No fields selected. Click \"Select all\" to select all fields."
+msgstr ""
+
+#: assets/scripts/admin/components/FieldSelector.jsx:87
+msgid "Deselect any fields you want to skip."
+msgstr ""
+
+#: assets/scripts/admin/components/FieldSelector.jsx:112
+msgid "May affect SEO — select only if needed"
+msgstr ""
+
+#: assets/scripts/admin/components/FieldSelector.jsx:146
+msgid "Select fields to re-translate"
+msgstr ""
+
+#: assets/scripts/admin/components/FieldSelector.jsx:166
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:257
+msgid "Deselect all"
+msgstr ""
+
+#: assets/scripts/admin/components/FieldSelector.jsx:167
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:258
+msgid "Select all"
+msgstr ""
+
+#: assets/scripts/admin/components/FieldSelector.jsx:176
+msgid "Search fields..."
+msgstr ""
+
+#: assets/scripts/admin/components/FieldSelector.jsx:207
+#: assets/scripts/admin/translation-dashboard/components/TabNavigation.jsx:5
+#: assets/scripts/admin/translation-dashboard/components/TranslationDashboard.jsx:55
+msgid "Content"
+msgstr ""
+
+#: assets/scripts/admin/components/FieldSelector.jsx:225
+msgid "Meta Fields"
+msgstr ""
+
+#: assets/scripts/admin/components/FieldSelector.jsx:235
+msgid "No fields match your search."
+msgstr ""
+
+#: assets/scripts/admin/components/FieldSelector.jsx:250
+#: assets/scripts/admin/translation-dashboard/components/ActivityFeedItem.jsx:182
+msgid "field"
+msgstr ""
+
+#: assets/scripts/admin/components/FieldSelector.jsx:251
+msgid "fields"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:11
+msgid "Background jobs"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:12
+msgid "Server self-reachability"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:13
+msgid "WordPress cron"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:14
+msgid "PHP environment"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:15
+msgid "Polylang plugin"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:16
+msgid "Polylang languages"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:17
+msgid "Polylang source language"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:18
+msgid "AI provider configuration"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:19
+msgid "AI provider connection"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:20
+msgid "Translation index"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:77
+msgid "Required"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:83
+msgid "Recommended"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:118
+msgid "How to fix"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:134
+msgid "Open settings"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:146
+msgid "Read the guide"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:166
+msgid "Don't show this recommendation again in this browser"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:343
+msgid "Re-tested — the issues are still present."
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:348
+msgid "Re-tested — the recommendations are still present."
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:354
+msgid "Re-running prime did not complete. Please try again or check Tools → Scheduled Actions."
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:359
+msgid "Re-test failed to run. Please try again."
+msgstr ""
+
+#. translators: %1$d: blocking issue count, %2$s: warnings phrase or empty
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:369
+#, js-format
+msgid "%1$d blocking issue is preventing translations from starting%2$s. Each item below has a one-click fix."
+msgid_plural "%1$d blocking issues are preventing translations from starting%2$s. Each item below has a one-click fix."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: warning count
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:379
+#, js-format
+msgid ", plus %d recommendation"
+msgid_plural ", plus %d recommendations"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:389
+msgid "Recommendations to make translations more reliable."
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:429
+msgid "Let's get a few things sorted first"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:440
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:524
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:213
+msgid "Close"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:494
+msgid "Fixed something? Click Re-test to verify before starting again."
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:498
+msgid "Reviewed the recommendations? Re-test to refresh, or continue anyway."
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:510
+msgid "Stuck? Grant support access"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:534
+msgid "Re-testing…"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:535
+msgid "Re-test now"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:548
+#, js-format
+msgid "Re-running prime… %d%%"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:551
+msgid "Re-running prime…"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:552
+msgid "Re-run prime"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:567
+msgid "The run will start despite the blocking issue. Translations may fail until you fix it."
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:571
+msgid "Start the run without addressing the recommendations."
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:578
+msgid "Continue at my own risk"
+msgstr ""
+
+#: assets/scripts/admin/components/PreflightFailedDialog.jsx:582
+msgid "Continue anyway"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/ActionButtons.jsx:22
+msgid "Processing..."
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/ActionButtons.jsx:23
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:435
+msgid "Start Translation"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/ActionButtons.jsx:32
+msgid "Cancel Translation"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/ErrorBanner.jsx:62
+msgid "A translation error was detected. Please check the error details below."
+msgstr ""
+
+#. translators: %d is the number of translation errors
+#: assets/scripts/admin/single-translator/components/ErrorBanner.jsx:64
+#, js-format
+msgid "%d translation errors were detected. Please check the error details below."
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/ErrorBanner.jsx:75
+msgid "Refresh Status"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/ErrorBanner.jsx:86
+msgid "Unknown error"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/ErrorSummaryBanner.jsx:64
+msgid "View Error Details"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/ExclusionToggle.jsx:21
+msgid "Exclude from automatic translation"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/ExclusionToggle.jsx:24
+msgid "This item will not be automatically translated."
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/ExclusionToggle.jsx:25
+msgid "This item can be automatically translated."
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/ForceToggle.jsx:21
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:365
+msgid "Force re-translation"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/ForceToggle.jsx:22
+msgid "Re-translate even if a translation already exists."
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/ImportingMessage.jsx:16
+msgid "Translations are currently being imported. Please wait..."
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/InstructionsInput.jsx:21
+msgid "Custom AI Instructions (optional)"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/InstructionsInput.jsx:22
+msgid "Provide specific instructions for the AI translator, such as tone, style, or terminology preferences."
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/LanguageCard.jsx:28
+#: assets/scripts/admin/translation-dashboard/components/ActivityFeedItem.jsx:197
+#: assets/scripts/admin/translation-dashboard/components/StringsTab.jsx:41
+msgid "Translated"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/LanguageCard.jsx:55
+msgid "In Queue..."
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/LanguageCard.jsx:67
+#: assets/scripts/admin/translation-dashboard/components/StringsTab.jsx:152
+msgid "Translating…"
+msgstr ""
+
+#. translators: %d: number of fields completed so far
+#: assets/scripts/admin/single-translator/components/LanguageCard.jsx:70
+#, js-format
+msgid "%d field translated"
+msgid_plural "%d fields translated"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: comma-separated list of field references
+#: assets/scripts/admin/single-translator/components/LanguageCard.jsx:107
+#, js-format
+msgid "Completed: %s"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/LanguageCard.jsx:119
+msgid "Pending"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/LanguageCard.jsx:143
+msgid "Update available"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/LanguageCard.jsx:153
+#: assets/scripts/admin/translation-dashboard/components/StringsTab.jsx:168
+msgid "Translation failed"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/LanguageCard.jsx:161
+msgid "Not yet translated"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/LanguageCard.jsx:257
+msgid "Upgrade to Pro for unlimited languages"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/LanguageSelector.jsx:50
+msgid "No languages available for translation."
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/LanguageSelector.jsx:59
+msgid "Select target languages"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/LanguageSelector.jsx:77
+msgid "Select All"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/LanguageSelector.jsx:86
+msgid "Deselect All"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:362
+msgid "Internal link translation failed."
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:405
+msgid "No translator API configured"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:407
+msgid "Configure API settings"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:419
+msgid "The translation system is not ready. Please configure your AI provider in the settings."
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:440
+msgid "A valid Pro license is required to use the single translator"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:442
+msgid "Activate your license"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:467
+msgid "Recent translations completed successfully!"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:489
+msgid "Starting translation..."
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:498
+msgid "Translation tasks may be delayed. Background processing isn't running properly."
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:500
+msgid "Check AI Settings"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:514
+msgid "Translations completed successfully!"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:529
+msgid "Translation queued. It will run in the background shortly — reopen this panel or reload the page to follow its progress."
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:542
+msgid "Some translations failed. Check language details below."
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:635
+msgid "Scan this translation for internal links pointing to the source language and replace them with their translated equivalents."
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:645
+msgid "Translate Internal Links"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:650
+msgid "link(s) translated"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:651
+msgid "All links are up to date"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/SingleTranslator.jsx:652
+msgid "unresolved"
+msgstr ""
+
+#. translators: %s is the language name
+#: assets/scripts/admin/single-translator/components/TaskDetailsModal.jsx:51
+#, js-format
+msgid "Error Details: %s"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/TaskDetailsModal.jsx:70
+msgid "No error details available."
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/TaskDetailsModal.jsx:87
+msgid "Task"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/TaskDetailsModal.jsx:87
+msgid "Untitled"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/TaskDetailsModal.jsx:91
+msgid "Error:"
+msgstr ""
+
+#: assets/scripts/admin/single-translator/components/TaskDetailsModal.jsx:95
+msgid "Type:"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityFeedItem.jsx:58
+msgid "Post"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityFeedItem.jsx:59
+msgid "Term"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityFeedItem.jsx:86
+msgid "View"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityFeedItem.jsx:132
+msgid "View error"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityFeedItem.jsx:150
+msgid "Completed"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityFeedItem.jsx:158
+#: assets/scripts/admin/translation-dashboard/components/StringsTab.jsx:175
+msgid "Failed"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityFeedItem.jsx:166
+#: assets/scripts/admin/translation-dashboard/components/ActivityFeedItem.jsx:221
+msgid "Translating"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityFeedItem.jsx:174
+#: assets/scripts/admin/translation-dashboard/components/StringsTab.jsx:88
+msgid "strings"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityFeedItem.jsx:177
+msgid "menu item"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityFeedItem.jsx:180
+msgid "meta field"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityFeedItem.jsx:206
+msgid "Error translating"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityFeedItem.jsx:213
+msgid "this item"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityPanel.jsx:81
+msgid "All"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityPanel.jsx:82
+msgid "Active"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityPanel.jsx:83
+msgid "Done"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityPanel.jsx:84
+msgid "Errors"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityPanel.jsx:152
+msgid "Activity"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityPanel.jsx:175
+msgid "Select date"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityPanel.jsx:223
+#, js-format
+msgid "%d new item ↑"
+msgid_plural "%d new items ↑"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityPanel.jsx:238
+msgid "Loading activity..."
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityPanel.jsx:244
+msgid "No activity for this date"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityPanel.jsx:288
+msgid "Error Details"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityPanel.jsx:300
+msgid "Issue"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityPanel.jsx:307
+msgid "Attempts"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ActivityPanel.jsx:314
+msgid "Log Entry"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:86
+msgid "Limit must be a positive integer"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:92
+msgid "Please select at least one target language"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:121
+msgid "all languages"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:122
+msgid "language"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:122
+msgid "languages"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:124
+msgid "translate"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:174
+msgid "Loading configuration..."
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:189
+msgid "Bulk translate"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:240
+msgid "Translate to"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:325
+msgid "Advanced Options"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:334
+msgid "Limit number of translations"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:355
+msgid "Limit the number of items to translate in this batch"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:375
+msgid "Re-translate even if a translation already exists"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:392
+msgid "Custom AI Instructions"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:394
+msgid "Provide custom instructions for the AI translator"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:401
+msgid "e.g., Use formal tone, preserve technical terms..."
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/BulkConfigModal.jsx:429
+#: assets/scripts/admin/translation-dashboard/components/StringsTab.jsx:243
+msgid "Cancel"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ContentTypeCard/ActiveState.jsx:10
+msgid "Starting..."
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ContentTypeCard/ActiveState.jsx:16
+msgid "Translating..."
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ContentTypeCard/ActiveState.jsx:61
+#: assets/scripts/admin/translation-dashboard/components/ContentTypeCard/ActiveState.jsx:62
+msgid "Cancel translation"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ContentTypeCard/ActiveState.jsx:95
+#, js-format
+msgid "~%s remaining"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ContentTypeCard/ActiveState.jsx:101
+#, js-format
+msgid "%d failed"
+msgid_plural "%d failed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/scripts/admin/translation-dashboard/components/ContentTypeCard/AllTranslatedMessage.jsx:8
+msgid "All translated"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ContentTypeCard/IdleState.jsx:24
+msgid "Configure & Translate"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/ContentTypeCard/RestartableState.jsx:7
+#: assets/scripts/admin/translation-dashboard/components/ContentTypeCard/RestartableState.jsx:11
+msgid "Configure & Retry"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/DashboardHeader.jsx:13
+msgid "Your website's translations"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/DashboardHeader.jsx:16
+msgid "Manage translations across all your content types and languages"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/DiscoveryOverlay.jsx:15
+msgid "Analyzing posts and categories…"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/DiscoveryOverlay.jsx:18
+msgid "Analyzing posts…"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/DiscoveryOverlay.jsx:21
+msgid "Analyzing categories…"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/DiscoveryOverlay.jsx:23
+msgid "Finishing up…"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/DiscoveryOverlay.jsx:123
+msgid "Scanning your content"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/DiscoveryOverlay.jsx:136
+msgid "We're checking which posts and pages need translations. This runs automatically in the background."
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/DiscoveryOverlay.jsx:185
+msgid "Scanning…"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/DiscoveryOverlay.jsx:186
+msgid "Scan now"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/DiscoveryOverlay.jsx:198
+msgid "You can safely close this page — scanning continues in the background."
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/LanguageProgress.jsx:60
+#, js-format
+msgid "%d remaining"
+msgid_plural "%d remaining"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/scripts/admin/translation-dashboard/components/StringsTab.jsx:13
+msgid "Not translated"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/StringsTab.jsx:27
+msgid "Outdated — source changed"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/StringsTab.jsx:89
+msgid "string group"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/StringsTab.jsx:132
+msgid "Loading strings…"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/StringsTab.jsx:188
+#: assets/scripts/admin/translation-dashboard/components/TabNavigation.jsx:6
+msgid "Strings"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/StringsTab.jsx:190
+msgid "Translate Polylang-registered strings (theme and plugin strings) per group."
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/StringsTab.jsx:202
+msgid "Group"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/StringsTab.jsx:234
+msgid "View this string group in Polylang"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/StringsTab.jsx:247
+msgid "Translate"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/TranslationDashboard.jsx:49
+msgid "Loading content types..."
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/components/TranslationDashboard.jsx:55
+msgid "This section shows the translation progress of your website's main content — posts, pages, custom post types, categories, tags, and custom taxonomies."
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/hooks/useDashboardActions.js:16
+msgid "Unknown error occurred"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/hooks/useDashboardActions.js:83
+msgid "Failed to start translation"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/hooks/useDashboardActions.js:99
+#, js-format
+msgid "Failed to start translation: %s"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/hooks/useDashboardActions.js:121
+msgid "Another action is in progress"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/hooks/useDashboardActions.js:165
+msgid "Invalid parameters or action in progress"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/hooks/useDashboardActions.js:168
+msgid "Are you sure you want to cancel this translation run?"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/hooks/useDashboardActions.js:169
+msgid "Cancelled by user"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/hooks/useDashboardActions.js:181
+msgid "Failed to cancel run"
+msgstr ""
+
+#: assets/scripts/admin/translation-dashboard/hooks/useDashboardActions.js:190
+#, js-format
+msgid "Failed to cancel translation: %s"
+msgstr ""
