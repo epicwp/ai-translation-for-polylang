@@ -15,6 +15,7 @@ namespace PLLAT\Single_Translator\Handlers;
 use PLLAT\Common\Helpers;
 use PLLAT\Common\Interfaces\Language_Manager;
 use PLLAT\Common\Services\Asset_Service;
+use PLLAT\Upsell\Services\Upsell_Service;
 use XWP\DI\Decorators\Action;
 use XWP\DI\Decorators\Handler;
 
@@ -28,10 +29,12 @@ class Meta_Box_Handler {
      *
      * @param Language_Manager $language_manager The language manager.
      * @param Asset_Service    $asset_service    The asset service.
+     * @param Upsell_Service   $upsell           The upgrade URL owner.
      */
     public function __construct(
         private Language_Manager $language_manager,
         private Asset_Service $asset_service,
+        private Upsell_Service $upsell,
     ) {
     }
 
@@ -216,17 +219,19 @@ class Meta_Box_Handler {
             'pllat-single-translator',
             'pllatSingleTranslator',
             array(
-                'apiUrl'                => \rest_url( 'pllat/v1/single-translator' ),
-                'entity'                => $entity,
-                'id'                    => $id,
-                'language'              => array(
+                'apiUrl'               => \rest_url( 'pllat/v1/single-translator' ),
+                'builder'              => 'post' === $type ? $this->detect_builder( $id ) : null,
+                'entity'               => $entity,
+                'id'                   => $id,
+                'language'             => array(
                     'currentLang' => $current_lang,
                     'defaultLang' => $this->language_manager->get_default_language(),
                     'languages'   => $this->get_language_list( $current_lang ),
                 ),
-                'nonce'                 => \wp_create_nonce( 'pllat-single-translator' ),
-                'type'                  => $type,
-                'translatorConfigured'  => \xwp_app( 'pllat' )->get( 'translator.configured' ),
+                'nonce'                => \wp_create_nonce( 'pllat-single-translator' ),
+                'type'                 => $type,
+                'translatorConfigured' => \xwp_app( 'pllat' )->get( 'translator.configured' ),
+                'upgradeUrl'           => $this->upsell->upgrade_url( 'metabox-builder' ),
             ),
         );
 
@@ -241,6 +246,22 @@ class Meta_Box_Handler {
                 'adminUrl'                => \admin_url(),
             ),
         );
+    }
+
+    /**
+     * The page builder that owns the post's layout, if any.
+     *
+     * @param int $post_id Post ID.
+     * @return string|null `elementor`, `bricks` or null.
+     */
+    private function detect_builder( int $post_id ): ?string {
+        if ( '' !== (string) \get_post_meta( $post_id, '_elementor_data', true ) ) {
+            return 'elementor';
+        }
+        if ( '' !== (string) \get_post_meta( $post_id, '_bricks_page_content_2', true ) ) {
+            return 'bricks';
+        }
+        return null;
     }
 
     /**

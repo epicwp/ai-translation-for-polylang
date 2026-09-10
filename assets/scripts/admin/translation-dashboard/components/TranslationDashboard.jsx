@@ -9,6 +9,7 @@ import ActivityPanel from "./ActivityPanel";
 import DashboardHeader from "./DashboardHeader";
 import { DiscoveryOverlay } from "./DiscoveryOverlay";
 import InfoBox from "./InfoBox";
+import EmptyState from "./EmptyState";
 import PreflightFailedDialog from "../../components/PreflightFailedDialog";
 
 // `__PLLAT_EDITION__` is a compile-time constant (webpack DefinePlugin). The
@@ -20,6 +21,32 @@ const TranslationDashboard = () => {
   // order is fixed per bundle and the rules of hooks hold for each build.
   const actions = __PLLAT_EDITION__ === 'pro' ? useDashboardActions(refetch) : null;
   const [activeTab, setActiveTab] = useState("content");
+
+  // Empty states, in priority order. The first two come from the localized
+  // config so they show without waiting for the first fetch; the third needs
+  // the loaded content types.
+  const adminUrl = window.pllat?.adminUrl || "";
+  const hasContentTypes = Object.keys(data.contentTypes).length > 0;
+  const emptyState = !window.pllat?.translatorConfigured
+    ? {
+        icon: "dashicons-admin-network",
+        message: __("Add your OpenAI API key to start translating.", "polylang-ai-automatic-translation"),
+        action: {
+          label: __("Add API key", "polylang-ai-automatic-translation"),
+          href: adminUrl + "admin.php?page=pllat-settings&tab=general",
+        },
+      }
+    : (window.pllat?.languages?.length || 0) < 2
+      ? {
+          icon: "dashicons-translation",
+          message: __("Add at least one more language in Polylang to translate into.", "polylang-ai-automatic-translation"),
+          action: {
+            label: __("Open Polylang languages", "polylang-ai-automatic-translation"),
+            href: adminUrl + "admin.php?page=mlang",
+          },
+        }
+      : null;
+  const nothingTranslatedYet = !emptyState && hasContentTypes && data.overall.translated === 0;
 
   return (
     <>
@@ -38,8 +65,12 @@ const TranslationDashboard = () => {
             <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
           )}
 
-          {activeTab === "content" && (
-            isFetching && Object.keys(data.contentTypes).length === 0 ? (
+          {activeTab === "content" && emptyState && (
+            <EmptyState icon={emptyState.icon} message={emptyState.message} action={emptyState.action} />
+          )}
+
+          {activeTab === "content" && !emptyState && (
+            isFetching && !hasContentTypes ? (
               <div className="pllat-text-center pllat-py-12">
                 <span
                   className="spinner is-active"
@@ -54,6 +85,12 @@ const TranslationDashboard = () => {
             <InfoBox>
 <><strong>{__('Content', 'polylang-ai-automatic-translation')}</strong> — {__('This section shows the translation progress of your website\'s main content — posts, pages, custom post types, categories, tags, and custom taxonomies.', 'polylang-ai-automatic-translation')}</>
             </InfoBox>
+            {nothingTranslatedYet && (
+              <EmptyState
+                icon="dashicons-edit-page"
+                message={__("Nothing translated yet. Open a post, page or term and use the AI Translation box to translate it into your languages.", "polylang-ai-automatic-translation")}
+              />
+            )}
             <div className="pllat-grid pllat-grid-cols-1 lg:pllat-grid-cols-2 2xl:pllat-grid-cols-3 min-[1920px]:pllat-grid-cols-4 pllat-gap-6">
               {Object.entries(data.contentTypes).map(([key, contentType]) => (
                 <ContentTypeCard

@@ -76,7 +76,7 @@ interface AI_Provider {
     /**
      * Get a description for the API key field.
      *
-     * @return string The description text.
+     * @return string The description text; may contain `<a>` links.
      */
     public function get_api_key_description(): string;
 

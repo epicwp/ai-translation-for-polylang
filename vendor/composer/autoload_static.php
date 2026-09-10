@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd1acf24e85f7f10d3dd7ba58c9c3764f
+class ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -24,19 +24,19 @@ class ComposerStaticInitd1acf24e85f7f10d3dd7ba58c9c3764f
     );
 
     public static $prefixLengthsPsr4 = array (
-        'X' =>
+        'X' => 
         array (
             'XWP\\Helper\\Traits\\' => 18,
             'XWP\\Helper\\Functions\\' => 21,
             'XWP\\Helper\\Classes\\' => 19,
             'XWP\\DI\\' => 7,
         ),
-        'S' =>
+        'S' => 
         array (
             'Symfony\\Polyfill\\Php81\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
         ),
-        'P' =>
+        'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
@@ -46,145 +46,145 @@ class ComposerStaticInitd1acf24e85f7f10d3dd7ba58c9c3764f
             'PLLAT\\' => 6,
             'PHPHtmlParser\\' => 14,
         ),
-        'M' =>
+        'M' => 
         array (
             'MyCLabs\\Enum\\' => 13,
         ),
-        'L' =>
+        'L' => 
         array (
             'Laravel\\SerializableClosure\\' => 28,
         ),
-        'I' =>
+        'I' => 
         array (
             'Invoker\\' => 8,
         ),
-        'H' =>
+        'H' => 
         array (
             'Http\\Promise\\' => 13,
             'Http\\Client\\' => 12,
         ),
-        'G' =>
+        'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
         ),
-        'D' =>
+        'D' => 
         array (
             'DI\\' => 3,
         ),
-        'A' =>
+        'A' => 
         array (
             'Automattic\\Jetpack\\Autoloader\\' => 30,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'XWP\\Helper\\Traits\\' =>
+        'XWP\\Helper\\Traits\\' => 
         array (
             0 => __DIR__ . '/..' . '/x-wp/helper-traits',
         ),
-        'XWP\\Helper\\Functions\\' =>
+        'XWP\\Helper\\Functions\\' => 
         array (
             0 => __DIR__ . '/..' . '/x-wp/helper-functions',
         ),
-        'XWP\\Helper\\Classes\\' =>
+        'XWP\\Helper\\Classes\\' => 
         array (
             0 => __DIR__ . '/..' . '/x-wp/helper-classes',
         ),
-        'XWP\\DI\\' =>
+        'XWP\\DI\\' => 
         array (
             0 => __DIR__ . '/..' . '/x-wp/di/src',
         ),
-        'Symfony\\Polyfill\\Php81\\' =>
+        'Symfony\\Polyfill\\Php81\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php81',
         ),
-        'Symfony\\Polyfill\\Mbstring\\' =>
+        'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Psr\\Http\\Message\\' =>
+        'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'Psr\\Http\\Client\\' =>
+        'Psr\\Http\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-client/src',
         ),
-        'Psr\\Container\\' =>
+        'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'PLLAT\\Dependencies\\' =>
+        'PLLAT\\Dependencies\\' => 
         array (
             0 => __DIR__ . '/..' . '/prefixed',
         ),
-        'PLLAT\\Common\\' =>
+        'PLLAT\\Common\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/Common',
         ),
-        'PLLAT\\' =>
+        'PLLAT\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/Modules',
         ),
-        'PHPHtmlParser\\' =>
+        'PHPHtmlParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/paquettg/php-html-parser/src/PHPHtmlParser',
         ),
-        'MyCLabs\\Enum\\' =>
+        'MyCLabs\\Enum\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
         ),
-        'Laravel\\SerializableClosure\\' =>
+        'Laravel\\SerializableClosure\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/serializable-closure/src',
         ),
-        'Invoker\\' =>
+        'Invoker\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-di/invoker/src',
         ),
-        'Http\\Promise\\' =>
+        'Http\\Promise\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-http/promise/src',
         ),
-        'Http\\Client\\' =>
+        'Http\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-http/httplug/src',
         ),
-        'GuzzleHttp\\Psr7\\' =>
+        'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'GuzzleHttp\\Promise\\' =>
+        'GuzzleHttp\\Promise\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
         ),
-        'GuzzleHttp\\' =>
+        'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'DI\\' =>
+        'DI\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-di/php-di/src',
         ),
-        'Automattic\\Jetpack\\Autoloader\\' =>
+        'Automattic\\Jetpack\\Autoloader\\' => 
         array (
             0 => __DIR__ . '/..' . '/automattic/jetpack-autoloader/src',
         ),
     );
 
     public static $prefixesPsr0 = array (
-        's' =>
+        's' => 
         array (
-            'stringEncode' =>
+            'stringEncode' => 
             array (
                 0 => __DIR__ . '/..' . '/paquettg/string-encode/src',
             ),
         ),
-        'R' =>
+        'R' => 
         array (
-            'Rs\\Json' =>
+            'Rs\\Json' => 
             array (
                 0 => __DIR__ . '/..' . '/php-jsonpatch/php-jsonpatch/src',
                 1 => __DIR__ . '/..' . '/php-jsonpointer/php-jsonpointer/src',
@@ -515,17 +515,10 @@ class ComposerStaticInitd1acf24e85f7f10d3dd7ba58c9c3764f
         'PLLAT\\Common\\Utils\\Memory_Manager' => __DIR__ . '/../..' . '/src/Common/Utils/Memory_Manager.php',
         'PLLAT\\Content\\Content_Module' => __DIR__ . '/../..' . '/src/Modules/Content/Content_Module.php',
         'PLLAT\\Content\\Controllers\\Content_Fields_REST_Controller' => __DIR__ . '/../..' . '/src/Modules/Content/Controllers/Content_Fields_REST_Controller.php',
-        'PLLAT\\Content\\Controllers\\Meta_Field_Scan_Controller' => __DIR__ . '/../..' . '/src/Modules/Content/Controllers/Meta_Field_Scan_Controller.php',
         'PLLAT\\Content\\Handlers\\Content_Change_Handler' => __DIR__ . '/../..' . '/src/Modules/Content/Handlers/Content_Change_Handler.php',
-        'PLLAT\\Content\\Handlers\\Meta_Field_Handler' => __DIR__ . '/../..' . '/src/Modules/Content/Handlers/Meta_Field_Handler.php',
-        'PLLAT\\Content\\Handlers\\Meta_Field_Scan_Handler' => __DIR__ . '/../..' . '/src/Modules/Content/Handlers/Meta_Field_Scan_Handler.php',
+        'PLLAT\\Content\\Handlers\\Meta_Copy_Handler' => __DIR__ . '/../..' . '/src/Modules/Content/Handlers/Meta_Copy_Handler.php',
         'PLLAT\\Content\\Services\\Content_Service' => __DIR__ . '/../..' . '/src/Modules/Content/Services/Content_Service.php',
         'PLLAT\\Content\\Services\\Interfaces\\Content_Service' => __DIR__ . '/../..' . '/src/Modules/Content/Services/Interfaces/Content_Service.php',
-        'PLLAT\\Content\\Services\\Meta_Field_Classification_Service' => __DIR__ . '/../..' . '/src/Modules/Content/Services/Meta_Field_Classification_Service.php',
-        'PLLAT\\Content\\Services\\Meta_Field_Copy_Service' => __DIR__ . '/../..' . '/src/Modules/Content/Services/Meta_Field_Copy_Service.php',
-        'PLLAT\\Content\\Services\\Meta_Field_Filter_Service' => __DIR__ . '/../..' . '/src/Modules/Content/Services/Meta_Field_Filter_Service.php',
-        'PLLAT\\Content\\Services\\Meta_Field_Scan_Result' => __DIR__ . '/../..' . '/src/Modules/Content/Services/Meta_Field_Scan_Result.php',
-        'PLLAT\\Content\\Services\\Meta_Field_Scanner_Service' => __DIR__ . '/../..' . '/src/Modules/Content/Services/Meta_Field_Scanner_Service.php',
         'PLLAT\\Content\\Services\\Post_Content_Service' => __DIR__ . '/../..' . '/src/Modules/Content/Services/Post_Content_Service.php',
         'PLLAT\\Content\\Services\\Term_Content_Service' => __DIR__ . '/../..' . '/src/Modules/Content/Services/Term_Content_Service.php',
         'PLLAT\\Content\\Services\\Traits\\Reference_Parsing_Trait' => __DIR__ . '/../..' . '/src/Modules/Content/Services/Traits/Reference_Parsing_Trait.php',
@@ -679,6 +672,9 @@ class ComposerStaticInitd1acf24e85f7f10d3dd7ba58c9c3764f
         'PLLAT\\Translator\\Services\\Translator_JSON' => __DIR__ . '/../..' . '/src/Modules/Translator/Services/Translator_JSON.php',
         'PLLAT\\Translator\\Services\\Translator_Markup' => __DIR__ . '/../..' . '/src/Modules/Translator/Services/Translator_Markup.php',
         'PLLAT\\Translator\\Translator_Module' => __DIR__ . '/../..' . '/src/Modules/Translator/Translator_Module.php',
+        'PLLAT\\Upsell\\Handlers\\Upsell_Handler' => __DIR__ . '/../..' . '/src/Modules/Upsell/Handlers/Upsell_Handler.php',
+        'PLLAT\\Upsell\\Services\\Upsell_Service' => __DIR__ . '/../..' . '/src/Modules/Upsell/Services/Upsell_Service.php',
+        'PLLAT\\Upsell\\Upsell_Module' => __DIR__ . '/../..' . '/src/Modules/Upsell/Upsell_Module.php',
         'Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerExceptionInterface.php',
         'Psr\\Container\\ContainerInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerInterface.php',
         'Psr\\Container\\NotFoundExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/NotFoundExceptionInterface.php',
@@ -780,10 +776,10 @@ class ComposerStaticInitd1acf24e85f7f10d3dd7ba58c9c3764f
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd1acf24e85f7f10d3dd7ba58c9c3764f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd1acf24e85f7f10d3dd7ba58c9c3764f::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitd1acf24e85f7f10d3dd7ba58c9c3764f::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitd1acf24e85f7f10d3dd7ba58c9c3764f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971::$classMap;
 
         }, null, ClassLoader::class);
     }

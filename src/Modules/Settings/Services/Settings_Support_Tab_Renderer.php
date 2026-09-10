@@ -87,6 +87,22 @@ class Settings_Support_Tab_Renderer {
 			}
 		}
 
+		/**
+		 * Filters the support card: where to ask for help. The free edition
+		 * points to the wordpress.org forum, the pro Support_Access module to
+		 * the support desk.
+		 *
+		 * @param array{url: string, title: string, description: string} $support_link
+		 */
+		$support_link = \apply_filters(
+			'pllat_support_tab_support_link',
+			array(
+				'url'         => 'https://wordpress.org/support/plugin/ai-translation-for-polylang/',
+				'title'       => \__( 'Support Forum', 'ai-translation-for-polylang' ),
+				'description' => \__( 'Ask a question on WordPress.org', 'ai-translation-for-polylang' ),
+			),
+		);
+
 		// Build tab URLs.
 		$base_url      = \admin_url( 'admin.php?page=pllat-settings&tab=support' );
 		$error_tab_url = \add_query_arg( 'log_type', 'error', $base_url );
@@ -106,11 +122,11 @@ class Settings_Support_Tab_Renderer {
 						</div>
 					</a>
 
-					<a href="https://support.epicwpsolutions.com/en/tickets/create/step1" target="_blank" class="pllat-support-link">
+					<a href="<?php echo \esc_url( $support_link['url'] ); ?>" target="_blank" class="pllat-support-link">
 						<span class="dashicons dashicons-sos"></span>
 						<div class="pllat-support-link-content">
-							<span class="pllat-support-link-title"><?php \esc_html_e( 'Create Support Ticket', 'ai-translation-for-polylang' ); ?></span>
-							<span class="pllat-support-link-desc"><?php \esc_html_e( 'Get help from our team', 'ai-translation-for-polylang' ); ?></span>
+							<span class="pllat-support-link-title"><?php echo \esc_html( $support_link['title'] ); ?></span>
+							<span class="pllat-support-link-desc"><?php echo \esc_html( $support_link['description'] ); ?></span>
 						</div>
 					</a>
 

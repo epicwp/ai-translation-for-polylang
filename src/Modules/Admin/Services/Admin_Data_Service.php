@@ -8,6 +8,7 @@ namespace PLLAT\Admin\Services;
 use PLLAT\Common\Helpers;
 use PLLAT\Common\Interfaces\Language_Manager;
 use PLLAT\Common\Services\Asset_Service;
+use PLLAT\Upsell\Services\Upsell_Service;
 
 /**
  * Service for providing admin interface data.
@@ -21,10 +22,12 @@ class Admin_Data_Service {
      *
      * @param Language_Manager $language_manager The language manager service.
      * @param Asset_Service    $asset_service    The asset service.
+     * @param Upsell_Service   $upsell           The upgrade URL owner.
      */
     public function __construct(
         protected Language_Manager $language_manager,
         protected Asset_Service $asset_service,
+        protected Upsell_Service $upsell,
     ) {
     }
 
@@ -35,12 +38,15 @@ class Admin_Data_Service {
      */
     public function get_all_data(): array {
         return array(
-            'assets'          => $this->asset_service->get_shared_assets(),
-            'defaultLanguage' => $this->language_manager->get_default_language(),
-            'languages'       => $this->get_languages_data(),
-            'licenseValid'    => \xwp_app( 'pllat' )->get( 'license.valid' ),
-            'postTypes'       => $this->get_post_types_data(),
-            'taxonomies'      => $this->get_taxonomies_data(),
+            'adminUrl'             => \admin_url(),
+            'assets'               => $this->asset_service->get_shared_assets(),
+            'defaultLanguage'      => $this->language_manager->get_default_language(),
+            'languages'            => $this->get_languages_data(),
+            'licenseValid'         => \xwp_app( 'pllat' )->get( 'license.valid' ),
+            'postTypes'            => $this->get_post_types_data(),
+            'taxonomies'           => $this->get_taxonomies_data(),
+            'translatorConfigured' => \xwp_app( 'pllat' )->get( 'translator.configured' ),
+            'upgradeUrl'           => $this->upsell->upgrade_url( 'dashboard' ),
         );
     }
 

@@ -4,7 +4,7 @@ Tags: polylang, translation, ai, chatgpt, multilingual
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 4.21.4
+Stable tag: 4.22.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,7 +21,6 @@ The free edition runs the same translation engine as the Pro edition. Gutenberg 
 * Translates a post, page or custom post type into every language you have configured in Polylang, straight from the edit screen.
 * Translates taxonomy terms (categories, tags, custom taxonomies) from the term edit screen: name, description and slug.
 * Translates the title, content, excerpt and slug. Gutenberg block markup and classic editor HTML are preserved.
-* Custom fields: the plugin scans the custom fields of each post type and you decide per field whether it is translated, copied or ignored.
 * Optional instructions per translation, for example tone of voice, terms that must stay untranslated or a formal address.
 * Detects what changed: after you edit the original, translating again only sends the fields that changed. Tick "Force re-translation" to redo everything.
 * Translation status column in the post list: translated, in progress, pending, failed or not started, per post.
@@ -46,6 +45,7 @@ AI Translation for Polylang Pro is a separate plugin sold on our website. It add
 * Auto-Translate 24/7 (upcoming): new and edited content is translated automatically.
 * Internal link rewriting: links inside translated content point to the translated pages.
 * Elementor, Bricks, ACF and WooCommerce: page builder layouts, custom field groups and products are translated in place.
+* Custom field management: scan the custom fields of each post type and decide per field whether it is translated, copied or ignored.
 * Polylang string translations for theme and plugin strings.
 * Anthropic Claude, Google Gemini and OpenRouter next to OpenAI, with a free choice of model.
 * Site-wide AI context and custom instructions applied to every translation.
@@ -78,7 +78,7 @@ The plugin itself is free and has no usage limits. OpenAI bills you per token at
 
 = Which content is translated? =
 
-For posts, pages and custom post types: the title, the content (Gutenberg blocks and classic editor HTML, with the structure preserved), the excerpt, the slug and the custom fields you marked as translatable in AI Settings. For terms: the name, description and slug. The translations are linked in Polylang as usual, so the language switcher works right away.
+For posts, pages and custom post types: the title, the content (Gutenberg blocks and classic editor HTML, with the structure preserved), the excerpt and the slug. For terms: the name, description and slug. Custom fields are left to Polylang's own custom fields synchronisation; the Pro edition scans them and lets you decide per field whether it is translated, copied or ignored. The translations are linked in Polylang as usual, so the language switcher works right away.
 
 = Do I need Polylang? Does it work with Polylang Pro? =
 
@@ -110,7 +110,7 @@ Translations run as background jobs. Before a translation starts, the plugin mak
 
 = What is the difference between the free and the Pro edition? =
 
-Free: single post, page and term translation from the editor into all your languages, OpenAI with the default model, the dashboard with coverage and activity, the status column, preflight checks, logs and support on the WordPress.org forum. Pro: bulk and site-wide translation, Auto-Translate 24/7 (upcoming), internal link rewriting, Elementor, Bricks, ACF and WooCommerce, Polylang strings, Claude, Gemini and OpenRouter with model choice, site-wide AI context and instructions, SEO meta, premium support and updates. Details at https://www.epicwpsolutions.com/plugins/polylang-automatic-ai-translation/
+Free: single post, page and term translation from the editor into all your languages, OpenAI with the default model, the dashboard with coverage and activity, the status column, preflight checks, logs and support on the WordPress.org forum. Pro: bulk and site-wide translation, Auto-Translate 24/7 (upcoming), internal link rewriting, Elementor, Bricks, ACF and WooCommerce, custom field management, Polylang strings, Claude, Gemini and OpenRouter with model choice, site-wide AI context and instructions, SEO meta, premium support and updates. Details at https://www.epicwpsolutions.com/plugins/polylang-automatic-ai-translation/
 
 = Where do I get support? =
 
@@ -122,7 +122,8 @@ Post in the support forum for this plugin on WordPress.org; the Support tab unde
 2. Languages > AI Settings with the OpenAI API key.
 3. A translated post next to its source.
 4. The Languages > AI Translation dashboard: coverage per language and content type, and the activity feed.
-5. The Pro card on the dashboard, listing what the Pro edition adds.
+5. Content type cards on the dashboard; translating a whole content type at once is a Pro feature.
+6. The posts list with the AI column: how many target languages each post is translated into, and a filter by translation status.
 
 == External services ==
 
@@ -130,7 +131,7 @@ This plugin connects to the OpenAI API to translate your content. OpenAI is a th
 
 **OpenAI API** (https://api.openai.com)
 
-* What is sent: the text of the post, page, term or custom field being translated, the source and target language, the plugin's translation prompt and any instructions you typed into the AI Translation box. Your API key is sent in the request header for authentication, and WordPress adds its standard User-Agent header (your WordPress version and site address). No user accounts, e-mail addresses or other site data are sent.
+* What is sent: the text of the post, page or term being translated, the source and target language, the plugin's translation prompt and any instructions you typed into the AI Translation box. Your API key is sent in the request header for authentication, and WordPress adds its standard User-Agent header (your WordPress version and site address). No user accounts, e-mail addresses or other site data are sent.
 * When: only when you click Start Translation in the AI Translation box, and once, with a one-word test message, when you save your API key on the settings page or re-run a failed preflight check.
 * Terms of use: https://openai.com/policies/terms-of-use
 * Privacy policy: https://openai.com/policies/privacy-policy
@@ -142,6 +143,16 @@ Before a translation starts, the preflight check sends one HTTP request to your 
 No other external requests are made. The plugin sends no usage data to the plugin author, and it does not contact WordPress.org or any other service itself. Links to our website inside the plugin are ordinary links, opened only when you click them.
 
 == Changelog ==
+
+= 4.22.0 =
+
+**What's New**
+
+* Made custom field management available exclusively in the Pro version
+
+**Bug Fixes**
+
+* Fixed an issue that prevented sites from recovering when their license activation was deleted on SureCart
 
 = 4.21.4 =
 
@@ -298,32 +309,6 @@ No other external requests are made. The plugin sends no usage data to the plugi
 **Bug Fixes**
 
 * Fixed an issue with the consistency check to better recognize worker-pool actions, improving reliability during translation tasks.
-
-= 4.18.0 =
-
-**What's New**
-
-* Added automatic detection of content changes to trigger re-translation tasks.
-* Added new diagnostic tools including a site-wide snapshot and job timeline views to help monitor translation jobs.
-* Added admin notices to alert when the license is missing or invalid.
-* Added manual retry option for translation jobs via a new admin endpoint.
-* Added a preflight check system to ensure your site and translation provider are ready before starting translations.
-
-**Improvements**
-
-* Improved support for translating media attachments.
-* Improved handling of rate limits from translation providers to avoid unnecessary retries.
-* Improved security and access controls for support access with scoped roles and audit logging.
-* Improved logging and error reporting with better traceability and sensitive data scrubbing.
-* Improved cleanup of orphaned translation jobs to keep your site tidy.
-
-**Bug Fixes**
-
-* Fixed issue where an admin notice was missing when no languages were configured in Polylang.
-* Fixed translation problems related to media attachments and carousel elements.
-* Fixed various issues to prevent orphaned translation jobs and race conditions during job cancellation.
-* Fixed JSON patch handling to improve translation accuracy.
-* Fixed heartbeat timing to reduce stale job timeouts.
 
 = Older versions =
 

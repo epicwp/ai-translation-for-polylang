@@ -58,14 +58,12 @@ class Content_Service implements Content_Service_Interface {
      * @param Term_Content_Service   $term_content_service   Term service.
      * @param Content_Change_Handler $content_change_handler Content change handler.
      * @param Language_Manager       $language_manager       Language manager for translation plugin integration.
-     * @param Meta_Field_Copy_Service $meta_field_copy_service Meta field copy service for backfilling copy fields.
      */
     public function __construct(
         private Post_Content_Service $post_content_service,
         private Term_Content_Service $term_content_service,
         private Content_Change_Handler $content_change_handler,
         private Language_Manager $language_manager,
-        private Meta_Field_Copy_Service $meta_field_copy_service,
     ) {
     }
 

@@ -1920,6 +1920,13 @@
   color: #9ca3af;
 }
 
+/* The status badge ("12/12 ✓") is the widest cell content; without a width the
+   list table hands the column a share of the row like a text column. */
+
+.fixed .column-pllat_translation_status {
+  width: 6em;
+}
+
 /* Tooltip Styles */
 
 .pllat-tooltip {
@@ -1962,6 +1969,13 @@
 
 .pllat-no-work-notice.components-notice {
   background-color: #eff6ff;
+}
+
+/* Description-only settings rows (the provider note): no label, tucked under the field above. */
+
+.form-table tr.pllat-field-note th,
+.form-table tr.pllat-field-note td {
+  padding-top: 0;
 }
 
 .hover\:\!pllat-border-red-300:hover {
@@ -2096,4 +2110,3 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
-

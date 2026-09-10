@@ -1,120 +1,4 @@
 jQuery(document).ready(function($) {
-    // ── Meta Field Management ──
-
-    // Tab switching.
-    $(document).on('click', '.pllat-meta-tab', function() {
-        var ct = $(this).data('content-type');
-
-        // Update tab styles.
-        $('.pllat-meta-tab').css({
-            'border-color': 'transparent',
-            'border-bottom-color': 'transparent',
-            'background': 'transparent',
-            'font-weight': 'normal'
-        });
-        $(this).css({
-            'border-color': '#ccc',
-            'border-bottom-color': '#fff',
-            'background': '#fff',
-            'font-weight': '600'
-        });
-
-        // Show/hide panels.
-        $('.pllat-meta-panel').hide();
-        $('.pllat-meta-panel[data-content-type="' + ct + '"]').show();
-    });
-
-    // Remove field (move to ignore).
-    $(document).on('click', '.pllat-meta-remove', function() {
-        var chip = $(this).closest('.pllat-meta-chip');
-        var panel = chip.closest('.pllat-meta-panel');
-        var contentType = panel.data('content-type');
-        var metaKey = chip.data('key');
-
-        chip.css('opacity', '0.5');
-
-        $.ajax({
-            url: pllat_settings.restUrl + 'meta-fields/classify',
-            method: 'DELETE',
-            contentType: 'application/json',
-            headers: { 'X-WP-Nonce': pllat_settings.nonce },
-            data: JSON.stringify({ content_type: contentType, meta_key: metaKey }),
-        })
-        .done(function() {
-            chip.fadeOut(200, function() { chip.remove(); });
-        })
-        .fail(function() {
-            chip.css('opacity', '1');
-            alert('Failed to remove field.');
-        });
-    });
-
-    // Add field.
-    $(document).on('click', '.pllat-meta-add', function() {
-        var btn = $(this);
-        var category = btn.data('category');
-        var panel = btn.closest('.pllat-meta-panel');
-        var contentType = panel.data('content-type');
-
-        var metaKey = prompt('Enter meta key name:');
-        if (!metaKey || !metaKey.trim()) {
-            return;
-        }
-        metaKey = metaKey.trim();
-
-        btn.prop('disabled', true);
-
-        $.ajax({
-            url: pllat_settings.restUrl + 'meta-fields/classify',
-            method: 'PUT',
-            contentType: 'application/json',
-            headers: { 'X-WP-Nonce': pllat_settings.nonce },
-            data: JSON.stringify({ content_type: contentType, meta_key: metaKey, category: category }),
-        })
-        .done(function() {
-            // Reload to show updated chips. Simple and reliable.
-            location.reload();
-        })
-        .fail(function() {
-            alert('Failed to add field.');
-            btn.prop('disabled', false);
-        });
-    });
-
-    // Scan for new fields.
-    $('#pllat-scan-meta-fields').on('click', function() {
-        var btn = $(this);
-        var status = $('#pllat-scan-status');
-
-        btn.prop('disabled', true);
-        status.text('Scanning...');
-
-        $.ajax({
-            url: pllat_settings.restUrl + 'meta-fields/scan',
-            method: 'POST',
-            contentType: 'application/json',
-            headers: { 'X-WP-Nonce': pllat_settings.nonce },
-            data: JSON.stringify({ force: false }),
-        })
-        .done(function(data) {
-            if (data.success) {
-                status.text(
-                    'Found ' + data.translate_count + ' translate, ' +
-                    data.copy_count + ' copy, ' +
-                    data.ignore_count + ' ignore fields.'
-                );
-                setTimeout(function() { location.reload(); }, 1500);
-            } else {
-                status.text(data.message || 'Scan failed.');
-                btn.prop('disabled', false);
-            }
-        })
-        .fail(function() {
-            status.text('Error connecting to server.');
-            btn.prop('disabled', false);
-        });
-    });
-
     // ── API Provider Settings ──
 
     // Show/hide API key fields based on selected provider
@@ -139,4 +23,34 @@ jQuery(document).ready(function($) {
 
     $('#pllat_translator_api').on('change', toggleApiKeyFields);
     toggleApiKeyFields();
+
+    // Test connection: one tiny billable request against the saved active provider.
+    $(document).on('click', '.pllat-test-connection', function() {
+        var btn = $(this);
+        var result = btn.siblings('.pllat-test-connection-result');
+        var i18n = pllat_settings.i18n;
+
+        btn.prop('disabled', true);
+        result.text(i18n.testing).css('color', '');
+
+        $.ajax({
+            url: pllat_settings.restUrl + 'preflight/test-connection',
+            method: 'POST',
+            headers: { 'X-WP-Nonce': pllat_settings.nonce },
+        })
+        .done(function(data) {
+            if (data.success) {
+                result.text(i18n.connected).css('color', '#00a32a');
+                return;
+            }
+            result.text(i18n.failed.replace('%s', data.error || i18n.unknown)).css('color', '#d63638');
+        })
+        .fail(function(xhr) {
+            var message = (xhr.responseJSON && xhr.responseJSON.message) || i18n.unknown;
+            result.text(i18n.failed.replace('%s', message)).css('color', '#d63638');
+        })
+        .always(function() {
+            btn.prop('disabled', false);
+        });
+    });
 });

@@ -35,10 +35,6 @@ class Admin_Page_Handler {
         params: array( 'app.path' ),
     )]
     public function add_menu( string $base_path ): void {
-        if ( ! \xwp_app( 'pllat' )->get( 'translator.configured' ) ) {
-            return;
-        }
-
         \add_submenu_page(
             parent_slug:'mlang',
             page_title: \__( 'AI Translation', 'ai-translation-for-polylang' ),

@@ -3,7 +3,7 @@
  */
 
 import { useEffect, useState, useCallback, useRef } from "@wordpress/element";
-import { Spinner, Notice, Button } from "@wordpress/components";
+import { Spinner, Notice } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 
 import { useTranslationStatus } from "../hooks/useTranslationStatus";
@@ -12,7 +12,6 @@ import { useActiveTranslations } from "../hooks/useActiveTranslations";
 import { useInitialState } from "../hooks/useInitialState";
 import { useRefreshOnSave } from "../hooks/useRefreshOnSave";
 import { cleanupExpired, markAsDismissed, isDismissed } from "../utils/dismissedNotifications";
-import { replaceInternalLinks } from "../utils/api";
 
 import ExclusionToggle from "./ExclusionToggle";
 import LanguageSelector from "./LanguageSelector";
@@ -23,6 +22,8 @@ import ActionButtons from "./ActionButtons";
 import ErrorBanner from "./ErrorBanner";
 import ErrorSummaryBanner from "./ErrorSummaryBanner";
 import ImportingMessage from "./ImportingMessage";
+import InternalLinksPanel from "./InternalLinksPanel";
+import BuilderNotice from "./BuilderNotice";
 import PreflightFailedDialog from "../../components/PreflightFailedDialog";
 import usePreflight from "../../hooks/usePreflight";
 
@@ -82,10 +83,6 @@ export function SingleTranslator() {
   // with "Continue anyway". null when no pending invocation.
   const { runPreflight } = usePreflight();
   const [pendingInvocation, setPendingInvocation] = useState(null);
-
-  // Link replacement state
-  const [linkResult, setLinkResult] = useState(null);
-  const [linkLoading, setLinkLoading] = useState(false);
 
   // Success notice dismissal state (5 minute TTL)
   const [successDismissed, setSuccessDismissed] = useState(() => {
@@ -347,25 +344,6 @@ export function SingleTranslator() {
   }, []);
 
   /**
-   * Handle manual link replacement.
-   */
-  const handleLinkReplacement = async () => {
-    const { type, id } = window.pllatSingleTranslator || {};
-    if (!type || !id) return;
-
-    setLinkLoading(true);
-    setLinkResult(null);
-    try {
-      const result = await replaceInternalLinks(type, id);
-      setLinkResult(result);
-    } catch (err) {
-      setLinkResult({ error: err.message || __('Internal link translation failed.', 'polylang-ai-automatic-translation') });
-    } finally {
-      setLinkLoading(false);
-    }
-  };
-
-  /**
    * Render loading state.
    */
   if (statusLoading && !status) {
@@ -444,6 +422,9 @@ export function SingleTranslator() {
           </Notice>
         </div>
       )}
+
+      {/* Compile-time edition branch: the page-builder upsell is free-only. */}
+      {__PLLAT_EDITION__ !== 'pro' && <BuilderNotice />}
 
       {/* Action error banner */}
       {actionError && (
@@ -629,34 +610,8 @@ export function SingleTranslator() {
             </div>
           </div>
 
-          {/* Internal Link Translation */}
-          <div style={{ marginTop: '20px', paddingTop: '15px', borderTop: '1px solid #ddd' }}>
-            <p className="description" style={{ margin: '0 0 8px' }}>
-              {__('Scan this translation for internal links pointing to the source language and replace them with their translated equivalents.', 'polylang-ai-automatic-translation')}
-            </p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <Button
-                variant="secondary"
-                onClick={handleLinkReplacement}
-                disabled={linkLoading}
-                isBusy={linkLoading}
-              >
-                <span className="dashicons dashicons-admin-links" style={{ marginRight: '4px', verticalAlign: 'middle' }}></span>
-                {__('Translate Internal Links', 'polylang-ai-automatic-translation')}
-              </Button>
-              {linkResult && !linkResult.error && (
-                <span style={{ color: '#00a32a', fontSize: '13px' }}>
-                  {linkResult.replaced > 0
-                    ? `${linkResult.replaced} ${__('link(s) translated', 'polylang-ai-automatic-translation')}`
-                    : __('All links are up to date', 'polylang-ai-automatic-translation')}
-                  {linkResult.unresolved > 0 && `, ${linkResult.unresolved} ${__('unresolved', 'polylang-ai-automatic-translation')}`}
-                </span>
-              )}
-              {linkResult?.error && (
-                <span style={{ color: '#d63638', fontSize: '13px' }}>{linkResult.error}</span>
-              )}
-            </div>
-          </div>
+          {/* Compile-time edition branch: the internal-links panel is Pro-only. */}
+          {__PLLAT_EDITION__ === 'pro' && <InternalLinksPanel />}
         </>
       )}
 

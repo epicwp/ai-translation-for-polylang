@@ -162,12 +162,18 @@ class OpenAI_Provider implements AI_Provider {
     /**
      * Get a description for the API key field.
      *
-     * @return string The description text.
+     * @return string The description, HTML with the key page linked.
      */
     public function get_api_key_description(): string {
-        return \__(
-            'Get your API key from OpenAI Platform (https://platform.openai.com/api-keys)',
-            'ai-translation-for-polylang',
+        return \sprintf(
+            /* translators: %s: link to the OpenAI API keys page */
+            \__(
+                'Get your API key from the %s. OpenAI bills API usage separately from this plugin; a typical post costs a fraction of a cent per language.',
+                'ai-translation-for-polylang',
+            ),
+            '<a href="' . \esc_url( $this->get_api_key_url() ) . '" target="_blank" rel="noopener">'
+                . \esc_html__( 'OpenAI Platform', 'ai-translation-for-polylang' )
+                . '</a>',
         );
     }
 

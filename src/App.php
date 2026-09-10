@@ -24,6 +24,7 @@ use PLLAT\Internal_Links\Internal_Links_Module;
 use PLLAT\License\License_Module;
 use PLLAT\License\Services\License_Service;
 use PLLAT\Logs\Logs_Module;
+use PLLAT\Meta_Fields\Meta_Fields_Module;
 use PLLAT\Pro_Providers\Pro_Providers_Module;
 use PLLAT\Pro_Settings\Pro_Settings_Module;
 use PLLAT\SEO\SEO_Module;
@@ -36,6 +37,7 @@ use PLLAT\Support_Access\Support_Access_Module;
 use PLLAT\Translation_Index\Translation_Index_Module;
 use PLLAT\Translator\Services\AI_Provider_Factory;
 use PLLAT\Translator\Translator_Module;
+use PLLAT\Upsell\Upsell_Module;
 use Psr\Container\ContainerInterface;
 use XWP\DI\Decorators\Module;
 use XWP\DI\Interfaces\On_Initialize;
@@ -52,6 +54,7 @@ use XWP\DI\Interfaces\On_Initialize;
         Status_Module::class,
         Core_Module::class,
         Settings_Module::class,
+        Upsell_Module::class,
         Cleanup_Module::class,
         Translation_Index_Module::class,
         Logs_Module::class,

@@ -14,7 +14,6 @@ use PLLAT\Debug\Services\Debug_Logger_Service;
 use PLLAT\Debug\Services\Error_Logger_Service;
 use PLLAT\Settings\Services\Settings_Form;
 use PLLAT\Settings\Services\Settings_Service;
-use PLLAT\Translator\Services\AI_Provider_Factory;
 use XWP\DI\Decorators\Action;
 use XWP\DI\Decorators\Handler;
 
@@ -23,6 +22,13 @@ use XWP\DI\Decorators\Handler;
  */
 #[Handler( tag: 'init', priority: 11, context: Handler::CTX_ADMIN | Handler::CTX_AJAX )]
 class Settings_Page_Handler {
+    private const ONBOARDING_DISMISSED_META = 'pllat_onboarding_notice_dismissed';
+    private const ONBOARDING_DISMISS_ACTION = 'pllat_dismiss_onboarding_notice';
+    private const ONBOARDING_SCREENS        = array(
+        'dashboard',
+        'plugins',
+    );
+
     /**
      * Constructor.
      *
@@ -44,13 +50,24 @@ class Settings_Page_Handler {
     }
 
     /**
-     * Show admin notice when AI provider is not properly configured.
+     * Onboarding notice while no AI provider is configured, on the WordPress
+     * dashboard, the Plugins screen and the plugin's own pages. Dismissed per
+     * user through the notice's close button; gone anyway once a key is saved.
      *
      * @return void
      */
     #[Action( tag: 'admin_notices' )]
-    public function show_ai_config_notice(): void {
+    public function show_onboarding_notice(): void {
         if ( ! \current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
+        $screen = \get_current_screen();
+        if ( null === $screen || ! \in_array( $screen->id, self::ONBOARDING_SCREENS, true ) ) {
+            return;
+        }
+
+        if ( (bool) \get_user_meta( \get_current_user_id(), self::ONBOARDING_DISMISSED_META, true ) ) {
             return;
         }
 
@@ -58,29 +75,57 @@ class Settings_Page_Handler {
             return;
         }
 
-        $errors       = AI_Provider_Factory::get_validation_errors( $this->settings_service );
         $settings_url = \admin_url( 'admin.php?page=pllat-settings&tab=general' );
-
+        $nonce        = \wp_create_nonce( self::ONBOARDING_DISMISS_ACTION );
+        $action       = \wp_json_encode( self::ONBOARDING_DISMISS_ACTION );
+        $title        = \__( 'Set up AI translation', 'ai-translation-for-polylang' );
         ?>
-        <div class="notice notice-error">
+        <div id="pllat-onboarding-notice"
+            class="notice notice-info is-dismissible"
+            data-nonce="<?php echo \esc_attr( $nonce ); ?>">
+            <p><strong><?php echo \esc_html( $title ); ?></strong></p>
             <p>
-                <strong><?php echo \esc_html__( 'Polylang AI Translation', 'ai-translation-for-polylang' ); ?>:</strong>
-                <?php echo \esc_html__( 'AI provider is not configured correctly. Translations are disabled.', 'ai-translation-for-polylang' ); ?>
+                <?php
+                \esc_html_e(
+                    'Add your OpenAI API key to start translating posts, pages and terms into your Polylang languages. OpenAI bills API usage separately.',
+                    'ai-translation-for-polylang',
+                );
+                ?>
             </p>
-            <?php if ( $errors !== array() ) : ?>
-                <ul style="list-style: disc; margin-left: 1.5em;">
-                    <?php foreach ( $errors as $error ) : ?>
-                        <li><?php echo \esc_html( $error ); ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php endif; ?>
             <p>
-                <a href="<?php echo \esc_url( $settings_url ); ?>">
-                    <?php echo \esc_html__( 'Go to AI Settings', 'ai-translation-for-polylang' ); ?>
+                <a href="<?php echo \esc_url( $settings_url ); ?>" class="button button-primary">
+                    <?php \esc_html_e( 'Add API key', 'ai-translation-for-polylang' ); ?>
                 </a>
             </p>
         </div>
+        <script>
+            document.addEventListener( 'click', function ( event ) {
+                var notice = event.target.closest( '#pllat-onboarding-notice' );
+                if ( ! notice || ! event.target.closest( '.notice-dismiss' ) ) {
+                    return;
+                }
+                var body = new URLSearchParams( { action: <?php echo $action; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON-encoded constant. ?>, nonce: notice.dataset.nonce } );
+                window.fetch( ajaxurl, { method: 'POST', credentials: 'same-origin', body: body } );
+            } );
+        </script>
         <?php
+    }
+
+    /**
+     * Remember the onboarding notice dismissal for the current user.
+     *
+     * @return void
+     */
+    #[Action( tag: 'wp_ajax_pllat_dismiss_onboarding_notice' )]
+    public function dismiss_onboarding_notice(): void {
+        \check_ajax_referer( self::ONBOARDING_DISMISS_ACTION, 'nonce' );
+
+        if ( ! \current_user_can( 'manage_options' ) ) {
+            \wp_send_json_error( null, 403 );
+        }
+
+        \update_user_meta( \get_current_user_id(), self::ONBOARDING_DISMISSED_META, 1 );
+        \wp_send_json_success();
     }
 
     /**

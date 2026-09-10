@@ -61,15 +61,6 @@ class Settings_Form {
 			),
 		);
 
-		\register_setting(
-			'pllat_advanced_settings_group',
-			'pllat_internal_link_translation',
-			array(
-				'default'           => true,
-				'sanitize_callback' => array( $this->sanitizer, 'sanitize_checkbox' ),
-			),
-		);
-
 		$providers = AI_Provider_Registry::get_providers_for_options();
 		foreach ( \array_keys( $providers ) as $provider ) {
 			\register_setting(
@@ -151,17 +142,9 @@ class Settings_Form {
 	 */
 	private function get_advanced_fields(): array {
 		return array(
-			'pllat_max_output_tokens'         => array(
+			'pllat_max_output_tokens' => array(
 				'title'    => \__( 'Max Output Tokens', 'ai-translation-for-polylang' ),
 				'callback' => array( $this->field_renderer, 'render_max_tokens_field' ),
-			),
-			'pllat_internal_link_translation' => array(
-				'title'    => \__( 'Internal Link Translation', 'ai-translation-for-polylang' ),
-				'callback' => array( $this->field_renderer, 'render_internal_link_translation_field' ),
-			),
-			'pllat_meta_field_management'     => array(
-				'title'    => \__( 'Meta Field Management', 'ai-translation-for-polylang' ),
-				'callback' => array( $this->field_renderer, 'render_meta_field_management' ),
 			),
 		);
 	}
@@ -202,6 +185,13 @@ class Settings_Form {
 			array(
 				'restUrl' => \rest_url( 'pllat/v1/' ),
 				'nonce'   => \wp_create_nonce( 'wp_rest' ),
+				'i18n'    => array(
+					'testing'   => \__( 'Testing connection...', 'ai-translation-for-polylang' ),
+					'connected' => \__( 'Connected', 'ai-translation-for-polylang' ),
+					/* translators: %s: error message from the provider */
+					'failed'    => \__( 'Connection failed: %s', 'ai-translation-for-polylang' ),
+					'unknown'   => \__( 'unknown error', 'ai-translation-for-polylang' ),
+				),
 			),
 		);
 

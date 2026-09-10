@@ -1,11 +1,8 @@
 import { __ } from "@wordpress/i18n";
 
-const UPGRADE_URL =
-  "https://www.epicwpsolutions.com/upgrade/?utm_source=plugin&utm_medium=dashboard&utm_campaign=free";
-
 /**
  * Free edition stand-in for the bulk actions: a disabled "Translate all"
- * control with a Pro badge and the upgrade link.
+ * control with a Pro badge and the upgrade link (localized by Upsell_Service).
  */
 const ProCard = () => (
   <div className="pllat-space-y-2">
@@ -25,7 +22,7 @@ const ProCard = () => (
     </button>
     <p className="pllat-m-0 pllat-text-xs pllat-text-gray-500">
       {__("Translating every item of a content type at once is a Pro feature.", "polylang-ai-automatic-translation")}{" "}
-      <a href={UPGRADE_URL} target="_blank" rel="noopener noreferrer" className="pllat-underline">
+      <a href={window.pllat?.upgradeUrl} target="_blank" rel="noopener noreferrer" className="pllat-underline">
         {__("Upgrade to Pro", "polylang-ai-automatic-translation")}
       </a>
     </p>
