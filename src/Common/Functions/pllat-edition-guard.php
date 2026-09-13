@@ -2,7 +2,7 @@
 /**
  * Edition guard: only one edition of the plugin may load.
  *
- * The free edition (ai-translation-for-polylang) and the Pro edition
+ * The free edition (epicwp-ai-translation-for-polylang) and the Pro edition
  * (polylang-automatic-ai-translation) share every constant, option, table,
  * Action Scheduler hook and REST namespace, so the second one has to step
  * aside with an admin notice instead of loading. Plain functions: both main
@@ -22,7 +22,7 @@ if ( ! \function_exists( 'pllat_edition_yields' ) ) {
      * Whether the given edition must step aside.
      *
      * WordPress loads active plugins in basename order, so the free folder
-     * (ai-translation-for-polylang) always loads before the Pro folder. Pro wins:
+     * (epicwp-ai-translation-for-polylang) always loads before the Pro folder. Pro wins:
      * free also steps aside while Pro is merely active but not loaded yet, Pro
      * only once another edition has defined PLLAT_EDITION (renamed folders,
      * mu-plugins). Reading the active list in both editions would make both
@@ -81,8 +81,8 @@ if ( ! \function_exists( 'pllat_edition_yields' ) ) {
      */
     function pllat_edition_conflict_message(): string {
         return \__(
-            'Both the free and the Pro edition of AI Translation for Polylang are active. Deactivate one of them.',
-            'ai-translation-for-polylang',
+            'Both the free and the Pro edition of EPICWP AI Translation for Polylang are active. Deactivate one of them.',
+            'epicwp-ai-translation-for-polylang',
         );
     }
 

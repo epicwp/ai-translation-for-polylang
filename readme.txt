@@ -1,10 +1,10 @@
-=== AI Translation for Polylang ===
+=== EPICWP AI Translation for Polylang ===
 Contributors: epicwpsolutions
-Tags: polylang, translation, ai, chatgpt, multilingual
-Requires at least: 5.8
+Tags: polylang, ai translation, automatic translation, translation, chatgpt
+Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 4.22.0
+Stable tag: 4.22.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,118 +12,210 @@ Free AI translation for Polylang: translate a post, page or term into all your l
 
 == Description ==
 
-AI Translation for Polylang adds a free AI translation box to the WordPress editor. Open a post, page or term, tick the languages you need and click Start Translation: the plugin creates the Polylang translations for you with your own OpenAI API key. There is no account to create with us, no subscription and no usage limit in the plugin. You pay OpenAI for what you translate, which for a normal blog post is a fraction of a cent per language.
+**Translate a post, page or category into every language on your Polylang site in one click, with your own OpenAI key and no plugin limits.**
 
-The free edition runs the same translation engine as the Pro edition. Gutenberg blocks and classic editor HTML keep their structure; only the text changes.
+EPICWP AI Translation for Polylang is a free WordPress plugin that translates posts, pages, custom post types and terms with AI on sites that use Polylang. It creates the Polylang translations from the edit screen and runs the work in the background on your server. It uses your own OpenAI API key with the GPT-5.4 Nano model, so there is no account with us, no subscription and no usage limit. Block and HTML structure stay intact, and a second run only sends the fields you changed. The post list and a dashboard show the status of every translation.
 
-= What the free edition does =
+= How it works =
 
-* Translates a post, page or custom post type into every language you have configured in Polylang, straight from the edit screen.
-* Translates taxonomy terms (categories, tags, custom taxonomies) from the term edit screen: name, description and slug.
-* Translates the title, content, excerpt and slug. Gutenberg block markup and classic editor HTML are preserved.
-* Optional instructions per translation, for example tone of voice, terms that must stay untranslated or a formal address.
-* Detects what changed: after you edit the original, translating again only sends the fields that changed. Tick "Force re-translation" to redo everything.
-* Translation status column in the post list: translated, in progress, pending, failed or not started, per post.
-* Dashboard under Languages > AI Translation with translation coverage per language and per content type, plus an activity feed of recent translations.
-* Preflight checks before a translation starts (OpenAI key, Polylang languages, PHP environment, WP-Cron, loopback requests), so a problem is explained instead of failing silently.
-* Error log and optional debug log in the Support tab, so you can see what went wrong and quote it when you ask for help.
-* Cleans up after itself: its records are removed when you delete content, and its database tables and options are removed when you delete the plugin.
+1. Install Polylang and add your languages. Then install and activate EPICWP AI Translation for Polylang.
+2. Paste your OpenAI API key under Languages > AI Settings and click Test connection.
+3. Open a published post, page or term, tick the target languages and click Start Translation.
 
-Translations run in the background through Action Scheduler (bundled), so you can keep working while the box shows progress per language.
+The translations appear in Polylang moments later, linked to the original and ready for the language switcher. On a fresh site the first translated post is minutes away.
 
-= Requirements =
+= What it translates =
 
-* WordPress 5.8 or newer and PHP 8.1 or newer.
+* **Content:** posts, pages and every custom post type you enabled for translation in Polylang: title, content, excerpt and slug.
+* **Editors:** the block editor (Gutenberg) and the classic editor. Block markup, HTML tags and links are preserved; only the text changes.
+* **Taxonomies:** categories, tags and custom taxonomies: name, description and slug, from the term edit screen.
+* **Languages:** every language configured in Polylang, from any source language, into several targets in one run.
+
+= What it does not do =
+
+* It does not translate the front end on the fly. It writes real Polylang translations that you can edit, and they stay if you remove the plugin.
+* It does not replace Polylang: Polylang 3.7 or newer, free or Pro, provides the languages and the translation links.
+* It does not include AI usage: you bring your own OpenAI key, and OpenAI bills you a fraction of a cent per language for a normal post.
+* It does not create drafts. Only published content is translated and the translation is published right away; review it in the editor afterwards.
+* The free edition does not send custom fields, page builder layouts, WooCommerce data, SEO meta or Polylang strings to the AI; Elementor and Bricks layouts are copied unchanged for you to translate in the builder. The Pro edition translates all of these.
+* It does not translate navigation menus; Polylang manages menus per language.
+
+= Free vs Pro =
+
+The free edition is complete for translating content one item at a time. The Pro edition is for sites with a lot of content, page builders, WooCommerce or SEO plugins.
+
+**Free edition**
+
+* ✅ Post, page and term translation from the editor
+* ✅ OpenAI with the GPT-5.4 Nano model
+* ✅ Custom instructions per translation
+* ✅ Change detection and per-field re-translation
+* ✅ Status column and filter in the post list
+* ✅ Dashboard with coverage and activity feed
+* ✅ Preflight checks, error log and debug log
+* ❌ Bulk translation of post types, taxonomies and the whole site
+* ❌ Elementor, Bricks, ACF and WooCommerce translated in place
+* ❌ Custom field management (translate, copy or ignore per field)
+* ❌ SEO meta (eight SEO plugins, listed under Pro)
+* ❌ Polylang string translations
+* ❌ Internal links rewritten to the translated pages
+* ❌ Claude, Gemini and OpenRouter with model choice
+* ❌ Site-wide AI context and instructions
+* ❌ Premium support and automatic updates
+
+**Pro edition**
+
+* ✅ Post, page and term translation from the editor
+* ✅ OpenAI with the GPT-5.4 Nano model or any supported OpenAI model
+* ✅ Custom instructions per translation
+* ✅ Change detection and per-field re-translation
+* ✅ Status column and filter in the post list
+* ✅ Dashboard with coverage and activity feed
+* ✅ Preflight checks, error log and debug log
+* ✅ Bulk translation of post types, taxonomies and the whole site
+* ✅ Elementor, Bricks, ACF and WooCommerce translated in place
+* ✅ Custom field management (translate, copy or ignore per field)
+* ✅ SEO meta for Yoast SEO, Rank Math, All in One SEO, SEOPress, Slim SEO, Squirrly SEO, The SEO Framework and SEO Engine Pro
+* ✅ Polylang string translations
+* ✅ Internal links rewritten to the translated pages
+* ✅ Anthropic Claude, Google Gemini and OpenRouter with model choice
+* ✅ Site-wide AI context and instructions
+* ✅ Premium support and automatic updates
+
+Upcoming in Pro: Auto-Translate 24/7, which translates new and edited content automatically.
+
+Moving to Pro keeps your settings and translation records. The Pro edition is a separate plugin, sold on our website as Polylang AI Automatic Translation: see [pricing and licenses](https://www.epicwpsolutions.com/plugins/polylang-automatic-ai-translation/?utm_source=wordpress.org&utm_medium=listing&utm_campaign=free#pricing) or [upgrade to Pro](https://www.epicwpsolutions.com/upgrade/?utm_source=wordpress.org&utm_medium=listing&utm_campaign=free). In both editions the AI provider bills the AI usage, not us.
+
+= Translation providers and quality =
+
+The free edition uses the OpenAI API with GPT-5.4 Nano, chosen for its price and translation quality. The Pro edition adds Anthropic Claude, Google Gemini and OpenRouter, with a choice of model.
+
+A language model translates the whole post in context, so tone and terminology stay consistent, and it follows instructions such as keeping brand names or using the formal address. The plugin checks every answer before writing it; a refusal or an incomplete answer is reported, not saved. To redo a result, change the instructions and tick Force re-translation for the fields you want.
+
+= Why people choose this plugin =
+
+* In production since 2023; the free and the Pro edition share one translation engine.
+* Background jobs through Action Scheduler: a closed browser tab or a slow AI response does not lose your work; failed items are retried three times.
+* Preflight checks explain a blocked setup (key, languages, WP-Cron, loopback) before a run starts, instead of failing silently.
+* Change detection keeps your OpenAI bill low: a second run only sends what you changed.
+* Anyone who can edit a post can translate it; no administrator role needed.
+* The Pro edition is rated 4.5 out of 5 on Trustpilot from 13 reviews.
+
+= Compatibility and requirements =
+
+* WordPress 6.8 or newer, PHP 8.1 or newer.
 * Polylang 3.7 or newer, the free plugin or Polylang Pro.
-* An OpenAI account with an API key and billing enabled. See the FAQ for what a translation costs.
+* An OpenAI account with an API key and billing enabled.
+* Block editor and classic editor. Elementor and Bricks: copied for translation in the builder (free) or translated in place (Pro). Other page builders are not supported.
+* WooCommerce products: Pro edition.
+* Background jobs need WP-Cron or a server cron and loopback requests to your own site; the preflight check reports if either is blocked.
 
-= What the Pro edition adds =
+= Privacy and third-party services =
 
-AI Translation for Polylang Pro is a separate plugin sold on our website. It adds:
+Your content goes to the OpenAI API only when you start a translation, and nothing goes to us: no telemetry, no account, no phoning home. The External services section below lists what is sent, when, and the OpenAI terms and privacy policy that apply. No visitor data is ever sent.
 
-* Bulk translation: pick post types, taxonomies and languages on the dashboard and translate your whole site in one run.
-* Auto-Translate 24/7 (upcoming): new and edited content is translated automatically.
-* Internal link rewriting: links inside translated content point to the translated pages.
-* Elementor, Bricks, ACF and WooCommerce: page builder layouts, custom field groups and products are translated in place.
-* Custom field management: scan the custom fields of each post type and decide per field whether it is translated, copied or ignored.
-* Polylang string translations for theme and plugin strings.
-* Anthropic Claude, Google Gemini and OpenRouter next to OpenAI, with a free choice of model.
-* Site-wide AI context and custom instructions applied to every translation.
-* SEO meta for Yoast SEO, Rank Math, SEOPress and All in One SEO.
-* Premium support and automatic updates through your account on our website.
+= Not affiliated with Polylang =
 
-Both editions share their settings and translation records, so moving to Pro keeps your configuration and existing translations. Learn more at [epicwpsolutions.com](https://www.epicwpsolutions.com/plugins/polylang-automatic-ai-translation/).
+EPICWP AI Translation for Polylang is an independent plugin by EPIC WP. It is not developed by, endorsed by or affiliated with the makers of Polylang.
 
-= Privacy =
+= Support and documentation =
 
-Your content is sent to the OpenAI API only when you start a translation, and nothing is sent to us. The External services section below lists exactly what is sent, when, and under which OpenAI terms.
+* Support forum: https://wordpress.org/support/plugin/epicwp-ai-translation-for-polylang/
+* The Support tab under Languages > AI Settings has the error log to quote in your post.
+* [Server cron setup guide](https://www.epicwpsolutions.com/how-to-set-up-server-cron-for-better-plugin-performance/) for faster background processing.
+* Pro customers get support through the support desk on our website.
 
 == Installation ==
 
 1. Install and activate Polylang (or Polylang Pro) and add your languages under Languages > Languages.
-2. Install AI Translation for Polylang from Plugins > Add New (search for "AI Translation for Polylang") or upload the zip, then activate it.
-3. Go to Languages > AI Settings, paste your OpenAI API key and save. The post types and taxonomies you translate are the ones you enabled for translation in Polylang.
-4. Open a post, page or term. In the AI Translation box, select the target languages and click Start Translation.
-5. Follow progress in the box, or on the Languages > AI Translation dashboard.
+2. Install EPICWP AI Translation for Polylang from Plugins > Add New (search for "EPICWP AI Translation for Polylang") or upload the zip, then activate it.
+3. Create an API key in your OpenAI account at https://platform.openai.com/api-keys and add a payment method or prepaid credit under Billing.
+4. Go to Languages > AI Settings, paste the key, click Test connection and save. The post types and taxonomies you can translate are the ones you enabled for translation in Polylang.
+5. Open a published post, page or term. In the AI Translation box, tick the target languages, add instructions if you like and click Start Translation.
+6. Follow progress in the box or on the Languages > AI Translation dashboard, then open the translation in the editor to review it.
 
 == Frequently Asked Questions ==
 
-= Do I need my own OpenAI account? =
+= Do I need my own OpenAI account and API key? =
 
-Yes. The plugin sends your content to OpenAI with your own API key. Create an account at platform.openai.com, add a payment method or prepaid credit under Billing, create a key under API keys (https://platform.openai.com/api-keys) and paste it into Languages > AI Settings. A ChatGPT subscription is not the same thing: the API is billed separately by OpenAI, based on usage.
+Yes. The plugin sends your content to OpenAI with your own API key and nothing else is needed: no account with us, no subscription. Create the key at https://platform.openai.com/api-keys with billing enabled; a ChatGPT subscription is not the same thing: the API is billed separately by usage.
 
-= What does a translation cost? =
+= What does it cost to translate a post? =
 
-The plugin itself is free and has no usage limits. OpenAI bills you per token at the price of the model. The free edition uses OpenAI's GPT-5.4 Nano model (USD 0.20 per million input tokens and USD 1.25 per million output tokens at the time of writing), so a typical 1,000-word post costs well under one cent per language. Long pages and many languages add up proportionally. Your OpenAI usage dashboard shows the exact amounts. Saving your key (and re-running a failed preflight check) sends one tiny test request that also costs a fraction of a cent.
-
-= Which content is translated? =
-
-For posts, pages and custom post types: the title, the content (Gutenberg blocks and classic editor HTML, with the structure preserved), the excerpt and the slug. For terms: the name, description and slug. Custom fields are left to Polylang's own custom fields synchronisation; the Pro edition scans them and lets you decide per field whether it is translated, copied or ignored. The translations are linked in Polylang as usual, so the language switcher works right away.
-
-= Do I need Polylang? Does it work with Polylang Pro? =
-
-Yes, Polylang 3.7 or newer is required: the plugin uses Polylang's languages and translation links and adds no language system of its own. Both the free Polylang plugin and Polylang Pro are supported.
-
-= Does it work with Elementor, Bricks and other page builders? =
-
-Content written in the block editor or the classic editor is translated. Layouts that a page builder stores in its own fields, such as Elementor and Bricks, are copied unchanged into the translation in the free edition, so the translated page opens in the builder with the original text and you translate it there. The Pro edition translates Elementor and Bricks layouts, ACF fields and WooCommerce products in place.
-
-= Where does my content go? Is my data safe? =
-
-Content is sent to the OpenAI API only when you start a translation (plus a one-word test message when you save your key). Nothing is sent to us or to anyone else: the plugin has no telemetry, needs no account and does not phone home. Your API key is stored in your WordPress database like any other setting. Error logs and optional debug logs stay on your server, in wp-content/uploads/pllat-logs. How OpenAI handles API data is described in its terms and privacy policy, linked in the External services section.
-
-= Can I choose the AI model? =
-
-The free edition uses OpenAI with a fixed default model, currently GPT-5.4 Nano, chosen for its price and translation quality. The Pro edition lets you pick any supported OpenAI model and adds Anthropic Claude, Google Gemini and OpenRouter.
-
-= Can I translate my whole site at once? =
-
-The free edition translates one post, page or term at a time from its edit screen, into as many languages as you like in one go. Bulk runs across post types and the upcoming Auto-Translate 24/7 are part of the Pro edition.
-
-= What happens when I edit the original? =
-
-Open it and translate again. Only the fields that changed since the last translation are sent to OpenAI; the rest is kept. Tick "Force re-translation" if you want everything translated again, for example after changing your instructions.
-
-= Why does the plugin check loopback requests and WP-Cron? =
-
-Translations run as background jobs. Before a translation starts, the plugin makes one request to your own site address to verify that background jobs can run on your host. If your host blocks loopback requests or has WP-Cron disabled, the preflight check tells you what to fix.
+The plugin is free and has no usage limits; OpenAI bills you per token for the GPT-5.4 Nano model, which comes to well under one cent per language for a typical 1,000-word post. Long pages and many languages add up in proportion, and your OpenAI usage page shows the exact amounts.
 
 = What is the difference between the free and the Pro edition? =
 
-Free: single post, page and term translation from the editor into all your languages, OpenAI with the default model, the dashboard with coverage and activity, the status column, preflight checks, logs and support on the WordPress.org forum. Pro: bulk and site-wide translation, Auto-Translate 24/7 (upcoming), internal link rewriting, Elementor, Bricks, ACF and WooCommerce, custom field management, Polylang strings, Claude, Gemini and OpenRouter with model choice, site-wide AI context and instructions, SEO meta, premium support and updates. Details at https://www.epicwpsolutions.com/plugins/polylang-automatic-ai-translation/
+The free edition translates one post, page or term at a time from the editor, with OpenAI; the Pro edition adds bulk translation, page builders, WooCommerce, custom fields, SEO meta, Polylang strings, more AI providers and premium support. The full comparison is in the Free vs Pro section above. Both editions share their settings and translation records, so upgrading keeps everything.
+
+= Which content is translated? =
+
+For posts, pages and custom post types: the title, the content, the excerpt and the slug; for terms: the name, description and slug. Block editor markup and classic editor HTML keep their structure. Custom fields are not sent to the AI in the free edition; Polylang's own custom fields synchronisation copies them, and the Pro edition lets you decide per field whether it is translated, copied or ignored.
+
+= Can I translate into multiple languages at once? =
+
+Yes. Tick as many target languages as you like in the AI Translation box and one run creates all of them. Translating every item of a post type in one go is a Pro feature.
+
+= Does it work with Polylang Pro and the free Polylang plugin? =
+
+Yes, both, from Polylang 3.7 onwards. The plugin uses Polylang's languages and translation links and adds no language system of its own. It is not affiliated with Polylang.
+
+= Does it work with Elementor, Bricks and other page builders? =
+
+Content written in the block editor or the classic editor is translated in every edition. In the free edition, Elementor and Bricks layouts are copied unchanged into the translation, so the translated page opens in the builder with the original text for you to translate there; the Pro edition translates Elementor and Bricks layouts in place. Other page builders are not supported.
+
+= Does it translate WooCommerce products? =
+
+In the Pro edition, yes: product content and the WooCommerce product fields are translated in place. The free edition is not built for shops: when Polylang lists products as translatable it translates a product's title, description, short description and slug only, and leaves prices, attributes and variations alone.
+
+= Does it translate ACF fields, custom fields and SEO meta from Yoast or Rank Math? =
+
+In the Pro edition, yes. It translates ACF fields, custom fields you mark as translatable, and SEO meta for Yoast SEO, Rank Math, All in One SEO, SEOPress, Slim SEO, Squirrly SEO, The SEO Framework and SEO Engine Pro. The free edition leaves custom fields and SEO meta to Polylang's own synchronisation.
+
+= Can I review a translation before it is published? =
+
+No. The translation is published as soon as it is written, with the same status as the original, and you review or correct it in the editor afterwards. Only published content is translated; a draft or private post waits until you publish it.
+
+= What happens when I edit the original? =
+
+Open it and translate again: only the fields that changed since the last translation are sent to OpenAI, the rest is kept. Tick Force re-translation to redo everything, or only the fields you select, for example after changing your instructions.
+
+= Can I bulk translate my whole site? =
+
+Not with the free edition, which translates one post, page or term at a time into as many languages as you like. Bulk runs across post types and taxonomies, and the upcoming Auto-Translate 24/7, are part of the Pro edition.
+
+= What happens if a translation fails? =
+
+The language card shows the error and the Support tab logs it, and nothing half-finished is written. Each item is retried up to three times when the cause is temporary (a rate limit, a slow response); when your OpenAI account is out of credit the run stops with a clear message. Fix the cause and start the translation again.
+
+= Where does my content go? Is it used to train AI models? =
+
+Your content goes to the OpenAI API only when you start a translation, and nowhere else: the plugin has no telemetry and sends nothing to us. OpenAI states that data sent through its API is not used to train its models unless you opt in; its terms and privacy policy are linked in the External services section. Your API key is stored in your WordPress database like any other setting, and logs stay on your server in wp-content/uploads/pllat-logs.
+
+= Can I choose the AI model? =
+
+Not in the free edition, which uses OpenAI's GPT-5.4 Nano model. The Pro edition lets you pick any supported OpenAI model and adds Anthropic Claude, Google Gemini and OpenRouter.
+
+= Does it slow down my site? =
+
+No. Translations run as background jobs on your server and only when you start them; nothing runs on the front end and nothing changes for your visitors. Before a run, the plugin sends one request to your own site address to check that background jobs can run; if your host blocks loopback requests or WP-Cron, the preflight check tells you what to fix.
+
+= Is this the official Polylang plugin? =
+
+No. EPICWP AI Translation for Polylang is an independent plugin by EPIC WP and is not developed by, endorsed by or affiliated with the makers of Polylang. It requires Polylang to be installed.
 
 = Where do I get support? =
 
-Post in the support forum for this plugin on WordPress.org; the Support tab under Languages > AI Settings has the error log you can quote in your post. Pro customers get priority support through the support desk on our website.
+Post in the support forum for this plugin on WordPress.org. The Support tab under Languages > AI Settings has the error log you can quote in your post. Pro customers get priority support through the support desk on our website.
 
 == Screenshots ==
 
-1. The AI Translation box on the post edit screen: pick the target languages, add optional instructions and start the translation.
-2. Languages > AI Settings with the OpenAI API key.
-3. A translated post next to its source.
-4. The Languages > AI Translation dashboard: coverage per language and content type, and the activity feed.
-5. Content type cards on the dashboard; translating a whole content type at once is a Pro feature.
-6. The posts list with the AI column: how many target languages each post is translated into, and a filter by translation status.
+1. The AI Translation box in the editor mid-run: languages translated, translating and queued.
+2. The result on the front end: the English post next to its Spanish translation, linked in Polylang.
+3. The AI Translation dashboard: coverage per content type and language, plus the activity feed.
+4. The posts list with the AI column: translated languages per post, and a filter by status.
+5. Languages > AI Settings: paste your OpenAI key, test the connection and save.
+6. The AI Translation box on the category edit screen: terms are translated the same way as posts.
 
 == External services ==
 
@@ -132,7 +224,7 @@ This plugin connects to the OpenAI API to translate your content. OpenAI is a th
 **OpenAI API** (https://api.openai.com)
 
 * What is sent: the text of the post, page or term being translated, the source and target language, the plugin's translation prompt and any instructions you typed into the AI Translation box. Your API key is sent in the request header for authentication, and WordPress adds its standard User-Agent header (your WordPress version and site address). No user accounts, e-mail addresses or other site data are sent.
-* When: only when you click Start Translation in the AI Translation box, and once, with a one-word test message, when you save your API key on the settings page or re-run a failed preflight check.
+* When: only when you click Start Translation in the AI Translation box, and once, with a one-word test message, when you save your API key on the settings page, click Test connection or re-run a failed preflight check.
 * Terms of use: https://openai.com/policies/terms-of-use
 * Privacy policy: https://openai.com/policies/privacy-policy
 
@@ -143,6 +235,12 @@ Before a translation starts, the preflight check sends one HTTP request to your 
 No other external requests are made. The plugin sends no usage data to the plugin author, and it does not contact WordPress.org or any other service itself. Links to our website inside the plugin are ordinary links, opened only when you click them.
 
 == Changelog ==
+
+= 4.22.1 =
+
+**Bug Fixes**
+
+* Fixed the application password warning to display correctly without affecting the layout
 
 = 4.22.0 =
 
@@ -303,12 +401,6 @@ No other external requests are made. The plugin sends no usage data to the plugi
 **Bug Fixes**
 
 * Changed a system check to a warning instead of an error to improve compatibility
-
-= 4.18.1 =
-
-**Bug Fixes**
-
-* Fixed an issue with the consistency check to better recognize worker-pool actions, improving reliability during translation tasks.
 
 = Older versions =
 

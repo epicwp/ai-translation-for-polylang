@@ -37,8 +37,8 @@ class Admin_Page_Handler {
     public function add_menu( string $base_path ): void {
         \add_submenu_page(
             parent_slug:'mlang',
-            page_title: \__( 'AI Translation', 'ai-translation-for-polylang' ),
-            menu_title: \__( 'AI Translation', 'ai-translation-for-polylang' ),
+            page_title: \__( 'AI Translation', 'epicwp-ai-translation-for-polylang' ),
+            menu_title: \__( 'AI Translation', 'epicwp-ai-translation-for-polylang' ),
             capability:'manage_options',
             menu_slug: 'polylang-ai-translate-bulk',
             callback: array( $this, 'render_page' ),
@@ -56,7 +56,7 @@ class Admin_Page_Handler {
 
         // Render page container with standard WP heading so notices appear above content.
         echo '<div class="wrap">';
-        echo '<h1 class="screen-reader-text">' . \esc_html__( 'AI Translation', 'ai-translation-for-polylang' ) . '</h1>';
+        echo '<h1 class="screen-reader-text">' . \esc_html__( 'AI Translation', 'epicwp-ai-translation-for-polylang' ) . '</h1>';
         echo '<div class="pllat-p-4">';
         echo '<hr class="wp-header-end">';
         echo '<div id="pllat_translation_dashboard"></div>';
@@ -95,7 +95,7 @@ class Admin_Page_Handler {
                         '%d translation job failed in the last 24 hours. Check the Activity panel for details.',
                         '%d translation jobs failed in the last 24 hours. Check the Activity panel for details.',
                         $failed_count,
-                        'ai-translation-for-polylang',
+                        'epicwp-ai-translation-for-polylang',
                     ),
                     $failed_count,
                 ),

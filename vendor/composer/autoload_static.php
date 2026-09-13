@@ -13,7 +13,6 @@ class ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'b33e3d135e5d9e47d845c576147bda89' => __DIR__ . '/..' . '/php-di/php-di/src/functions.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         'e7e6bab1ed2be1042591496e1ad3e230' => __DIR__ . '/..' . '/x-wp/helper-functions/xwp-helper-fns-arr.php',
         '018bb25b45a3a6fff39933b8cc078e84' => __DIR__ . '/..' . '/x-wp/helper-functions/xwp-helper-fns-meta.php',
         '6f4d42339b919aad008d719d6274512f' => __DIR__ . '/..' . '/x-wp/helper-functions/xwp-helper-fns-num.php',
@@ -33,7 +32,6 @@ class ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971
         ),
         'S' => 
         array (
-            'Symfony\\Polyfill\\Php81\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
         ),
         'P' => 
@@ -95,10 +93,6 @@ class ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971
         'XWP\\DI\\' => 
         array (
             0 => __DIR__ . '/..' . '/x-wp/di/src',
-        ),
-        'Symfony\\Polyfill\\Php81\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php81',
         ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
@@ -199,7 +193,6 @@ class ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971
         'Automattic\\Jetpack\\Autoloader\\CustomAutoloaderPlugin' => __DIR__ . '/..' . '/automattic/jetpack-autoloader/src/CustomAutoloaderPlugin.php',
         'Automattic\\Jetpack\\Autoloader\\ManifestGenerator' => __DIR__ . '/..' . '/automattic/jetpack-autoloader/src/ManifestGenerator.php',
         'Automattic\\Jetpack\\Constants' => __DIR__ . '/..' . '/automattic/jetpack-constants/src/class-constants.php',
-        'CURLStringFile' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/CURLStringFile.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'DI\\Attribute\\Inject' => __DIR__ . '/..' . '/php-di/php-di/src/Attribute/Inject.php',
         'DI\\Attribute\\Injectable' => __DIR__ . '/..' . '/php-di/php-di/src/Attribute/Injectable.php',
@@ -258,7 +251,9 @@ class ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971
         'DI\\Invoker\\DefinitionParameterResolver' => __DIR__ . '/..' . '/php-di/php-di/src/Invoker/DefinitionParameterResolver.php',
         'DI\\Invoker\\FactoryParameterResolver' => __DIR__ . '/..' . '/php-di/php-di/src/Invoker/FactoryParameterResolver.php',
         'DI\\NotFoundException' => __DIR__ . '/..' . '/php-di/php-di/src/NotFoundException.php',
+        'DI\\Proxy\\NativeProxyFactory' => __DIR__ . '/..' . '/php-di/php-di/src/Proxy/NativeProxyFactory.php',
         'DI\\Proxy\\ProxyFactory' => __DIR__ . '/..' . '/php-di/php-di/src/Proxy/ProxyFactory.php',
+        'DI\\Proxy\\ProxyFactoryInterface' => __DIR__ . '/..' . '/php-di/php-di/src/Proxy/ProxyFactoryInterface.php',
         'GuzzleHttp\\BodySummarizer' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/BodySummarizer.php',
         'GuzzleHttp\\BodySummarizerInterface' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/BodySummarizerInterface.php',
         'GuzzleHttp\\Client' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Client.php',
@@ -375,7 +370,6 @@ class ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971
         'Laravel\\SerializableClosure\\Contracts\\Signer' => __DIR__ . '/..' . '/laravel/serializable-closure/src/Contracts/Signer.php',
         'Laravel\\SerializableClosure\\Exceptions\\InvalidSignatureException' => __DIR__ . '/..' . '/laravel/serializable-closure/src/Exceptions/InvalidSignatureException.php',
         'Laravel\\SerializableClosure\\Exceptions\\MissingSecretKeyException' => __DIR__ . '/..' . '/laravel/serializable-closure/src/Exceptions/MissingSecretKeyException.php',
-        'Laravel\\SerializableClosure\\Exceptions\\PhpVersionNotSupportedException' => __DIR__ . '/..' . '/laravel/serializable-closure/src/Exceptions/PhpVersionNotSupportedException.php',
         'Laravel\\SerializableClosure\\SerializableClosure' => __DIR__ . '/..' . '/laravel/serializable-closure/src/SerializableClosure.php',
         'Laravel\\SerializableClosure\\Serializers\\Native' => __DIR__ . '/..' . '/laravel/serializable-closure/src/Serializers/Native.php',
         'Laravel\\SerializableClosure\\Serializers\\Signed' => __DIR__ . '/..' . '/laravel/serializable-closure/src/Serializers/Signed.php',
@@ -386,7 +380,6 @@ class ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971
         'Laravel\\SerializableClosure\\Support\\SelfReference' => __DIR__ . '/..' . '/laravel/serializable-closure/src/Support/SelfReference.php',
         'Laravel\\SerializableClosure\\UnsignedSerializableClosure' => __DIR__ . '/..' . '/laravel/serializable-closure/src/UnsignedSerializableClosure.php',
         'MyCLabs\\Enum\\Enum' => __DIR__ . '/..' . '/myclabs/php-enum/src/Enum.php',
-        'MyCLabs\\Enum\\PHPUnit\\Comparator' => __DIR__ . '/..' . '/myclabs/php-enum/src/PHPUnit/Comparator.php',
         'PHPHtmlParser\\Content' => __DIR__ . '/..' . '/paquettg/php-html-parser/src/PHPHtmlParser/Content.php',
         'PHPHtmlParser\\Contracts\\DomInterface' => __DIR__ . '/..' . '/paquettg/php-html-parser/src/PHPHtmlParser/Contracts/DomInterface.php',
         'PHPHtmlParser\\Contracts\\Dom\\CleanerInterface' => __DIR__ . '/..' . '/paquettg/php-html-parser/src/PHPHtmlParser/Contracts/Dom/CleanerInterface.php',
@@ -443,7 +436,6 @@ class ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971
         'PLLAT\\Admin\\Controllers\\Prime_REST_Controller' => __DIR__ . '/../..' . '/src/Modules/Admin/Controllers/Prime_REST_Controller.php',
         'PLLAT\\Admin\\Handlers\\Admin_Page_Handler' => __DIR__ . '/../..' . '/src/Modules/Admin/Handlers/Admin_Page_Handler.php',
         'PLLAT\\Admin\\Handlers\\Dashboard_Cache_Handler' => __DIR__ . '/../..' . '/src/Modules/Admin/Handlers/Dashboard_Cache_Handler.php',
-        'PLLAT\\Admin\\Handlers\\Legacy_Migration_Notice_Handler' => __DIR__ . '/../..' . '/src/Modules/Admin/Handlers/Legacy_Migration_Notice_Handler.php',
         'PLLAT\\Admin\\Handlers\\Post_List_Handler' => __DIR__ . '/../..' . '/src/Modules/Admin/Handlers/Post_List_Handler.php',
         'PLLAT\\Admin\\Services\\Admin_Data_Service' => __DIR__ . '/../..' . '/src/Modules/Admin/Services/Admin_Data_Service.php',
         'PLLAT\\Admin\\Services\\Dashboard_Data_Service' => __DIR__ . '/../..' . '/src/Modules/Admin/Services/Dashboard_Data_Service.php',
@@ -689,7 +681,6 @@ class ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971
         'Psr\\Http\\Message\\StreamInterface' => __DIR__ . '/..' . '/psr/http-message/src/StreamInterface.php',
         'Psr\\Http\\Message\\UploadedFileInterface' => __DIR__ . '/..' . '/psr/http-message/src/UploadedFileInterface.php',
         'Psr\\Http\\Message\\UriInterface' => __DIR__ . '/..' . '/psr/http-message/src/UriInterface.php',
-        'ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
         'Rs\\Json\\Patch' => __DIR__ . '/..' . '/php-jsonpatch/php-jsonpatch/src/Rs/Json/Patch.php',
         'Rs\\Json\\Patch\\Document' => __DIR__ . '/..' . '/php-jsonpatch/php-jsonpatch/src/Rs/Json/Patch/Document.php',
         'Rs\\Json\\Patch\\Exception' => __DIR__ . '/..' . '/php-jsonpatch/php-jsonpatch/src/Rs/Json/Patch/Exception.php',
@@ -711,7 +702,6 @@ class ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971
         'Rs\\Json\\Pointer\\NonexistentValueReferencedException' => __DIR__ . '/..' . '/php-jsonpointer/php-jsonpointer/src/Rs/Json/Pointer/NonexistentValueReferencedException.php',
         'Stringable' => __DIR__ . '/..' . '/myclabs/php-enum/stubs/Stringable.php',
         'Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
-        'Symfony\\Polyfill\\Php81\\Php81' => __DIR__ . '/..' . '/symfony/polyfill-php81/Php81.php',
         'WP_Filesystem_Streaming' => __DIR__ . '/..' . '/x-wp/helper-classes/WP/Filesystem_Streaming.php',
         'XWP\\DI\\App_Builder' => __DIR__ . '/..' . '/x-wp/di/src/App_Builder.php',
         'XWP\\DI\\App_Factory' => __DIR__ . '/..' . '/x-wp/di/src/App_Factory.php',

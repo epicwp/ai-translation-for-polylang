@@ -42,7 +42,7 @@ class Upsell_Handler {
      */
     #[Filter( tag: 'pllat_settings_tabs' )]
     public function add_pro_tab( array $tabs ): array {
-        return $tabs + array( 'pro' => \__( 'Pro', 'ai-translation-for-polylang' ) );
+        return $tabs + array( 'pro' => \__( 'Pro', 'epicwp-ai-translation-for-polylang' ) );
     }
 
     /**
@@ -82,7 +82,7 @@ class Upsell_Handler {
             <?php
             \esc_html_e(
                 'The Pro edition adds Anthropic Claude, Google Gemini and OpenRouter with a free choice of model.',
-                'ai-translation-for-polylang',
+                'epicwp-ai-translation-for-polylang',
             );
             ?>
         </p>
@@ -102,47 +102,47 @@ class Upsell_Handler {
         $features = array(
             \__(
                 'Bulk translation: pick post types, taxonomies and languages on the dashboard and translate your whole site in one run.',
-                'ai-translation-for-polylang',
+                'epicwp-ai-translation-for-polylang',
             ),
             \__(
                 'Auto-Translate 24/7 (upcoming): new and edited content is translated automatically.',
-                'ai-translation-for-polylang',
+                'epicwp-ai-translation-for-polylang',
             ),
             \__(
                 'Internal link rewriting: links inside translated content point to the translated pages.',
-                'ai-translation-for-polylang',
+                'epicwp-ai-translation-for-polylang',
             ),
             \__(
                 'Elementor, Bricks, ACF and WooCommerce: page builder layouts, custom field groups and products are translated in place.',
-                'ai-translation-for-polylang',
+                'epicwp-ai-translation-for-polylang',
             ),
             \__(
                 'Custom field management: scan the custom fields of each post type and decide per field whether it is translated, copied or ignored.',
-                'ai-translation-for-polylang',
+                'epicwp-ai-translation-for-polylang',
             ),
             \__(
                 'Polylang string translations for theme and plugin strings.',
-                'ai-translation-for-polylang',
+                'epicwp-ai-translation-for-polylang',
             ),
             \__(
                 'Anthropic Claude, Google Gemini and OpenRouter next to OpenAI, with a free choice of model.',
-                'ai-translation-for-polylang',
+                'epicwp-ai-translation-for-polylang',
             ),
             \__(
                 'Site-wide AI context and custom instructions applied to every translation.',
-                'ai-translation-for-polylang',
+                'epicwp-ai-translation-for-polylang',
             ),
             \__(
                 'SEO meta for Yoast SEO, Rank Math, SEOPress and All in One SEO.',
-                'ai-translation-for-polylang',
+                'epicwp-ai-translation-for-polylang',
             ),
             \__(
                 'Premium support and automatic updates through your account on our website.',
-                'ai-translation-for-polylang',
+                'epicwp-ai-translation-for-polylang',
             ),
         );
         $url      = $this->upsell->upgrade_url( 'settings-pro-tab' );
-        $heading  = \__( 'What the Pro edition adds', 'ai-translation-for-polylang' );
+        $heading  = \__( 'What the Pro edition adds', 'epicwp-ai-translation-for-polylang' );
         ?>
         <div class="pllat-support-tab-wrapper">
             <div class="pllat-support-container">
@@ -151,8 +151,8 @@ class Upsell_Handler {
                     <p>
                         <?php
                         \esc_html_e(
-                            'AI Translation for Polylang Pro is a separate plugin sold on our website; it keeps your settings and existing translations and adds:',
-                            'ai-translation-for-polylang',
+                            'EPICWP AI Translation for Polylang Pro is a separate plugin sold on our website; it keeps your settings and existing translations and adds:',
+                            'epicwp-ai-translation-for-polylang',
                         );
                         ?>
                     </p>
@@ -166,7 +166,7 @@ class Upsell_Handler {
                             class="button button-primary"
                             target="_blank"
                             rel="noopener">
-                            <?php \esc_html_e( 'See Pro plans', 'ai-translation-for-polylang' ); ?>
+                            <?php \esc_html_e( 'See Pro plans', 'epicwp-ai-translation-for-polylang' ); ?>
                         </a>
                     </p>
                 </div>

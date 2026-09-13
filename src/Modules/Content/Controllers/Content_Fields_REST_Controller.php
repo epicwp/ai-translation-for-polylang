@@ -122,13 +122,13 @@ class Content_Fields_REST_Controller extends \XWP_REST_Controller {
      */
     private function humanize_field_name( string $field ): string {
         $map = array(
-            'description'  => \__( 'Description', 'ai-translation-for-polylang' ),
-            'name'         => \__( 'Name', 'ai-translation-for-polylang' ),
-            'post_content' => \__( 'Post content', 'ai-translation-for-polylang' ),
-            'post_excerpt' => \__( 'Post excerpt', 'ai-translation-for-polylang' ),
-            'post_name'    => \__( 'Post slug', 'ai-translation-for-polylang' ),
-            'post_title'   => \__( 'Post title', 'ai-translation-for-polylang' ),
-            'slug'         => \__( 'Slug', 'ai-translation-for-polylang' ),
+            'description'  => \__( 'Description', 'epicwp-ai-translation-for-polylang' ),
+            'name'         => \__( 'Name', 'epicwp-ai-translation-for-polylang' ),
+            'post_content' => \__( 'Post content', 'epicwp-ai-translation-for-polylang' ),
+            'post_excerpt' => \__( 'Post excerpt', 'epicwp-ai-translation-for-polylang' ),
+            'post_name'    => \__( 'Post slug', 'epicwp-ai-translation-for-polylang' ),
+            'post_title'   => \__( 'Post title', 'epicwp-ai-translation-for-polylang' ),
+            'slug'         => \__( 'Slug', 'epicwp-ai-translation-for-polylang' ),
         );
 
         return $map[ $field ] ?? \ucfirst( \str_replace( '_', ' ', $field ) );

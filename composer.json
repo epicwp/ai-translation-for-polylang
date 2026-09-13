@@ -2,11 +2,11 @@
   "repositories": [],
   "require": {
     "automattic/jetpack-autoloader": "^3.1 || ^4.0 || ^5.0",
-    "php-di/php-di": "^7.0 <7.1",
+    "php-di/php-di": "^7.1",
     "paquettg/php-html-parser": "^3.1",
     "php-jsonpatch/php-jsonpatch": "^4.1",
-    "woocommerce/action-scheduler": "^3.9",
-    "x-wp/di": "^2.0.0-alpha.5"
+    "woocommerce/action-scheduler": "^4.1",
+    "x-wp/di": "^2.0.0-beta.1"
   },
   "require-dev": {
     "coenjacobs/mozart": "^0.7.1",

@@ -79,7 +79,7 @@ class Meta_Box_Handler {
         foreach ( $post_types as $post_type ) {
             \add_meta_box(
                 'pllat-single-translator',
-                \__( 'AI Translation', 'ai-translation-for-polylang' ),
+                \__( 'AI Translation', 'epicwp-ai-translation-for-polylang' ),
                 array( $this, 'render_post_meta_box' ),
                 $post_type,
                 'normal',
@@ -160,7 +160,7 @@ class Meta_Box_Handler {
         <div id="pllat-single-translator-term" class="pllat-mt-3 pllat-p-8 pllat-bg-white pllat-rounded-lg pllat-shadow-sm">
             <div class="pllat-mb-4">
                 <span class="pllat-text-xl pllat-font-semibold">
-                    <?php echo \esc_html( \__( 'AI Translation', 'ai-translation-for-polylang' ) ); ?>
+                    <?php echo \esc_html( \__( 'AI Translation', 'epicwp-ai-translation-for-polylang' ) ); ?>
                 </span>
             </div>
             <div id="pllat-single-translator-root" data-type="term" data-id="

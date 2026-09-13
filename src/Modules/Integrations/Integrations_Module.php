@@ -6,11 +6,7 @@ namespace PLLAT\Integrations;
 \defined( 'ABSPATH' ) || exit;
 
 use PLLAT\Integrations\Core\Services\Integration_Registry;
-use PLLAT\Integrations\Integrations\ACF\ACF_Module;
-use PLLAT\Integrations\Integrations\Bricks\Bricks_Module;
-use PLLAT\Integrations\Integrations\Elementor\Elementor_Module;
 use PLLAT\Integrations\Integrations\Markup\Markup_Module;
-use PLLAT\Integrations\Integrations\WooCommerce\WooCommerce_Module;
 use XWP\DI\Decorators\Module;
 use XWP\DI\Interfaces\Can_Initialize;
 

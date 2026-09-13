@@ -37,16 +37,23 @@ class Admin_Data_Service {
      * @return array The complete data array.
      */
     public function get_all_data(): array {
-        return array(
-            'adminUrl'             => \admin_url(),
-            'assets'               => $this->asset_service->get_shared_assets(),
-            'defaultLanguage'      => $this->language_manager->get_default_language(),
-            'languages'            => $this->get_languages_data(),
-            'licenseValid'         => \xwp_app( 'pllat' )->get( 'license.valid' ),
-            'postTypes'            => $this->get_post_types_data(),
-            'taxonomies'           => $this->get_taxonomies_data(),
-            'translatorConfigured' => \xwp_app( 'pllat' )->get( 'translator.configured' ),
-            'upgradeUrl'           => $this->upsell->upgrade_url( 'dashboard' ),
+        /**
+         * Filters the data localized to the dashboard as `pllat`.
+         *
+         * @param array<string,mixed> $data The dashboard data.
+         */
+        return \apply_filters(
+            'pllat_dashboard_data',
+            array(
+                'adminUrl'             => \admin_url(),
+                'assets'               => $this->asset_service->get_shared_assets(),
+                'defaultLanguage'      => $this->language_manager->get_default_language(),
+                'languages'            => $this->get_languages_data(),
+                'postTypes'            => $this->get_post_types_data(),
+                'taxonomies'           => $this->get_taxonomies_data(),
+                'translatorConfigured' => \xwp_app( 'pllat' )->get( 'translator.configured' ),
+                'upgradeUrl'           => $this->upsell->upgrade_url( 'dashboard' ),
+            ),
         );
     }
 

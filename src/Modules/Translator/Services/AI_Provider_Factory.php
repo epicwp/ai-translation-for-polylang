@@ -69,7 +69,7 @@ class AI_Provider_Factory {
             if ( $using_fallback ) {
                 throw new \Exception(
                     \sprintf(
-                        'Provider "%s" is not available yet (beta/license restriction). Please configure OpenAI API key to use translations.',
+                        'Provider "%s" is not available in this edition. Please configure OpenAI API key to use translations.',
                         \esc_html( $original_api ),
                     ),
                 );
@@ -153,7 +153,7 @@ class AI_Provider_Factory {
 
                     // Add info message about fallback.
                     $errors[] = \sprintf(
-                        'Note: %s is not available yet (beta/license restriction). Will use OpenAI as fallback.',
+                        'Note: %s is not available in this edition. Will use OpenAI as fallback.',
                         AI_Provider_Registry::get_provider( $active_api )->get_display_name(),
                     );
                 } else {

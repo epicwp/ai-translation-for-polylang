@@ -411,8 +411,8 @@ export function SingleTranslator() {
 
   return (
     <div className="pllat-single-translator">
-      {/* License warning */}
-      {!window.pllat?.singleTranslatorEnabled && (
+      {/* Compile-time edition branch: the license warning is pro-only. */}
+      {__PLLAT_EDITION__ === 'pro' && !window.pllat?.singleTranslatorEnabled && (
         <div style={{ marginBottom: "15px" }}>
           <Notice status="warning" isDismissible={false}>
             {__('A valid Pro license is required to use the single translator', 'polylang-ai-automatic-translation')}.{' '}

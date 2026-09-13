@@ -6,6 +6,11 @@
     'use strict';
 
     $(document).ready(function() {
+        // Expand / collapse a log entry (styles in dist/admin/admin.css)
+        $(document).on('click', '.pllat-log-header', function() {
+            $(this).parent().toggleClass('expanded');
+        });
+
         // Handle log date selection
         $('#pllat-log-date-select').on('change', function() {
             const selectedDate = $(this).val();

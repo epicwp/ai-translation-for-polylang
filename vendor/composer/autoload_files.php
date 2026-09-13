@@ -12,7 +12,6 @@ return array(
     '37a3dc5111fe8f707ab4c132ef1dbc62' => $vendorDir . '/guzzlehttp/guzzle/src/functions_include.php',
     'b33e3d135e5d9e47d845c576147bda89' => $vendorDir . '/php-di/php-di/src/functions.php',
     '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
-    '23c18046f52bef3eea034657bafda50f' => $vendorDir . '/symfony/polyfill-php81/bootstrap.php',
     'e7e6bab1ed2be1042591496e1ad3e230' => $vendorDir . '/x-wp/helper-functions/xwp-helper-fns-arr.php',
     '018bb25b45a3a6fff39933b8cc078e84' => $vendorDir . '/x-wp/helper-functions/xwp-helper-fns-meta.php',
     '6f4d42339b919aad008d719d6274512f' => $vendorDir . '/x-wp/helper-functions/xwp-helper-fns-num.php',

@@ -58,7 +58,7 @@ class Preflight_REST_Controller extends \XWP_REST_Controller {
         if ( ! \current_user_can( 'manage_options' ) ) {
             return new \WP_Error(
                 'rest_forbidden',
-                \__( 'Admin access required.', 'ai-translation-for-polylang' ),
+                \__( 'Admin access required.', 'epicwp-ai-translation-for-polylang' ),
                 array( 'status' => 403 ),
             );
         }

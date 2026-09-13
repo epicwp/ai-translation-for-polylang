@@ -13,14 +13,14 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
     exit;
 }
 
-// The free (ai-translation-for-polylang) and the Pro edition share every
+// The free (epicwp-ai-translation-for-polylang) and the Pro edition share every
 // pllat_* table and option, and both ship this file. When the other edition
 // is still installed, active or not, its data has to survive: deleting the
 // deactivated free plugin after an upgrade to Pro must not wipe the Pro site.
 // Pro is recognised by its main file whatever its folder is called.
-$pllat_other_main_file = 'ai-translation-for-polylang.php' === basename( WP_UNINSTALL_PLUGIN )
+$pllat_other_main_file = 'epicwp-ai-translation-for-polylang.php' === basename( WP_UNINSTALL_PLUGIN )
     ? 'polylang-ai-automatic-translation.php'
-    : 'ai-translation-for-polylang.php';
+    : 'epicwp-ai-translation-for-polylang.php';
 foreach ( glob( WP_PLUGIN_DIR . '/*/' . $pllat_other_main_file ) ?: array() as $pllat_other_edition ) {
     if ( dirname( $pllat_other_edition ) !== __DIR__ ) {
         return;
@@ -117,10 +117,10 @@ if ( is_multisite() ) {
     global $wpdb;
 
     // Get all blog IDs
-    $blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
+    $pllat_blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
 
-    foreach ( $blog_ids as $blog_id ) {
-        switch_to_blog( $blog_id );
+    foreach ( $pllat_blog_ids as $pllat_blog_id ) {
+        switch_to_blog( $pllat_blog_id );
         pllat_delete_database_tables();
         restore_current_blog();
     }

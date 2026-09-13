@@ -11,7 +11,6 @@ namespace PLLAT;
 
 use PLLAT\Activity\Activity_Module;
 use PLLAT\Admin\Admin_Module;
-use PLLAT\Bulk\Bulk_Module;
 use PLLAT\Cleanup\Cleanup_Module;
 use PLLAT\CLI\CLI_Module;
 use PLLAT\Common\Logging\Logging_Module;
@@ -20,25 +19,15 @@ use PLLAT\Content\Content_Module;
 use PLLAT\Core\Core_Module;
 use PLLAT\Debug\Debug_Module;
 use PLLAT\Integrations\Integrations_Module;
-use PLLAT\Internal_Links\Internal_Links_Module;
-use PLLAT\License\License_Module;
-use PLLAT\License\Services\License_Service;
 use PLLAT\Logs\Logs_Module;
-use PLLAT\Meta_Fields\Meta_Fields_Module;
-use PLLAT\Pro_Providers\Pro_Providers_Module;
-use PLLAT\Pro_Settings\Pro_Settings_Module;
-use PLLAT\SEO\SEO_Module;
 use PLLAT\Settings\Services\Settings_Service;
 use PLLAT\Settings\Settings_Module;
 use PLLAT\Single_Translator\Single_Translator_Module;
 use PLLAT\Status\Status_Module;
-use PLLAT\Strings\Strings_Module;
-use PLLAT\Support_Access\Support_Access_Module;
 use PLLAT\Translation_Index\Translation_Index_Module;
 use PLLAT\Translator\Services\AI_Provider_Factory;
 use PLLAT\Translator\Translator_Module;
 use PLLAT\Upsell\Upsell_Module;
-use Psr\Container\ContainerInterface;
 use XWP\DI\Decorators\Module;
 use XWP\DI\Interfaces\On_Initialize;
 
@@ -102,13 +91,13 @@ class App implements On_Initialize {
         $url = \admin_url( 'admin.php?page=mlang' );
         \printf(
             '<div class="notice notice-warning"><p><strong>%s</strong>: %s <a href="%s">%s</a></p></div>',
-            \esc_html__( 'Polylang AI Translation', 'ai-translation-for-polylang' ),
+            \esc_html__( 'Polylang AI Translation', 'epicwp-ai-translation-for-polylang' ),
             \esc_html__(
                 'No Polylang languages are configured yet. AI translation will activate as soon as you add at least one language.',
-                'ai-translation-for-polylang',
+                'epicwp-ai-translation-for-polylang',
             ),
             \esc_url( $url ),
-            \esc_html__( 'Configure Polylang languages', 'ai-translation-for-polylang' ),
+            \esc_html__( 'Configure Polylang languages', 'epicwp-ai-translation-for-polylang' ),
         );
     }
 
@@ -120,16 +109,10 @@ class App implements On_Initialize {
     public static function configure(): array {
         return array(
             'app.name'                  => \DI\factory(
-                static fn() => \__( 'Polylang AI Automatic Translation', 'ai-translation-for-polylang' ),
+                static fn() => \__( 'Polylang AI Automatic Translation', 'epicwp-ai-translation-for-polylang' ),
             ),
-            'license.valid'             => \DI\factory(
-                static fn( ContainerInterface $container ) => 'pro' === PLLAT_EDITION
-                    && $container->get( License_Service::class )->has_valid_license(),
-            ),
-            'single_translator.enabled' => \DI\factory(
-                static fn( ContainerInterface $container ) => 'pro' !== PLLAT_EDITION
-                    || $container->get( 'license.valid' ),
-            ),
+            // Shared default; the pro edition overrides it (see editions.md).
+            'single_translator.enabled' => true,
             'translator.configured'     => \DI\factory(
                 static fn( Settings_Service $settings_service ) => AI_Provider_Factory::can_create_from_settings(
                     $settings_service,

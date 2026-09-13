@@ -257,7 +257,7 @@ class Installer {
 		}
 		\update_option( 'pllat_db_installed_at', \time() );
 
-		// Set redirect transient if no license key exists.
+		// First activation on this site (no stored key yet): flag the post-activation redirect.
 		if ( \get_option( 'pllat_lic_k' ) ) {
 			return;
 		}

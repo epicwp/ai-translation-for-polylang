@@ -77,8 +77,25 @@ class Settings_Page_Handler {
 
         $settings_url = \admin_url( 'admin.php?page=pllat-settings&tab=general' );
         $nonce        = \wp_create_nonce( self::ONBOARDING_DISMISS_ACTION );
-        $action       = \wp_json_encode( self::ONBOARDING_DISMISS_ACTION );
-        $title        = \__( 'Set up AI translation', 'ai-translation-for-polylang' );
+        $title        = \__( 'Set up AI translation', 'epicwp-ai-translation-for-polylang' );
+
+        // Enqueued from admin_notices, so it prints with the footer scripts.
+        \wp_register_script( 'pllat-onboarding-notice', false, array(), PLLAT_PLUGIN_VERSION, true );
+        \wp_enqueue_script( 'pllat-onboarding-notice' );
+        \wp_add_inline_script(
+            'pllat-onboarding-notice',
+            \sprintf(
+                'document.addEventListener( "click", function ( event ) {
+                    var notice = event.target.closest( "#pllat-onboarding-notice" );
+                    if ( ! notice || ! event.target.closest( ".notice-dismiss" ) ) {
+                        return;
+                    }
+                    var body = new URLSearchParams( { action: %s, nonce: notice.dataset.nonce } );
+                    window.fetch( ajaxurl, { method: "POST", credentials: "same-origin", body: body } );
+                } );',
+                \wp_json_encode( self::ONBOARDING_DISMISS_ACTION ),
+            ),
+        );
         ?>
         <div id="pllat-onboarding-notice"
             class="notice notice-info is-dismissible"
@@ -88,26 +105,16 @@ class Settings_Page_Handler {
                 <?php
                 \esc_html_e(
                     'Add your OpenAI API key to start translating posts, pages and terms into your Polylang languages. OpenAI bills API usage separately.',
-                    'ai-translation-for-polylang',
+                    'epicwp-ai-translation-for-polylang',
                 );
                 ?>
             </p>
             <p>
                 <a href="<?php echo \esc_url( $settings_url ); ?>" class="button button-primary">
-                    <?php \esc_html_e( 'Add API key', 'ai-translation-for-polylang' ); ?>
+                    <?php \esc_html_e( 'Add API key', 'epicwp-ai-translation-for-polylang' ); ?>
                 </a>
             </p>
         </div>
-        <script>
-            document.addEventListener( 'click', function ( event ) {
-                var notice = event.target.closest( '#pllat-onboarding-notice' );
-                if ( ! notice || ! event.target.closest( '.notice-dismiss' ) ) {
-                    return;
-                }
-                var body = new URLSearchParams( { action: <?php echo $action; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON-encoded constant. ?>, nonce: notice.dataset.nonce } );
-                window.fetch( ajaxurl, { method: 'POST', credentials: 'same-origin', body: body } );
-            } );
-        </script>
         <?php
     }
 
@@ -137,8 +144,8 @@ class Settings_Page_Handler {
     public function register_admin_menu(): void {
         \add_submenu_page(
             'mlang',
-            \__( 'AI Settings', 'ai-translation-for-polylang' ),
-            \__( 'AI Settings', 'ai-translation-for-polylang' ),
+            \__( 'AI Settings', 'epicwp-ai-translation-for-polylang' ),
+            \__( 'AI Settings', 'epicwp-ai-translation-for-polylang' ),
             'manage_options',
             'pllat-settings',
             array( $this, 'render_settings_page' ),
@@ -156,7 +163,7 @@ class Settings_Page_Handler {
             \wp_die(
                 \esc_html__(
                     'You do not have sufficient permissions to access this page.',
-                    'ai-translation-for-polylang',
+                    'epicwp-ai-translation-for-polylang',
                 ),
             );
         }
@@ -179,13 +186,13 @@ class Settings_Page_Handler {
 
         // Check permissions
         if ( ! \current_user_can( 'manage_options' ) ) {
-            \wp_die( \esc_html__( 'You do not have permission to access this page.', 'ai-translation-for-polylang' ) );
+            \wp_die( \esc_html__( 'You do not have permission to access this page.', 'epicwp-ai-translation-for-polylang' ) );
         }
 
         // Verify nonce
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         if ( ! isset( $_GET['_wpnonce'] ) || ! \wp_verify_nonce( \sanitize_key( $_GET['_wpnonce'] ), 'pllat_support_actions' ) ) {
-            \wp_die( \esc_html__( 'Invalid security token.', 'ai-translation-for-polylang' ) );
+            \wp_die( \esc_html__( 'Invalid security token.', 'epicwp-ai-translation-for-polylang' ) );
         }
 
         // Get selected date and log type if provided
@@ -204,7 +211,7 @@ class Settings_Page_Handler {
         }
 
         if ( ! \file_exists( $log_file ) ) {
-            \wp_die( \esc_html__( 'Log file not found.', 'ai-translation-for-polylang' ) );
+            \wp_die( \esc_html__( 'Log file not found.', 'epicwp-ai-translation-for-polylang' ) );
         }
 
         // Use the date from the filename for download
@@ -236,7 +243,7 @@ class Settings_Page_Handler {
             if ( ! isset( $_POST['nonce'] ) || ! \wp_verify_nonce( \sanitize_key( $_POST['nonce'] ), 'pllat_support_actions' ) ) {
                 \wp_send_json_error(
                     array(
-                        'message' => \__( 'Invalid security token.', 'ai-translation-for-polylang' ),
+                        'message' => \__( 'Invalid security token.', 'epicwp-ai-translation-for-polylang' ),
                     ),
                 );
                 return;
@@ -246,7 +253,7 @@ class Settings_Page_Handler {
             if ( ! \current_user_can( 'manage_options' ) ) {
                 \wp_send_json_error(
                     array(
-                        'message' => \__( 'You do not have permission to perform this action.', 'ai-translation-for-polylang' ),
+                        'message' => \__( 'You do not have permission to perform this action.', 'epicwp-ai-translation-for-polylang' ),
                     ),
                 );
                 return;
@@ -258,13 +265,13 @@ class Settings_Page_Handler {
             if ( $result ) {
                 \wp_send_json_success(
                     array(
-                        'message' => \__( 'Debug logs cleared successfully.', 'ai-translation-for-polylang' ),
+                        'message' => \__( 'Debug logs cleared successfully.', 'epicwp-ai-translation-for-polylang' ),
                     ),
                 );
             } else {
                 \wp_send_json_error(
                     array(
-                        'message' => \__( 'Failed to clear debug logs.', 'ai-translation-for-polylang' ),
+                        'message' => \__( 'Failed to clear debug logs.', 'epicwp-ai-translation-for-polylang' ),
                     ),
                 );
             }
@@ -273,7 +280,7 @@ class Settings_Page_Handler {
                 array(
                     'message' => \sprintf(
                         /* translators: %s: error message */
-                        \__( 'An error occurred: %s', 'ai-translation-for-polylang' ),
+                        \__( 'An error occurred: %s', 'epicwp-ai-translation-for-polylang' ),
                         $e->getMessage()
                     ),
                 ),

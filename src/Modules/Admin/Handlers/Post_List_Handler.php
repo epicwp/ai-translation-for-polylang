@@ -70,7 +70,7 @@ class Post_List_Handler {
                 continue;
             }
 
-            $new_columns[ self::COLUMN_ID ] = \__( 'AI', 'ai-translation-for-polylang' );
+            $new_columns[ self::COLUMN_ID ] = \__( 'AI', 'epicwp-ai-translation-for-polylang' );
         }
 
         return $new_columns;
@@ -161,27 +161,27 @@ class Post_List_Handler {
         <select name="<?php echo \esc_attr( self::FILTER_PARAM ); ?>">
             <option value="">
             <?php
-            \esc_html_e( 'All Translation Status', 'ai-translation-for-polylang' );
+            \esc_html_e( 'All Translation Status', 'epicwp-ai-translation-for-polylang' );
             ?>
                             </option>
             <option value="missing" <?php \selected( $current, 'missing' ); ?>>
             <?php
-            \esc_html_e( 'Missing Translations', 'ai-translation-for-polylang' );
+            \esc_html_e( 'Missing Translations', 'epicwp-ai-translation-for-polylang' );
             ?>
                                     </option>
             <option value="all_translated" <?php \selected( $current, 'all_translated' ); ?>>
             <?php
-            \esc_html_e( 'All Translated', 'ai-translation-for-polylang' );
+            \esc_html_e( 'All Translated', 'epicwp-ai-translation-for-polylang' );
             ?>
                                             </option>
             <option value="has_errors" <?php \selected( $current, 'has_errors' ); ?>>
             <?php
-            \esc_html_e( 'Has Errors', 'ai-translation-for-polylang' );
+            \esc_html_e( 'Has Errors', 'epicwp-ai-translation-for-polylang' );
             ?>
                                         </option>
             <option value="pending" <?php \selected( $current, 'pending' ); ?>>
             <?php
-            \esc_html_e( 'Translation Pending', 'ai-translation-for-polylang' );
+            \esc_html_e( 'Translation Pending', 'epicwp-ai-translation-for-polylang' );
             ?>
                                     </option>
         </select>
@@ -404,23 +404,23 @@ class Post_List_Handler {
         $not_started = $total - $completed - $failed - $in_progress - $pending;
 
         if ( $completed > 0 ) {
-            $parts[] = \sprintf( '%d %s', $completed, \__( 'translated', 'ai-translation-for-polylang' ) );
+            $parts[] = \sprintf( '%d %s', $completed, \__( 'translated', 'epicwp-ai-translation-for-polylang' ) );
         }
 
         if ( $in_progress > 0 ) {
-            $parts[] = \sprintf( '%d %s', $in_progress, \__( 'in progress', 'ai-translation-for-polylang' ) );
+            $parts[] = \sprintf( '%d %s', $in_progress, \__( 'in progress', 'epicwp-ai-translation-for-polylang' ) );
         }
 
         if ( $pending > 0 ) {
-            $parts[] = \sprintf( '%d %s', $pending, \__( 'pending', 'ai-translation-for-polylang' ) );
+            $parts[] = \sprintf( '%d %s', $pending, \__( 'pending', 'epicwp-ai-translation-for-polylang' ) );
         }
 
         if ( $failed > 0 ) {
-            $parts[] = \sprintf( '%d %s', $failed, \__( 'failed', 'ai-translation-for-polylang' ) );
+            $parts[] = \sprintf( '%d %s', $failed, \__( 'failed', 'epicwp-ai-translation-for-polylang' ) );
         }
 
         if ( $not_started > 0 ) {
-            $parts[] = \sprintf( '%d %s', $not_started, \__( 'not started', 'ai-translation-for-polylang' ) );
+            $parts[] = \sprintf( '%d %s', $not_started, \__( 'not started', 'epicwp-ai-translation-for-polylang' ) );
         }
 
         return \implode( ' | ', $parts );

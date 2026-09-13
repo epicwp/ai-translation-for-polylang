@@ -46,14 +46,14 @@ class Settings_Support_Tab_Renderer {
 		// Get log data based on active tab.
 		if ( 'debug' === $log_type ) {
 			$available_logs = $this->debug_logger_service->get_available_log_files();
-			$log_label      = \__( 'Debug Logs', 'ai-translation-for-polylang' );
+			$log_label      = \__( 'Debug Logs', 'epicwp-ai-translation-for-polylang' );
 			$empty_message  = $debug_mode
-				? \__( 'No debug logs yet. They will appear here once a translation runs.', 'ai-translation-for-polylang' )
-				: \__( 'Debug logging is off. Switch on "Enable debug logging" above and save to start capturing detailed AI request/response traces here.', 'ai-translation-for-polylang' );
+				? \__( 'No debug logs yet. They will appear here once a translation runs.', 'epicwp-ai-translation-for-polylang' )
+				: \__( 'Debug logging is off. Switch on "Enable debug logging" above and save to start capturing detailed AI request/response traces here.', 'epicwp-ai-translation-for-polylang' );
 		} else {
 			$available_logs = $this->get_error_log_files();
-			$log_label      = \__( 'Error Logs', 'ai-translation-for-polylang' );
-			$empty_message  = \__( 'No error logs found. This is good - no errors have been recorded.', 'ai-translation-for-polylang' );
+			$log_label      = \__( 'Error Logs', 'epicwp-ai-translation-for-polylang' );
+			$empty_message  = \__( 'No error logs found. This is good - no errors have been recorded.', 'epicwp-ai-translation-for-polylang' );
 		}
 
 		// Initialize pagination vars.
@@ -97,9 +97,9 @@ class Settings_Support_Tab_Renderer {
 		$support_link = \apply_filters(
 			'pllat_support_tab_support_link',
 			array(
-				'url'         => 'https://wordpress.org/support/plugin/ai-translation-for-polylang/',
-				'title'       => \__( 'Support Forum', 'ai-translation-for-polylang' ),
-				'description' => \__( 'Ask a question on WordPress.org', 'ai-translation-for-polylang' ),
+				'url'         => 'https://wordpress.org/support/plugin/epicwp-ai-translation-for-polylang/',
+				'title'       => \__( 'Support Forum', 'epicwp-ai-translation-for-polylang' ),
+				'description' => \__( 'Ask a question on WordPress.org', 'epicwp-ai-translation-for-polylang' ),
 			),
 		);
 
@@ -112,13 +112,13 @@ class Settings_Support_Tab_Renderer {
 		<div class="pllat-support-container">
 			<!-- Support Links Section -->
 			<div class="pllat-support-card">
-				<h2><?php \esc_html_e( 'Support Resources', 'ai-translation-for-polylang' ); ?></h2>
+				<h2><?php \esc_html_e( 'Support Resources', 'epicwp-ai-translation-for-polylang' ); ?></h2>
 				<div class="pllat-support-grid">
 					<a href="https://www.epicwpsolutions.com/category/knowlegde-base/" target="_blank" class="pllat-support-link">
 						<span class="dashicons dashicons-book-alt"></span>
 						<div class="pllat-support-link-content">
-							<span class="pllat-support-link-title"><?php \esc_html_e( 'Documentation', 'ai-translation-for-polylang' ); ?></span>
-							<span class="pllat-support-link-desc"><?php \esc_html_e( 'View user guides', 'ai-translation-for-polylang' ); ?></span>
+							<span class="pllat-support-link-title"><?php \esc_html_e( 'Documentation', 'epicwp-ai-translation-for-polylang' ); ?></span>
+							<span class="pllat-support-link-desc"><?php \esc_html_e( 'View user guides', 'epicwp-ai-translation-for-polylang' ); ?></span>
 						</div>
 					</a>
 
@@ -133,8 +133,8 @@ class Settings_Support_Tab_Renderer {
 					<a href="<?php echo \esc_url( \admin_url( 'site-health.php' ) ); ?>" class="pllat-support-link">
 						<span class="dashicons dashicons-admin-tools"></span>
 						<div class="pllat-support-link-content">
-							<span class="pllat-support-link-title"><?php \esc_html_e( 'Health Check', 'ai-translation-for-polylang' ); ?></span>
-							<span class="pllat-support-link-desc"><?php \esc_html_e( 'Check system status', 'ai-translation-for-polylang' ); ?></span>
+							<span class="pllat-support-link-title"><?php \esc_html_e( 'Health Check', 'epicwp-ai-translation-for-polylang' ); ?></span>
+							<span class="pllat-support-link-desc"><?php \esc_html_e( 'Check system status', 'epicwp-ai-translation-for-polylang' ); ?></span>
 						</div>
 					</a>
 				</div>
@@ -150,7 +150,7 @@ class Settings_Support_Tab_Renderer {
 
 			<!-- Debug Mode Section -->
 			<div class="pllat-support-card">
-				<h2><?php \esc_html_e( 'Debug Mode', 'ai-translation-for-polylang' ); ?></h2>
+				<h2><?php \esc_html_e( 'Debug Mode', 'epicwp-ai-translation-for-polylang' ); ?></h2>
 				<form method="post" action="options.php" class="pllat-debug-form">
 					<?php \settings_fields( 'pllat_debug_settings_group' ); ?>
 					<label for="pllat_debug_mode" class="pllat-debug-label">
@@ -159,12 +159,12 @@ class Settings_Support_Tab_Renderer {
 							   id="pllat_debug_mode"
 							   value="1"
 							   <?php \checked( $debug_mode ); ?>>
-						<span><?php \esc_html_e( 'Enable debug logging', 'ai-translation-for-polylang' ); ?></span>
+						<span><?php \esc_html_e( 'Enable debug logging', 'epicwp-ai-translation-for-polylang' ); ?></span>
 					</label>
-					<?php \submit_button( \__( 'Save', 'ai-translation-for-polylang' ), 'primary', 'submit', false ); ?>
+					<?php \submit_button( \__( 'Save', 'epicwp-ai-translation-for-polylang' ), 'primary', 'submit', false ); ?>
 				</form>
 				<p class="pllat-debug-description">
-					<?php \esc_html_e( 'When enabled, detailed logs will be written to help troubleshoot issues.', 'ai-translation-for-polylang' ); ?>
+					<?php \esc_html_e( 'When enabled, detailed logs will be written to help troubleshoot issues.', 'epicwp-ai-translation-for-polylang' ); ?>
 				</p>
 			</div>
 
@@ -176,13 +176,13 @@ class Settings_Support_Tab_Renderer {
 					   class="pllat-log-tab <?php echo 'error' === $log_type ? 'active' : ''; ?>"
 					   style="padding: 10px 20px; text-decoration: none; border-bottom: 2px solid <?php echo 'error' === $log_type ? '#2271b1' : 'transparent'; ?>; color: <?php echo 'error' === $log_type ? '#2271b1' : '#50575e'; ?>; font-weight: <?php echo 'error' === $log_type ? '600' : '400'; ?>;">
 						<span class="dashicons dashicons-warning" style="vertical-align: middle; margin-right: 4px;"></span>
-						<?php \esc_html_e( 'Error Logs', 'ai-translation-for-polylang' ); ?>
+						<?php \esc_html_e( 'Error Logs', 'epicwp-ai-translation-for-polylang' ); ?>
 					</a>
 					<a href="<?php echo \esc_url( $debug_tab_url ); ?>"
 					   class="pllat-log-tab <?php echo 'debug' === $log_type ? 'active' : ''; ?>"
 					   style="padding: 10px 20px; text-decoration: none; border-bottom: 2px solid <?php echo 'debug' === $log_type ? '#2271b1' : 'transparent'; ?>; color: <?php echo 'debug' === $log_type ? '#2271b1' : '#50575e'; ?>; font-weight: <?php echo 'debug' === $log_type ? '600' : '400'; ?>;">
 						<span class="dashicons dashicons-admin-tools" style="vertical-align: middle; margin-right: 4px;"></span>
-						<?php \esc_html_e( 'Debug Logs', 'ai-translation-for-polylang' ); ?>
+						<?php \esc_html_e( 'Debug Logs', 'epicwp-ai-translation-for-polylang' ); ?>
 					</a>
 				</div>
 
@@ -210,7 +210,7 @@ class Settings_Support_Tab_Renderer {
 						<span class="pllat-log-size">
 							<?php
 							/* translators: %s: formatted file size */
-							echo \esc_html( \sprintf( \__( 'File size: %s', 'ai-translation-for-polylang' ), $log_size ) );
+							echo \esc_html( \sprintf( \__( 'File size: %s', 'epicwp-ai-translation-for-polylang' ), $log_size ) );
 							?>
 						</span>
 					</div>
@@ -234,7 +234,7 @@ class Settings_Support_Tab_Renderer {
 					   id="pllat-download-logs-link"
 					   class="pllat-btn pllat-btn-primary">
 						<span class="dashicons dashicons-download"></span>
-						<?php \esc_html_e( 'Download Logs', 'ai-translation-for-polylang' ); ?>
+						<?php \esc_html_e( 'Download Logs', 'epicwp-ai-translation-for-polylang' ); ?>
 					</a>
 
 					<button type="button"
@@ -246,7 +246,7 @@ class Settings_Support_Tab_Renderer {
 						<span class="dashicons dashicons-trash"></span>
 						<?php
 						/* translators: %s: formatted file size */
-						echo \esc_html( \sprintf( \__( 'Clear Logs (%s)', 'ai-translation-for-polylang' ), $log_size ) );
+						echo \esc_html( \sprintf( \__( 'Clear Logs (%s)', 'epicwp-ai-translation-for-polylang' ), $log_size ) );
 						?>
 					</button>
 
@@ -293,7 +293,7 @@ class Settings_Support_Tab_Renderer {
 				$level_color = $this->get_log_level_color( $level );
 				?>
 				<div class="pllat-log-entry" style="border-bottom: 1px solid #e2e4e7; padding: 12px 16px;">
-					<div class="pllat-log-header" style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer;" onclick="this.parentElement.classList.toggle('expanded')">
+					<div class="pllat-log-header" style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer;">
 						<span class="dashicons dashicons-arrow-right-alt2 pllat-expand-icon" style="color: #50575e; transition: transform 0.2s; margin-top: 2px;"></span>
 						<span style="background: <?php echo \esc_attr( $level_color ); ?>; color: white; padding: 2px 8px; border-radius: 3px; font-size: 11px; text-transform: uppercase; font-weight: 500;">
 							<?php echo \esc_html( $level ); ?>
@@ -311,18 +311,13 @@ class Settings_Support_Tab_Renderer {
 				</div>
 			<?php endforeach; ?>
 		</div>
-		<style>
-			.pllat-log-entry.expanded .pllat-expand-icon { transform: rotate(90deg); }
-			.pllat-log-entry.expanded .pllat-log-details { display: block !important; }
-			.pllat-log-entry:hover { background: #f9f9f9; }
-		</style>
 		<?php
 	}
 
 	private function render_log_details( array $log, string $log_type ): void {
 		if ( ! empty( $log['context'] ) ) : ?>
 			<div style="margin-bottom: 12px;">
-				<strong style="display: block; margin-bottom: 6px; color: #50575e;"><?php \esc_html_e( 'Details:', 'ai-translation-for-polylang' ); ?></strong>
+				<strong style="display: block; margin-bottom: 6px; color: #50575e;"><?php \esc_html_e( 'Details:', 'epicwp-ai-translation-for-polylang' ); ?></strong>
 				<?php if ( 'debug' === $log_type ) : ?>
 					<div style="background: #fff; padding: 8px; border-radius: 3px; border: 1px solid #e2e4e7;">
 						<?php foreach ( $log['context'] as $key => $value ) : ?>
@@ -339,14 +334,14 @@ class Settings_Support_Tab_Renderer {
 			$exc = $log['exception'];
 			?>
 			<div>
-				<strong style="display: block; margin-bottom: 6px; color: #50575e;"><?php \esc_html_e( 'Exception:', 'ai-translation-for-polylang' ); ?></strong>
+				<strong style="display: block; margin-bottom: 6px; color: #50575e;"><?php \esc_html_e( 'Exception:', 'epicwp-ai-translation-for-polylang' ); ?></strong>
 				<div style="background: #fff; padding: 8px; border-radius: 3px; border: 1px solid #e2e4e7;">
 					<div style="margin-bottom: 4px;"><strong>Class:</strong> <?php echo \esc_html( $exc['class'] ?? '' ); ?></div>
 					<div style="margin-bottom: 4px;"><strong>Message:</strong> <?php echo \esc_html( $exc['message'] ?? '' ); ?></div>
 					<div style="margin-bottom: 4px;"><strong>File:</strong> <?php echo \esc_html( $exc['file'] ?? '' ); ?>:<?php echo \esc_html( $exc['line'] ?? '' ); ?></div>
 					<?php if ( ! empty( $exc['trace_preview'] ) ) : ?>
 						<div style="margin-top: 8px;">
-							<strong><?php \esc_html_e( 'Stack Trace (first 10 lines):', 'ai-translation-for-polylang' ); ?></strong>
+							<strong><?php \esc_html_e( 'Stack Trace (first 10 lines):', 'epicwp-ai-translation-for-polylang' ); ?></strong>
 							<pre style="margin: 4px 0 0; padding: 8px; background: #f0f0f1; border-radius: 3px; font-size: 11px; overflow-x: auto; white-space: pre;"><?php echo \esc_html( \implode( "\n", $exc['trace_preview'] ) ); ?></pre>
 						</div>
 					<?php endif; ?>
@@ -363,7 +358,7 @@ class Settings_Support_Tab_Renderer {
 			<div class="pllat-log-pagination" style="margin-bottom: 1rem; color: #50575e; font-size: 13px;">
 				<?php
 				/* translators: %d: number of log entries */
-				echo \esc_html( \sprintf( \__( 'Showing %d entries', 'ai-translation-for-polylang' ), $total ) );
+				echo \esc_html( \sprintf( \__( 'Showing %d entries', 'epicwp-ai-translation-for-polylang' ), $total ) );
 				?>
 			</div>
 			<?php
@@ -377,23 +372,23 @@ class Settings_Support_Tab_Renderer {
 			<span style="color: #50575e; font-size: 13px;">
 				<?php
 				/* translators: %1$d: start entry, %2$d: end entry, %3$d: total entries */
-				echo \esc_html( \sprintf( \__( 'Showing %1$d-%2$d of %3$d entries', 'ai-translation-for-polylang' ), $start, $end, $total ) );
+				echo \esc_html( \sprintf( \__( 'Showing %1$d-%2$d of %3$d entries', 'epicwp-ai-translation-for-polylang' ), $start, $end, $total ) );
 				?>
 			</span>
 			<div class="pllat-pagination-links" style="display: flex; gap: 4px;">
 				<?php if ( $current_page > 1 ) : ?>
-					<a href="<?php echo \esc_url( \add_query_arg( 'log_page', $current_page - 1, $base_url ) ); ?>" class="button button-secondary">&laquo; <?php \esc_html_e( 'Prev', 'ai-translation-for-polylang' ); ?></a>
+					<a href="<?php echo \esc_url( \add_query_arg( 'log_page', $current_page - 1, $base_url ) ); ?>" class="button button-secondary">&laquo; <?php \esc_html_e( 'Prev', 'epicwp-ai-translation-for-polylang' ); ?></a>
 				<?php endif; ?>
 
 				<span style="padding: 4px 12px; background: #fff; border: 1px solid #c3c4c7; border-radius: 3px;">
 					<?php
 					/* translators: %1$d: current page, %2$d: total pages */
-					echo \esc_html( \sprintf( \__( 'Page %1$d of %2$d', 'ai-translation-for-polylang' ), $current_page, $total_pages ) );
+					echo \esc_html( \sprintf( \__( 'Page %1$d of %2$d', 'epicwp-ai-translation-for-polylang' ), $current_page, $total_pages ) );
 					?>
 				</span>
 
 				<?php if ( $current_page < $total_pages ) : ?>
-					<a href="<?php echo \esc_url( \add_query_arg( 'log_page', $current_page + 1, $base_url ) ); ?>" class="button button-secondary"><?php \esc_html_e( 'Next', 'ai-translation-for-polylang' ); ?> &raquo;</a>
+					<a href="<?php echo \esc_url( \add_query_arg( 'log_page', $current_page + 1, $base_url ) ); ?>" class="button button-secondary"><?php \esc_html_e( 'Next', 'epicwp-ai-translation-for-polylang' ); ?> &raquo;</a>
 				<?php endif; ?>
 			</div>
 		</div>

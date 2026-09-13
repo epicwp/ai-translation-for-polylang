@@ -10,7 +10,6 @@ return array(
     'XWP\\Helper\\Functions\\' => array($vendorDir . '/x-wp/helper-functions'),
     'XWP\\Helper\\Classes\\' => array($vendorDir . '/x-wp/helper-classes'),
     'XWP\\DI\\' => array($vendorDir . '/x-wp/di/src'),
-    'Symfony\\Polyfill\\Php81\\' => array($vendorDir . '/symfony/polyfill-php81'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
     'Psr\\Http\\Client\\' => array($vendorDir . '/psr/http-client/src'),

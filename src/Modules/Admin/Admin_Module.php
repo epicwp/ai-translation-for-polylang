@@ -7,7 +7,6 @@ use PLLAT\Admin\Controllers\Dashboard_REST_Controller;
 use PLLAT\Admin\Controllers\Prime_REST_Controller;
 use PLLAT\Admin\Handlers\Admin_Page_Handler;
 use PLLAT\Admin\Handlers\Dashboard_Cache_Handler;
-use PLLAT\Admin\Handlers\Legacy_Migration_Notice_Handler;
 use PLLAT\Admin\Handlers\Post_List_Handler;
 use PLLAT\Admin\Services\Admin_Data_Service;
 use PLLAT\Admin\Services\Dashboard_Data_Service;
@@ -21,7 +20,6 @@ use XWP\DI\Decorators\Module;
         Admin_Page_Handler::class,
         Dashboard_Cache_Handler::class,
         Dashboard_REST_Controller::class,
-        Legacy_Migration_Notice_Handler::class,
         Post_List_Handler::class,
         Prime_REST_Controller::class,
     ),

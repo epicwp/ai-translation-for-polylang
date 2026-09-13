@@ -477,7 +477,7 @@ class Activity_Service {
      */
     private function get_content_type_label( string $content_subtype ): string {
         if ( 'nav_menu' === $content_subtype ) {
-            return \__( 'Nav menu', 'ai-translation-for-polylang' );
+            return \__( 'Nav menu', 'epicwp-ai-translation-for-polylang' );
         }
 
         $post_type = \get_post_type_object( $content_subtype );

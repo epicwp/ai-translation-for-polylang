@@ -273,14 +273,14 @@ class Settings_Service {
         $api    = $this->get_active_translation_api();
 
         if ( ! $api ) {
-            $errors[] = \__( 'No translation API selected.', 'ai-translation-for-polylang' );
+            $errors[] = \__( 'No translation API selected.', 'epicwp-ai-translation-for-polylang' );
         }
 
         $api_key = $this->get_translation_api_key( $api );
         if ( ! $api_key ) {
             $errors[] = \sprintf(
                 /* translators: %s: Provider name */
-                \__( 'API key for %s is missing.', 'ai-translation-for-polylang' ),
+                \__( 'API key for %s is missing.', 'epicwp-ai-translation-for-polylang' ),
                 $api,
             );
         }
@@ -289,7 +289,7 @@ class Settings_Service {
         if ( ! $model ) {
             $errors[] = \sprintf(
                 /* translators: %s: Provider name */
-                \__( 'Model for %s is not configured.', 'ai-translation-for-polylang' ),
+                \__( 'Model for %s is not configured.', 'epicwp-ai-translation-for-polylang' ),
                 $api,
             );
         }

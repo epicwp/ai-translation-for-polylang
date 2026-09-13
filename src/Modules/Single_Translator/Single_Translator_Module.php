@@ -20,9 +20,9 @@ use XWP\DI\Decorators\Module;
 /**
  * Single Translator Module.
  *
- * Provides functionality for translating individual posts and terms.
- * Licensed users can choose processing method (self-hosted or external).
- * Free users: no bulk translation available.
+ * Provides functionality for translating individual posts and terms in both
+ * editions; `single_translator.enabled` (App::configure()) gates the REST
+ * controller and the meta box.
  */
 #[Module(
     hook: 'init',

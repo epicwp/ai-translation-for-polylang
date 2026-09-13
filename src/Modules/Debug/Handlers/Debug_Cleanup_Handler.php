@@ -188,39 +188,43 @@ class Debug_Cleanup_Handler {
 			return;
 		}
 
+		// Enqueued from admin_notices, so it prints with the footer scripts.
+		\wp_register_script( 'pllat-debug-size-warning', false, array( 'jquery' ), PLLAT_PLUGIN_VERSION, true );
+		\wp_enqueue_script( 'pllat-debug-size-warning' );
+		\wp_add_inline_script(
+			'pllat-debug-size-warning',
+			\sprintf(
+				'jQuery( function ( $ ) {
+					$( "[data-pllat-debug-warning] .notice-dismiss" ).on( "click", function () {
+						$.post( ajaxurl, { action: "pllat_dismiss_debug_warning", nonce: %s } );
+					} );
+				} );',
+				\wp_json_encode( \wp_create_nonce( 'pllat_dismiss_debug_warning' ) ),
+			),
+		);
 		?>
 		<div class="notice notice-warning is-dismissible" data-pllat-debug-warning>
 			<p>
-				<strong><?php echo \esc_html__( 'PLLAT Debug Logs Warning', 'ai-translation-for-polylang' ); ?></strong><br>
+				<strong><?php echo \esc_html__( 'PLLAT Debug Logs Warning', 'epicwp-ai-translation-for-polylang' ); ?></strong><br>
 				<?php
 				echo \esc_html(
 					\sprintf(
 						/* translators: %s: current debug log size */
-						\__( 'Debug logs have reached %s. Debug mode has been automatically disabled to prevent disk space issues.', 'ai-translation-for-polylang' ),
+						\__( 'Debug logs have reached %s. Debug mode has been automatically disabled to prevent disk space issues.', 'epicwp-ai-translation-for-polylang' ),
 						$size,
 					)
 				);
 				?>
 			</p>
 			<p>
-				<strong><?php echo \esc_html__( 'Recommended actions:', 'ai-translation-for-polylang' ); ?></strong>
+				<strong><?php echo \esc_html__( 'Recommended actions:', 'epicwp-ai-translation-for-polylang' ); ?></strong>
 			</p>
 			<ul style="list-style: disc; margin-left: 20px;">
-				<li><?php echo \esc_html__( 'Clear debug logs from the plugin settings page', 'ai-translation-for-polylang' ); ?></li>
-				<li><?php echo \esc_html__( 'Only enable debug mode when actively troubleshooting', 'ai-translation-for-polylang' ); ?></li>
-				<li><?php echo \esc_html__( 'Debug logs are automatically deleted after 7 days', 'ai-translation-for-polylang' ); ?></li>
+				<li><?php echo \esc_html__( 'Clear debug logs from the plugin settings page', 'epicwp-ai-translation-for-polylang' ); ?></li>
+				<li><?php echo \esc_html__( 'Only enable debug mode when actively troubleshooting', 'epicwp-ai-translation-for-polylang' ); ?></li>
+				<li><?php echo \esc_html__( 'Debug logs are automatically deleted after 7 days', 'epicwp-ai-translation-for-polylang' ); ?></li>
 			</ul>
 		</div>
-		<script>
-		jQuery(document).ready(function($) {
-			$('[data-pllat-debug-warning] .notice-dismiss').on('click', function() {
-				$.post(ajaxurl, {
-					action: 'pllat_dismiss_debug_warning',
-					nonce: '<?php echo \esc_js( \wp_create_nonce( 'pllat_dismiss_debug_warning' ) ); ?>'
-				});
-			});
-		});
-		</script>
 		<?php
 	}
 

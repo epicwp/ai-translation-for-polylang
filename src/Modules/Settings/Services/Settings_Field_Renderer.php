@@ -22,12 +22,12 @@ class Settings_Field_Renderer {
 	) {}
 
 	public function render_section_description(): void { ?>
-		<p><?php \esc_html_e( 'Configure your AI translation settings below.', 'ai-translation-for-polylang' ); ?></p>
+		<p><?php \esc_html_e( 'Configure your AI translation settings below.', 'epicwp-ai-translation-for-polylang' ); ?></p>
 		<?php
 	}
 
 	public function render_advanced_section_description(): void { ?>
-		<p><?php \esc_html_e( 'Configure advanced translation options.', 'ai-translation-for-polylang' ); ?></p>
+		<p><?php \esc_html_e( 'Configure advanced translation options.', 'epicwp-ai-translation-for-polylang' ); ?></p>
 		<?php
 	}
 
@@ -41,7 +41,7 @@ class Settings_Field_Renderer {
 				$is_available = $provider_info['available'];
 				$label        = $provider_info['name'];
 				if ( ! $is_available ) {
-					$label .= ' ' . \__( '(Coming Soon)', 'ai-translation-for-polylang' );
+					$label .= ' ' . \__( '(Coming Soon)', 'epicwp-ai-translation-for-polylang' );
 				}
 				?>
 				<option value="<?php echo \esc_attr( $api_key ); ?>"
@@ -52,10 +52,10 @@ class Settings_Field_Renderer {
 			<?php endforeach; ?>
 		</select>
 		<p class="description">
-			<?php \esc_html_e( 'Select the AI provider for translations.', 'ai-translation-for-polylang' ); ?>
+			<?php \esc_html_e( 'Select the AI provider for translations.', 'epicwp-ai-translation-for-polylang' ); ?>
 			<?php if ( ! AI_Provider_Registry::is_provider_available( $active_api ) ) : ?>
 				<br><strong style="color: #d63638;">
-					<?php \esc_html_e( 'Note: Your selected provider is not available yet. OpenAI will be used as fallback.', 'ai-translation-for-polylang' ); ?>
+					<?php \esc_html_e( 'Note: Your selected provider is not available yet. OpenAI will be used as fallback.', 'epicwp-ai-translation-for-polylang' ); ?>
 				</strong>
 			<?php endif; ?>
 		</p>
@@ -80,7 +80,7 @@ class Settings_Field_Renderer {
 				autocomplete="off"
 			/>
 			<button type="button" class="button pllat-test-connection" <?php \disabled( ! $can_test ); ?>>
-				<?php \esc_html_e( 'Test connection', 'ai-translation-for-polylang' ); ?>
+				<?php \esc_html_e( 'Test connection', 'epicwp-ai-translation-for-polylang' ); ?>
 			</button>
 			<span class="pllat-test-connection-result" role="status" style="margin-left: 8px;"></span>
 			<p class="description">
@@ -99,7 +99,7 @@ class Settings_Field_Renderer {
 			</p>
 			<?php if ( ! $can_test ) : ?>
 				<p class="description">
-					<?php \esc_html_e( 'Save your API key first, then test the connection.', 'ai-translation-for-polylang' ); ?>
+					<?php \esc_html_e( 'Save your API key first, then test the connection.', 'epicwp-ai-translation-for-polylang' ); ?>
 				</p>
 			<?php endif; ?>
 		</div>
@@ -123,7 +123,7 @@ class Settings_Field_Renderer {
 				/* translators: %s: minimum number of output tokens. */
 				\esc_html__(
 					'Maximum number of tokens for AI responses. Higher values allow longer translations but increase costs. Values below %s are raised to that minimum: less room than that cuts translations off mid-sentence.',
-					'ai-translation-for-polylang',
+					'epicwp-ai-translation-for-polylang',
 				),
 				\esc_html( \number_format_i18n( Settings_Service::MIN_OUTPUT_TOKENS ) ),
 			);
@@ -136,7 +136,7 @@ class Settings_Field_Renderer {
 		$description = AI_Provider_Registry::get_api_key_description_for_provider( $api );
 		return $description ?: \__(
 			'Enter your API key for this provider.',
-			'ai-translation-for-polylang',
+			'epicwp-ai-translation-for-polylang',
 		);
 	}
 }

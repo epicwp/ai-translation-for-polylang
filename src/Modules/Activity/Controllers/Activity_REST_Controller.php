@@ -42,7 +42,7 @@ class Activity_REST_Controller extends \XWP_REST_Controller {
 
         if ( ! \preg_match( '/^\d{4}-\d{2}-\d{2}$/', $date ) ) {
             return new \WP_REST_Response(
-                array( 'message' => \__( 'Invalid date format.', 'ai-translation-for-polylang' ) ),
+                array( 'message' => \__( 'Invalid date format.', 'epicwp-ai-translation-for-polylang' ) ),
                 400,
             );
         }
@@ -51,7 +51,7 @@ class Activity_REST_Controller extends \XWP_REST_Controller {
 
         if ( ! \in_array( $status, $allowed_statuses, true ) ) {
             return new \WP_REST_Response(
-                array( 'message' => \__( 'Invalid status filter.', 'ai-translation-for-polylang' ) ),
+                array( 'message' => \__( 'Invalid status filter.', 'epicwp-ai-translation-for-polylang' ) ),
                 400,
             );
         }

@@ -50,7 +50,7 @@ class Provider_Connectivity_Check implements Preflight_Check {
         }
 
         $admin_link       = \admin_url( 'admin.php?page=pllat-settings&tab=general#pllat_' . $provider . '_api_key' );
-        $admin_link_label = \__( 'Open AI provider settings', 'ai-translation-for-polylang' );
+        $admin_link_label = \__( 'Open AI provider settings', 'epicwp-ai-translation-for-polylang' );
 
         $option = \get_option( self::OPTION_PREFIX . $provider, false );
         if ( false === $option || ! \is_array( $option ) ) {

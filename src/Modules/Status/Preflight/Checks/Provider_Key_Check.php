@@ -57,7 +57,7 @@ class Provider_Key_Check implements Preflight_Check {
             'Open Settings, paste your API key, and save. Then come back and click "Re-test" below.',
             null,
             $admin_link,
-            \__( 'Open AI provider settings', 'ai-translation-for-polylang' ),
+            \__( 'Open AI provider settings', 'epicwp-ai-translation-for-polylang' ),
         );
     }
 }

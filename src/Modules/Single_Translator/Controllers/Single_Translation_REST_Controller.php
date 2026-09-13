@@ -161,7 +161,7 @@ class Single_Translation_REST_Controller extends \XWP_REST_Controller {
 
         // Validate target languages.
         if ( ! \is_array( $target_languages ) || 0 === \count( $target_languages ) ) {
-            return $this->error_response( \__( 'Target languages are required.', 'ai-translation-for-polylang' ), 400 );
+            return $this->error_response( \__( 'Target languages are required.', 'epicwp-ai-translation-for-polylang' ), 400 );
         }
 
         // For posts, refuse upfront when the post is out of pipeline scope.
@@ -177,7 +177,7 @@ class Single_Translation_REST_Controller extends \XWP_REST_Controller {
                     return new \WP_REST_Response(
                         array(
                             'code'    => 'pllat_post_excluded_from_translation',
-                            'message' => \__( 'This post is excluded from translation. Toggle the exclusion off in the Translation panel to enable translation.', 'ai-translation-for-polylang' ),
+                            'message' => \__( 'This post is excluded from translation. Toggle the exclusion off in the Translation panel to enable translation.', 'epicwp-ai-translation-for-polylang' ),
                             'success' => false,
                         ),
                         422,
@@ -192,7 +192,7 @@ class Single_Translation_REST_Controller extends \XWP_REST_Controller {
                             'code'    => 'pllat_post_type_not_translatable',
                             'message' => \sprintf(
                                 /* translators: %s: post type slug */
-                                \__( 'The "%s" post type is not enabled as translatable in Polylang. Enable it in Polylang → Settings → Custom post types and Taxonomies.', 'ai-translation-for-polylang' ),
+                                \__( 'The "%s" post type is not enabled as translatable in Polylang. Enable it in Polylang → Settings → Custom post types and Taxonomies.', 'epicwp-ai-translation-for-polylang' ),
                                 $post->post_type,
                             ),
                             'success' => false,
@@ -213,7 +213,7 @@ class Single_Translation_REST_Controller extends \XWP_REST_Controller {
                                 'code'    => 'pllat_post_excluded_from_translation',
                                 'message' => \sprintf(
                                     /* translators: %s: post status, e.g. "private" or "draft" */
-                                    \__( 'This post is set to "%s" status and is only translated when published. Publish the post first, then run translation.', 'ai-translation-for-polylang' ),
+                                    \__( 'This post is set to "%s" status and is only translated when published. Publish the post first, then run translation.', 'epicwp-ai-translation-for-polylang' ),
                                     $post->post_status,
                                 ),
                                 'success' => false,
@@ -242,7 +242,7 @@ class Single_Translation_REST_Controller extends \XWP_REST_Controller {
                         'code'    => 'pllat_taxonomy_not_translatable',
                         'message' => \sprintf(
                             /* translators: %s: taxonomy slug, e.g. pa_color */
-                            \__( 'The "%s" taxonomy is not enabled as translatable in Polylang. Enable it in Polylang → Settings → Custom post types and Taxonomies, or install Polylang for WooCommerce for WC product attributes.', 'ai-translation-for-polylang' ),
+                            \__( 'The "%s" taxonomy is not enabled as translatable in Polylang. Enable it in Polylang → Settings → Custom post types and Taxonomies, or install Polylang for WooCommerce for WC product attributes.', 'epicwp-ai-translation-for-polylang' ),
                             $term->taxonomy,
                         ),
                         'success' => false,
@@ -263,7 +263,7 @@ class Single_Translation_REST_Controller extends \XWP_REST_Controller {
             return new \WP_REST_Response(
                 array(
                     'code'      => 'pllat_preflight_failed',
-                    'message'   => \__( 'System is not ready for translation. See details.', 'ai-translation-for-polylang' ),
+                    'message'   => \__( 'System is not ready for translation. See details.', 'epicwp-ai-translation-for-polylang' ),
                     'preflight' => $preflight_array,
                     'success'   => false,
                 ),
@@ -281,7 +281,7 @@ class Single_Translation_REST_Controller extends \XWP_REST_Controller {
             return new \WP_REST_Response(
                 array(
                     'code'      => 'pllat_index_not_ready',
-                    'message'   => \__( 'Translation index is not ready yet. Use the Re-run prime button to fix this.', 'ai-translation-for-polylang' ),
+                    'message'   => \__( 'Translation index is not ready yet. Use the Re-run prime button to fix this.', 'epicwp-ai-translation-for-polylang' ),
                     'preflight' => $preflight_array,
                     'success'   => false,
                 ),
@@ -316,7 +316,7 @@ class Single_Translation_REST_Controller extends \XWP_REST_Controller {
                         'code'    => 'pllat_nothing_to_translate',
                         'message' => \__(
                             'All selected languages are already translated. Enable force re-translation to overwrite.',
-                            'ai-translation-for-polylang',
+                            'epicwp-ai-translation-for-polylang',
                         ),
                         'success' => false,
                     ),
@@ -330,7 +330,7 @@ class Single_Translation_REST_Controller extends \XWP_REST_Controller {
                 array(
                     'message'  => \__(
                         'Translation started successfully.',
-                        'ai-translation-for-polylang',
+                        'epicwp-ai-translation-for-polylang',
                     ),
                     'run_id'   => $run_id,
                     'trace_id' => null,
@@ -412,8 +412,8 @@ class Single_Translation_REST_Controller extends \XWP_REST_Controller {
             return $this->success_response(
                 array(
                     'message' => $excluded
-                        ? \__( 'Content excluded from AI translation.', 'ai-translation-for-polylang' )
-                        : \__( 'Content included in AI translation.', 'ai-translation-for-polylang' ),
+                        ? \__( 'Content excluded from AI translation.', 'epicwp-ai-translation-for-polylang' )
+                        : \__( 'Content included in AI translation.', 'epicwp-ai-translation-for-polylang' ),
                 ),
             );
         } catch ( \Exception $e ) {
@@ -439,7 +439,7 @@ class Single_Translation_REST_Controller extends \XWP_REST_Controller {
                 array(
                     'message' => \__(
                         'Translation cancelled successfully.',
-                        'ai-translation-for-polylang',
+                        'epicwp-ai-translation-for-polylang',
                     ),
                     'run_id'  => $run_id,
                 ),

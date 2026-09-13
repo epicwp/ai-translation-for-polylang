@@ -169,10 +169,10 @@ class OpenAI_Provider implements AI_Provider {
             /* translators: %s: link to the OpenAI API keys page */
             \__(
                 'Get your API key from the %s. OpenAI bills API usage separately from this plugin; a typical post costs a fraction of a cent per language.',
-                'ai-translation-for-polylang',
+                'epicwp-ai-translation-for-polylang',
             ),
             '<a href="' . \esc_url( $this->get_api_key_url() ) . '" target="_blank" rel="noopener">'
-                . \esc_html__( 'OpenAI Platform', 'ai-translation-for-polylang' )
+                . \esc_html__( 'OpenAI Platform', 'epicwp-ai-translation-for-polylang' )
                 . '</a>',
         );
     }
@@ -305,22 +305,22 @@ class OpenAI_Provider implements AI_Provider {
         $errors = array();
 
         if ( null === $this->api_key || '' === $this->api_key ) {
-            $errors[] = \__( 'OpenAI API key is required.', 'ai-translation-for-polylang' );
+            $errors[] = \__( 'OpenAI API key is required.', 'epicwp-ai-translation-for-polylang' );
         }
 
         if ( null === $this->model || '' === $this->model ) {
-            $errors[] = \__( 'OpenAI model selection is required.', 'ai-translation-for-polylang' );
+            $errors[] = \__( 'OpenAI model selection is required.', 'epicwp-ai-translation-for-polylang' );
         } elseif ( ! \array_key_exists( $this->model, $this->get_available_models() ) ) {
             $errors[] = \sprintf(
                 /* translators: %s: Model name */
-                \__( 'Invalid OpenAI model: %s', 'ai-translation-for-polylang' ),
+                \__( 'Invalid OpenAI model: %s', 'epicwp-ai-translation-for-polylang' ),
                 $this->model,
             );
         }
 
         // Basic API key format validation.
         if ( null !== $this->api_key && '' !== $this->api_key && ! \str_starts_with( $this->api_key, 'sk-' ) ) {
-            $errors[] = \__( 'OpenAI API key should start with "sk-".', 'ai-translation-for-polylang' );
+            $errors[] = \__( 'OpenAI API key should start with "sk-".', 'epicwp-ai-translation-for-polylang' );
         }
 
         return $errors;

@@ -76,7 +76,7 @@ class Settings_Form {
 		// Add settings section for General tab
 		\add_settings_section(
 			'pllat_main_section',
-			\__( 'AI Translation Configuration', 'ai-translation-for-polylang' ),
+			\__( 'AI Translation Configuration', 'epicwp-ai-translation-for-polylang' ),
 			array( $this->field_renderer, 'render_section_description' ),
 			'pllat_settings',
 		);
@@ -84,7 +84,7 @@ class Settings_Form {
 		// Add settings section for Advanced tab
 		\add_settings_section(
 			'pllat_advanced_section',
-			\__( 'Advanced Settings', 'ai-translation-for-polylang' ),
+			\__( 'Advanced Settings', 'epicwp-ai-translation-for-polylang' ),
 			array( $this->field_renderer, 'render_advanced_section_description' ),
 			'pllat_advanced_settings',
 		);
@@ -118,14 +118,14 @@ class Settings_Form {
 	private function get_general_fields(): array {
 		$fields = array(
 			'pllat_translator_api' => array(
-				'title'    => \__( 'Translation API Provider', 'ai-translation-for-polylang' ),
+				'title'    => \__( 'Translation API Provider', 'epicwp-ai-translation-for-polylang' ),
 				'callback' => array( $this->field_renderer, 'render_api_provider_field' ),
 			),
 		);
 
 		foreach ( AI_Provider_Registry::get_providers_for_options() as $provider => $label ) {
 			$fields[ "pllat_{$provider}_api_key" ] = array(
-				'title'    => \sprintf( \__( '%s API Key', 'ai-translation-for-polylang' ), $label ),
+				'title'    => \sprintf( \__( '%s API Key', 'epicwp-ai-translation-for-polylang' ), $label ),
 				'callback' => array( $this->field_renderer, 'render_api_key_field' ),
 				'args'     => array(
 					'provider' => $provider,
@@ -143,7 +143,7 @@ class Settings_Form {
 	private function get_advanced_fields(): array {
 		return array(
 			'pllat_max_output_tokens' => array(
-				'title'    => \__( 'Max Output Tokens', 'ai-translation-for-polylang' ),
+				'title'    => \__( 'Max Output Tokens', 'epicwp-ai-translation-for-polylang' ),
 				'callback' => array( $this->field_renderer, 'render_max_tokens_field' ),
 			),
 		);
@@ -186,11 +186,11 @@ class Settings_Form {
 				'restUrl' => \rest_url( 'pllat/v1/' ),
 				'nonce'   => \wp_create_nonce( 'wp_rest' ),
 				'i18n'    => array(
-					'testing'   => \__( 'Testing connection...', 'ai-translation-for-polylang' ),
-					'connected' => \__( 'Connected', 'ai-translation-for-polylang' ),
+					'testing'   => \__( 'Testing connection...', 'epicwp-ai-translation-for-polylang' ),
+					'connected' => \__( 'Connected', 'epicwp-ai-translation-for-polylang' ),
 					/* translators: %s: error message from the provider */
-					'failed'    => \__( 'Connection failed: %s', 'ai-translation-for-polylang' ),
-					'unknown'   => \__( 'unknown error', 'ai-translation-for-polylang' ),
+					'failed'    => \__( 'Connection failed: %s', 'epicwp-ai-translation-for-polylang' ),
+					'unknown'   => \__( 'unknown error', 'epicwp-ai-translation-for-polylang' ),
 				),
 			),
 		);
@@ -226,14 +226,14 @@ class Settings_Form {
 		$tabs = \apply_filters(
 			'pllat_settings_tabs',
 			array(
-				'general'  => \__( 'General', 'ai-translation-for-polylang' ),
-				'advanced' => \__( 'Advanced', 'ai-translation-for-polylang' ),
-				'support'  => \__( 'Support', 'ai-translation-for-polylang' ),
+				'general'  => \__( 'General', 'epicwp-ai-translation-for-polylang' ),
+				'advanced' => \__( 'Advanced', 'epicwp-ai-translation-for-polylang' ),
+				'support'  => \__( 'Support', 'epicwp-ai-translation-for-polylang' ),
 			),
 		);
 		?>
 		<div class="wrap">
-			<h1><?php \esc_html_e( 'AI Translation Settings', 'ai-translation-for-polylang' ); ?></h1>
+			<h1><?php \esc_html_e( 'AI Translation Settings', 'epicwp-ai-translation-for-polylang' ); ?></h1>
 
 			<!-- Tab Navigation -->
 			<h2 class="nav-tab-wrapper">
@@ -249,7 +249,7 @@ class Settings_Form {
 				<!-- General Settings Tab -->
 				<?php if ( ! $validation['valid'] ) : ?>
 					<div class="notice notice-error">
-						<p><strong><?php \esc_html_e( 'Configuration Issues:', 'ai-translation-for-polylang' ); ?></strong></p>
+						<p><strong><?php \esc_html_e( 'Configuration Issues:', 'epicwp-ai-translation-for-polylang' ); ?></strong></p>
 						<ul>
 							<?php foreach ( $validation['errors'] as $error ) : ?>
 								<li><?php echo \esc_html( $error ); ?></li>
@@ -261,15 +261,15 @@ class Settings_Form {
 				<?php if ( ! \defined( 'DISABLE_WP_CRON' ) || ! DISABLE_WP_CRON ) : ?>
 					<div class="notice notice-warning">
 						<p>
-							<strong><?php \esc_html_e( 'Performance Recommendation', 'ai-translation-for-polylang' ); ?></strong>
+							<strong><?php \esc_html_e( 'Performance Recommendation', 'epicwp-ai-translation-for-polylang' ); ?></strong>
 						</p>
 						<p>
 							<?php
 							\printf(
 								/* translators: %1$s: link to site health page, %2$s: link to setup guide */
-								\esc_html__( 'Your site is using WordPress internal cron. For better translation performance, we recommend setting up server cron. %1$s or %2$s', 'ai-translation-for-polylang' ),
-								'<a href="' . \esc_url( \admin_url( 'site-health.php' ) ) . '">' . \esc_html__( 'View Site Health', 'ai-translation-for-polylang' ) . '</a>',
-								'<a href="https://www.epicwpsolutions.com/how-to-set-up-server-cron-for-better-plugin-performance/" target="_blank" rel="noopener">' . \esc_html__( 'Read Setup Guide', 'ai-translation-for-polylang' ) . '</a>',
+								\esc_html__( 'Your site is using WordPress internal cron. For better translation performance, we recommend setting up server cron. %1$s or %2$s', 'epicwp-ai-translation-for-polylang' ),
+								'<a href="' . \esc_url( \admin_url( 'site-health.php' ) ) . '">' . \esc_html__( 'View Site Health', 'epicwp-ai-translation-for-polylang' ) . '</a>',
+								'<a href="https://www.epicwpsolutions.com/how-to-set-up-server-cron-for-better-plugin-performance/" target="_blank" rel="noopener">' . \esc_html__( 'Read Setup Guide', 'epicwp-ai-translation-for-polylang' ) . '</a>',
 							);
 							?>
 						</p>
@@ -283,20 +283,20 @@ class Settings_Form {
 				?>
 					<div class="notice notice-error">
 						<p>
-							<strong><?php \esc_html_e( 'Action Scheduler Issue Detected', 'ai-translation-for-polylang' ); ?></strong>
+							<strong><?php \esc_html_e( 'Action Scheduler Issue Detected', 'epicwp-ai-translation-for-polylang' ); ?></strong>
 						</p>
 						<p>
 							<?php
 							\printf(
 								/* translators: %d: number of minutes actions have been stuck */
-								\esc_html__( 'Translation tasks have been pending for %d minutes. This usually means WP-Cron is not running properly.', 'ai-translation-for-polylang' ),
+								\esc_html__( 'Translation tasks have been pending for %d minutes. This usually means WP-Cron is not running properly.', 'epicwp-ai-translation-for-polylang' ),
 								$stuck_minutes
 							);
 							?>
 						</p>
 						<p>
 							<a href="https://www.epicwpsolutions.com/how-to-set-up-server-cron-for-better-plugin-performance/" target="_blank" rel="noopener">
-								<?php \esc_html_e( 'Learn how to set up server cron', 'ai-translation-for-polylang' ); ?>
+								<?php \esc_html_e( 'Learn how to set up server cron', 'epicwp-ai-translation-for-polylang' ); ?>
 							</a>
 						</p>
 					</div>
@@ -306,7 +306,7 @@ class Settings_Form {
 					<?php
 					\settings_fields( 'pllat_settings_group' );
 					\do_settings_sections( 'pllat_settings' );
-					\submit_button( \__( 'Save Settings', 'ai-translation-for-polylang' ) );
+					\submit_button( \__( 'Save Settings', 'epicwp-ai-translation-for-polylang' ) );
 					?>
 				</form>
 
@@ -316,7 +316,7 @@ class Settings_Form {
 					<?php
 					\settings_fields( 'pllat_advanced_settings_group' );
 					\do_settings_sections( 'pllat_advanced_settings' );
-					\submit_button( \__( 'Save Settings', 'ai-translation-for-polylang' ) );
+					\submit_button( \__( 'Save Settings', 'epicwp-ai-translation-for-polylang' ) );
 					?>
 				</form>
 

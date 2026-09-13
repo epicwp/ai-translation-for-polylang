@@ -82,7 +82,7 @@ interface AI_Provider {
 
     /**
      * Check if the provider is available for selection.
-     * Can be used to control provider availability based on license, beta mode, etc.
+     * Can be used to control provider availability based on edition, beta mode, etc.
      *
      * @return bool True if provider can be selected, false otherwise.
      */

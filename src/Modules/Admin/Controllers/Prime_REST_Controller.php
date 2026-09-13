@@ -53,7 +53,7 @@ class Prime_REST_Controller extends \XWP_REST_Controller {
             return new \WP_REST_Response(
                 array(
                     'code'    => 'pllat_prime_enqueue_failed',
-                    'message' => \__( 'Could not schedule the priming background job. Please try again or check Action Scheduler.', 'ai-translation-for-polylang' ),
+                    'message' => \__( 'Could not schedule the priming background job. Please try again or check Action Scheduler.', 'epicwp-ai-translation-for-polylang' ),
                     'success' => false,
                 ),
                 500,

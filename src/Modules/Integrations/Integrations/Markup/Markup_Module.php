@@ -52,8 +52,8 @@ class Markup_Module implements Can_Initialize, On_Initialize {
      * @return bool
      */
     public static function can_initialize(): bool {
-        // No license gate — integration filters must be available during
-        // Action Scheduler processing. Translation engine is license-gated.
+        // Always on: integration filters must be available during Action
+        // Scheduler processing. Access is gated at the REST/UI level.
         return true;
     }
 

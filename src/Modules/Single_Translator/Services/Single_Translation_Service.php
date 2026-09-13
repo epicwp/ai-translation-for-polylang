@@ -102,7 +102,7 @@ class Single_Translation_Service {
             throw new \Exception(
                 \esc_html__(
                     'No active translation found for this content.',
-                    'ai-translation-for-polylang',
+                    'epicwp-ai-translation-for-polylang',
                 ),
             );
         }
