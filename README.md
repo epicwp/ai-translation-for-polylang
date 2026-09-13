@@ -35,7 +35,7 @@ Translations run in the background through Action Scheduler (bundled), so you ca
 
 ### Requirements
 
-- WordPress 5.8 or newer and PHP 8.1 or newer.
+- WordPress 6.8 or newer and PHP 8.1 or newer.
 - Polylang 3.7 or newer, the free plugin or Polylang Pro.
 - An OpenAI account with an API key and billing enabled. See the FAQ for what a translation costs.
 
