@@ -1,22 +1,22 @@
-![AI Translation for Polylang](.wordpress-org/assets/banner-1544x500.png)
+![EPICWP AI Translation for Polylang](.wordpress-org/assets/banner-1544x500.png)
 
-# AI Translation for Polylang
+# EPICWP AI Translation for Polylang
 
 Free WordPress plugin for automatic AI translation with Polylang: translate posts, pages and taxonomy terms into every language you have configured in Polylang with OpenAI, straight from the editor, with your own API key.
 
 This is the free edition of Polylang AI Automatic Translation by EPIC WP. Both editions run the same translation engine; the [Pro edition](#pro-edition) adds bulk and automatic translation, page builder and custom field integrations, more AI providers and SEO meta.
 
-WordPress.org listing: https://wordpress.org/plugins/ai-translation-for-polylang/ (submission in progress)
+WordPress.org listing: https://wordpress.org/plugins/epicwp-ai-translation-for-polylang/ (submission in progress)
 
 <!-- TODO once the wordpress.org listing is live, add the plugin badges:
-[![Plugin version](https://img.shields.io/wordpress/plugin/v/ai-translation-for-polylang)](https://wordpress.org/plugins/ai-translation-for-polylang/)
-[![Active installs](https://img.shields.io/wordpress/plugin/installs/active/ai-translation-for-polylang)](https://wordpress.org/plugins/ai-translation-for-polylang/)
-[![Rating](https://img.shields.io/wordpress/plugin/rating/ai-translation-for-polylang)](https://wordpress.org/plugins/ai-translation-for-polylang/)
+[![Plugin version](https://img.shields.io/wordpress/plugin/v/epicwp-ai-translation-for-polylang)](https://wordpress.org/plugins/epicwp-ai-translation-for-polylang/)
+[![Active installs](https://img.shields.io/wordpress/plugin/installs/active/epicwp-ai-translation-for-polylang)](https://wordpress.org/plugins/epicwp-ai-translation-for-polylang/)
+[![Rating](https://img.shields.io/wordpress/plugin/rating/epicwp-ai-translation-for-polylang)](https://wordpress.org/plugins/epicwp-ai-translation-for-polylang/)
 -->
 
 ## What it does
 
-AI Translation for Polylang adds a free AI translation box to the WordPress editor. Open a post, page or term, tick the languages you need and click Start Translation: the plugin creates the Polylang translations for you with your own OpenAI API key. There is no account to create with us, no subscription and no usage limit in the plugin. You pay OpenAI for what you translate, which for a normal blog post is a fraction of a cent per language.
+EPICWP AI Translation for Polylang adds a free AI translation box to the WordPress editor. Open a post, page or term, tick the languages you need and click Start Translation: the plugin creates the Polylang translations for you with your own OpenAI API key. There is no account to create with us, no subscription and no usage limit in the plugin. You pay OpenAI for what you translate, which for a normal blog post is a fraction of a cent per language.
 
 Gutenberg blocks and classic editor HTML keep their structure; only the text changes.
 
@@ -71,7 +71,7 @@ Translations run in the background through Action Scheduler (bundled), so you ca
 ## Installation
 
 1. Install and activate Polylang (or Polylang Pro) and add your languages under Languages > Languages.
-2. Install AI Translation for Polylang. Once the WordPress.org listing is live: Plugins > Add New, search for "AI Translation for Polylang", install and activate. Until then: download the ZIP of the latest `vX.Y.Z` tag from the [tags page](https://github.com/epicwp/ai-translation-for-polylang/tags), unzip it, rename the folder to `ai-translation-for-polylang`, upload it to `wp-content/plugins/` and activate the plugin. The tree is the plugin exactly as shipped, including `vendor/` and the built `dist/` bundles, so it runs as is.
+2. Install EPICWP AI Translation for Polylang. Once the WordPress.org listing is live: Plugins > Add New, search for "EPICWP AI Translation for Polylang", install and activate. Until then: download the ZIP of the latest `vX.Y.Z` tag from the [tags page](https://github.com/epicwp/ai-translation-for-polylang/tags), unzip it, rename the folder to `epicwp-ai-translation-for-polylang`, upload it to `wp-content/plugins/` and activate the plugin. The tree is the plugin exactly as shipped, including `vendor/` and the built `dist/` bundles, so it runs as is.
 3. Go to Languages > AI Settings, paste your OpenAI API key and save. The post types and taxonomies you can translate are the ones you enabled for translation in Polylang.
 4. Open a post, page or term. In the AI Translation box, select the target languages and click Start Translation.
 5. Follow progress in the box, or on the Languages > AI Translation dashboard.
@@ -98,7 +98,7 @@ The free edition translates one post, page or term at a time from its edit scree
 
 ## Pro edition
 
-AI Translation for Polylang Pro is a separate plugin, sold on our website as Polylang AI Automatic Translation. It adds:
+EPICWP AI Translation for Polylang Pro is a separate plugin, sold on our website as Polylang AI Automatic Translation. It adds:
 
 - Bulk translation: pick post types, taxonomies and languages on the dashboard and translate your whole site in one run.
 - Auto-Translate 24/7 (upcoming): new and edited content is translated automatically.
@@ -119,7 +119,7 @@ Product page with the full feature list: https://www.epicwpsolutions.com/plugins
 
 ## Support
 
-- Free edition: post in the [support forum for this plugin on WordPress.org](https://wordpress.org/support/plugin/ai-translation-for-polylang/). The Support tab under Languages > AI Settings has the error log you can quote in your post.
+- Free edition: post in the [support forum for this plugin on WordPress.org](https://wordpress.org/support/plugin/epicwp-ai-translation-for-polylang/). The Support tab under Languages > AI Settings has the error log you can quote in your post.
 - Pro customers: priority support through the [support desk on our website](https://www.epicwpsolutions.com/support/).
 
 Issues are switched off on this repository and pull requests are closed automatically; see below.
@@ -140,7 +140,7 @@ To rebuild the bundles (Node.js 20 or newer):
     npm ci
     npm run build:free
 
-This writes `dist-free/admin/translation-dashboard.js` and `dist-free/admin/single-translator.js` from the sources in `assets/scripts/`, to compare with the shipped bundles in `dist/admin/`. Two differences are expected: the shipped bundles were built by the release pipeline (its Node and dependency versions), and the monorepo build rewrites the text domain literal `polylang-ai-automatic-translation` to `ai-translation-for-polylang` in them afterwards. The stylesheet `dist/admin/admin.css` is compiled from Tailwind sources that live in the monorepo and is not rebuilt here.
+This writes `dist-free/admin/translation-dashboard.js` and `dist-free/admin/single-translator.js` from the sources in `assets/scripts/`, to compare with the shipped bundles in `dist/admin/`. Two differences are expected: the shipped bundles were built by the release pipeline (its Node and dependency versions), and the monorepo build rewrites the text domain literal `polylang-ai-automatic-translation` to `epicwp-ai-translation-for-polylang` in them afterwards. The stylesheet `dist/admin/admin.css` is compiled from Tailwind sources that live in the monorepo and is not rebuilt here.
 
 ## License
 
