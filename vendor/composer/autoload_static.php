@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971
+class ComposerStaticInit56c6278e1f24ea363ffca2ea1085ca0d
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -23,18 +23,18 @@ class ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971
     );
 
     public static $prefixLengthsPsr4 = array (
-        'X' => 
+        'X' =>
         array (
             'XWP\\Helper\\Traits\\' => 18,
             'XWP\\Helper\\Functions\\' => 21,
             'XWP\\Helper\\Classes\\' => 19,
             'XWP\\DI\\' => 7,
         ),
-        'S' => 
+        'S' =>
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
         ),
-        'P' => 
+        'P' =>
         array (
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
@@ -44,141 +44,141 @@ class ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971
             'PLLAT\\' => 6,
             'PHPHtmlParser\\' => 14,
         ),
-        'M' => 
+        'M' =>
         array (
             'MyCLabs\\Enum\\' => 13,
         ),
-        'L' => 
+        'L' =>
         array (
             'Laravel\\SerializableClosure\\' => 28,
         ),
-        'I' => 
+        'I' =>
         array (
             'Invoker\\' => 8,
         ),
-        'H' => 
+        'H' =>
         array (
             'Http\\Promise\\' => 13,
             'Http\\Client\\' => 12,
         ),
-        'G' => 
+        'G' =>
         array (
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
         ),
-        'D' => 
+        'D' =>
         array (
             'DI\\' => 3,
         ),
-        'A' => 
+        'A' =>
         array (
             'Automattic\\Jetpack\\Autoloader\\' => 30,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'XWP\\Helper\\Traits\\' => 
+        'XWP\\Helper\\Traits\\' =>
         array (
             0 => __DIR__ . '/..' . '/x-wp/helper-traits',
         ),
-        'XWP\\Helper\\Functions\\' => 
+        'XWP\\Helper\\Functions\\' =>
         array (
             0 => __DIR__ . '/..' . '/x-wp/helper-functions',
         ),
-        'XWP\\Helper\\Classes\\' => 
+        'XWP\\Helper\\Classes\\' =>
         array (
             0 => __DIR__ . '/..' . '/x-wp/helper-classes',
         ),
-        'XWP\\DI\\' => 
+        'XWP\\DI\\' =>
         array (
             0 => __DIR__ . '/..' . '/x-wp/di/src',
         ),
-        'Symfony\\Polyfill\\Mbstring\\' => 
+        'Symfony\\Polyfill\\Mbstring\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Psr\\Http\\Message\\' => 
+        'Psr\\Http\\Message\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'Psr\\Http\\Client\\' => 
+        'Psr\\Http\\Client\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/http-client/src',
         ),
-        'Psr\\Container\\' => 
+        'Psr\\Container\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'PLLAT\\Dependencies\\' => 
+        'PLLAT\\Dependencies\\' =>
         array (
             0 => __DIR__ . '/..' . '/prefixed',
         ),
-        'PLLAT\\Common\\' => 
+        'PLLAT\\Common\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src/Common',
         ),
-        'PLLAT\\' => 
+        'PLLAT\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src/Modules',
         ),
-        'PHPHtmlParser\\' => 
+        'PHPHtmlParser\\' =>
         array (
             0 => __DIR__ . '/..' . '/paquettg/php-html-parser/src/PHPHtmlParser',
         ),
-        'MyCLabs\\Enum\\' => 
+        'MyCLabs\\Enum\\' =>
         array (
             0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
         ),
-        'Laravel\\SerializableClosure\\' => 
+        'Laravel\\SerializableClosure\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/serializable-closure/src',
         ),
-        'Invoker\\' => 
+        'Invoker\\' =>
         array (
             0 => __DIR__ . '/..' . '/php-di/invoker/src',
         ),
-        'Http\\Promise\\' => 
+        'Http\\Promise\\' =>
         array (
             0 => __DIR__ . '/..' . '/php-http/promise/src',
         ),
-        'Http\\Client\\' => 
+        'Http\\Client\\' =>
         array (
             0 => __DIR__ . '/..' . '/php-http/httplug/src',
         ),
-        'GuzzleHttp\\Psr7\\' => 
+        'GuzzleHttp\\Psr7\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'GuzzleHttp\\Promise\\' => 
+        'GuzzleHttp\\Promise\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
         ),
-        'GuzzleHttp\\' => 
+        'GuzzleHttp\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'DI\\' => 
+        'DI\\' =>
         array (
             0 => __DIR__ . '/..' . '/php-di/php-di/src',
         ),
-        'Automattic\\Jetpack\\Autoloader\\' => 
+        'Automattic\\Jetpack\\Autoloader\\' =>
         array (
             0 => __DIR__ . '/..' . '/automattic/jetpack-autoloader/src',
         ),
     );
 
     public static $prefixesPsr0 = array (
-        's' => 
+        's' =>
         array (
-            'stringEncode' => 
+            'stringEncode' =>
             array (
                 0 => __DIR__ . '/..' . '/paquettg/string-encode/src',
             ),
         ),
-        'R' => 
+        'R' =>
         array (
-            'Rs\\Json' => 
+            'Rs\\Json' =>
             array (
                 0 => __DIR__ . '/..' . '/php-jsonpatch/php-jsonpatch/src',
                 1 => __DIR__ . '/..' . '/php-jsonpointer/php-jsonpointer/src',
@@ -766,10 +766,10 @@ class ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit0ca93c3e114a382ab4b61faeb504a971::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit56c6278e1f24ea363ffca2ea1085ca0d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit56c6278e1f24ea363ffca2ea1085ca0d::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit56c6278e1f24ea363ffca2ea1085ca0d::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit56c6278e1f24ea363ffca2ea1085ca0d::$classMap;
 
         }, null, ClassLoader::class);
     }

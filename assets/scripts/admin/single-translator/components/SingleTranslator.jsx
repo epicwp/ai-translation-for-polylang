@@ -411,18 +411,6 @@ export function SingleTranslator() {
 
   return (
     <div className="pllat-single-translator">
-      {/* Compile-time edition branch: the license warning is pro-only. */}
-      {__PLLAT_EDITION__ === 'pro' && !window.pllat?.singleTranslatorEnabled && (
-        <div style={{ marginBottom: "15px" }}>
-          <Notice status="warning" isDismissible={false}>
-            {__('A valid Pro license is required to use the single translator', 'polylang-ai-automatic-translation')}.{' '}
-            <a href={window.pllat?.adminUrl + 'admin.php?page=pllat-settings&tab=license'} style={{ textDecoration: 'underline' }}>
-              {__('Activate your license', 'polylang-ai-automatic-translation')}
-            </a>
-          </Notice>
-        </div>
-      )}
-
       {/* Compile-time edition branch: the page-builder upsell is free-only. */}
       {__PLLAT_EDITION__ !== 'pro' && <BuilderNotice />}
 
@@ -600,9 +588,7 @@ export function SingleTranslator() {
               <ActionButtons
                 onTranslate={handleTranslate}
                 onCancel={handleCancel}
-                disabled={
-                  selectedLanguages.length === 0 || actionLoading || polling || !window.pllat?.singleTranslatorEnabled
-                }
+                disabled={selectedLanguages.length === 0 || actionLoading || polling}
                 canCancel={polling || hasActive}
                 loading={actionLoading}
                 isProcessing={polling}

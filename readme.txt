@@ -4,7 +4,7 @@ Tags: polylang, ai translation, automatic translation, translation, chatgpt
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 4.22.1
+Stable tag: 4.22.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -236,6 +236,12 @@ No other external requests are made. The plugin sends no usage data to the plugi
 
 == Changelog ==
 
+= 4.22.2 =
+
+**Bug Fixes**
+
+* Fixed the license notice to display correctly instead of showing a permission error in the settings panel
+
 = 4.22.1 =
 
 **Bug Fixes**
@@ -395,12 +401,6 @@ No other external requests are made. The plugin sends no usage data to the plugi
 **Bug Fixes**
 
 * Fixed an issue that improved compatibility by removing unnecessary restrictions during setup.
-
-= 4.18.2 =
-
-**Bug Fixes**
-
-* Changed a system check to a warning instead of an error to improve compatibility
 
 = Older versions =
 

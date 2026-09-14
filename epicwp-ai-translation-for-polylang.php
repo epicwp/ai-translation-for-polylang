@@ -7,7 +7,7 @@
  * Description:       Free AI translation for Polylang: translate a post, page or term into all your languages from the editor with your own OpenAI key.
  * Author:            EPIC WP
  * Author URI:        https://www.epicwpsolutions.com
- * Version:           4.22.1
+ * Version:           4.22.2
  * Requires PHP:      8.1
  * Requires at least: 6.8
  * Text Domain:       epicwp-ai-translation-for-polylang
@@ -30,7 +30,7 @@ if ( pllat_edition_yields( 'free', defined( 'PLLAT_EDITION' ), pllat_active_plug
     return;
 }
 
-define( 'PLLAT_PLUGIN_VERSION', '4.22.1' );
+define( 'PLLAT_PLUGIN_VERSION', '4.22.2' );
 define( 'PLLAT_DB_VERSION', '3.16.0' );
 // Shared with the Pro edition: options, hooks and the log directory derive from it, the text domain does not.
 define( 'PLLAT_PLUGIN_SLUG', 'polylang-automatic-ai-translation' );
