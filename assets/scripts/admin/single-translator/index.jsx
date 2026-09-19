@@ -4,7 +4,10 @@
 
 import { render } from '@wordpress/element';
 import SingleTranslator from './components/SingleTranslator';
-import LicenseNotice from './components/LicenseNotice';
+
+// Pro-only module, required inside the compile-time branch so the free build
+// never resolves it and the free zip ships the sources without it.
+const TranslatorDisabledNotice = __PLLAT_EDITION__ === 'pro' ? require('./components/TranslatorDisabledNotice').default : null;
 
 /**
  * Initialize the Single Translator app.
@@ -16,11 +19,11 @@ function initSingleTranslator() {
 		return;
 	}
 
-	// Compile-time edition branch: without a valid license the single-translator
-	// routes answer 403, so the translator (which fetches its status on mount)
-	// never mounts and the notice takes its place. See #532.
+	// Compile-time edition branch: while the pro edition has not enabled the
+	// single translator its routes answer 403, so the translator (which fetches
+	// its status on mount) never mounts and the notice takes its place. See #532.
 	if (__PLLAT_EDITION__ === 'pro' && !window.pllat?.singleTranslatorEnabled) {
-		render(<LicenseNotice />, container);
+		render(<TranslatorDisabledNotice />, container);
 		return;
 	}
 

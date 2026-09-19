@@ -178,16 +178,6 @@ class OpenAI_Provider implements AI_Provider {
     }
 
     /**
-     * Check if the provider is available for selection.
-     *
-     * @return bool True if provider can be selected, false otherwise.
-     */
-    public function is_available(): bool {
-        // OpenAI is always available (primary provider for beta release)
-        return true;
-    }
-
-    /**
      * Check if the provider supports function/tool calling.
      *
      * @return bool True if provider supports tool calling, false otherwise.

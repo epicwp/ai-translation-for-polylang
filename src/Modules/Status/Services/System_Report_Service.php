@@ -15,8 +15,8 @@ use PLLAT\Translator\Repositories\Provider_Health_Repository;
  * tracks (versions, schema, Action Scheduler health, WP-Cron, provider circuit
  * breaker, connectivity cache, translation-index counts).
  *
- * Purpose: remote diagnosis without SSH. A supporter who has been granted
- * Support Access pulls GET /pllat/v1/system-report and sees the whole picture
+ * Purpose: remote diagnosis without SSH. A supporter with REST credentials
+ * for the site pulls GET /pllat/v1/system-report and sees the whole picture
  * in one call — what cost an SSH session before.
  *
  * STRICTLY READ-ONLY. No method here writes state, performs a billable call,

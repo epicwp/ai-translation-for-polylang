@@ -176,7 +176,6 @@ function getInlineStatus(status, progress, translatedAt, isRunning) {
  * @param {boolean} props.selected - Whether language is selected
  * @param {Function} props.onToggle - Callback when card is toggled
  * @param {boolean} props.disabled - Whether card is disabled
- * @param {boolean} props.exceedsLimit - Whether this language exceeds free tier limit
  * @returns {JSX.Element} The component
  */
 export function LanguageCard({
@@ -188,8 +187,7 @@ export function LanguageCard({
 	isRunning = false,
 	selected,
 	onToggle,
-	disabled,
-	exceedsLimit = false
+	disabled
 }) {
 	const statusDisplay = getStatusDisplay(status);
 	const statusColors = getStatusColors(status, selected);
@@ -202,13 +200,12 @@ export function LanguageCard({
 		<div
 			className="pllat-language-card"
 			style={{
-				border: `1px solid ${exceedsLimit ? '#dcdcde' : statusColors.borderColor}`,
+				border: `1px solid ${statusColors.borderColor}`,
 				borderRadius: '4px',
 				padding: '12px 16px',
-				backgroundColor: exceedsLimit ? '#f6f7f7' : statusColors.backgroundColor,
+				backgroundColor: statusColors.backgroundColor,
 				cursor: disabled ? 'not-allowed' : 'pointer',
 				transition: 'all 0.2s ease',
-				opacity: exceedsLimit ? 0.7 : 1,
 			}}
 			onClick={() => !disabled && onToggle(language)}
 			onMouseEnter={(e) => {
@@ -244,21 +241,14 @@ export function LanguageCard({
 									width: '16px',
 									height: 'auto',
 									flexShrink: 0,
-									opacity: exceedsLimit ? 0.5 : 1,
 								}}
 							/>
 						)}
-						<div style={{ fontWeight: '500', fontSize: '14px', color: exceedsLimit ? '#646970' : '#1d2327' }}>{languageName}</div>
+						<div style={{ fontWeight: '500', fontSize: '14px', color: '#1d2327' }}>{languageName}</div>
 					</div>
 
 					{/* Inline status display */}
-					{exceedsLimit ? (
-						<div style={{fontSize: '12px', color: '#d63638', marginTop: '4px'}}>
-							🔒 {__('Upgrade to Pro for unlimited languages', 'polylang-ai-automatic-translation')}
-						</div>
-					) : (
-						getInlineStatus(status, progress, translatedAt, isRunning)
-					)}
+					{getInlineStatus(status, progress, translatedAt, isRunning)}
 				</div>
 
 				{/* Status Indicator */}

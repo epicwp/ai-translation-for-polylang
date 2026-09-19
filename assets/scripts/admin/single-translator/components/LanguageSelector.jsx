@@ -23,9 +23,6 @@ export function LanguageSelector({
 	disabled,
 	runningLanguages = []
 }) {
-	const enabled = window.pllat?.singleTranslatorEnabled || false;
-	const maxLanguages = enabled ? Infinity : 3;
-
 	/**
 	 * Toggle language selection.
 	 *
@@ -95,9 +92,8 @@ export function LanguageSelector({
 					gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
 				}}
 			>
-				{languages.map((lang, index) => {
+				{languages.map((lang) => {
 					const isRunning = runningLanguages.includes(lang.language);
-					const exceedsLimit = !enabled && index >= maxLanguages;
 
 					return (
 						<LanguageCard
@@ -110,8 +106,7 @@ export function LanguageSelector({
 							isRunning={isRunning}
 							selected={selected.includes(lang.language)}
 							onToggle={toggleLanguage}
-							disabled={disabled || isRunning || exceedsLimit}
-							exceedsLimit={exceedsLimit}
+							disabled={disabled || isRunning}
 						/>
 					);
 				})}

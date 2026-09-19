@@ -88,9 +88,8 @@ class Settings_Support_Tab_Renderer {
 		}
 
 		/**
-		 * Filters the support card: where to ask for help. The free edition
-		 * points to the wordpress.org forum, the pro Support_Access module to
-		 * the support desk.
+		 * Filters the support card: where to ask for help. The default is
+		 * the wordpress.org forum; a pro module points it at the support desk.
 		 *
 		 * @param array{url: string, title: string, description: string} $support_link
 		 */

@@ -508,7 +508,7 @@ const PreflightFailedDialog = ({
               style={{ color: "#2271b1" }}
             >
               {__(
-                "Stuck? Grant support access",
+                "Stuck? Open the Support tab",
                 "polylang-ai-automatic-translation",
               )}
               <ArrowRight />

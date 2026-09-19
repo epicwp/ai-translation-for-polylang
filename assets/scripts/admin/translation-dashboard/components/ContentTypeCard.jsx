@@ -1,9 +1,12 @@
 import { useState, useEffect, memo } from "@wordpress/element";
 import CardHeader from "./ContentTypeCard/CardHeader";
 import LanguageProgressList from "./ContentTypeCard/LanguageProgressList";
-import TranslationActions from "./ContentTypeCard/TranslationActions";
-import BulkConfigModal from "./BulkConfigModal";
 import ProCard from "./ProCard";
+
+// Pro-only modules, required inside the compile-time branch so the free
+// build never resolves them (see TranslationDashboard.jsx).
+const TranslationActions = __PLLAT_EDITION__ === 'pro' ? require("./ContentTypeCard/TranslationActions").default : null;
+const BulkConfigModal = __PLLAT_EDITION__ === 'pro' ? require("./BulkConfigModal").default : null;
 
 const ContentTypeCard = ({
   name,

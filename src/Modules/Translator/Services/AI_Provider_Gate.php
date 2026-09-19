@@ -41,8 +41,9 @@ class AI_Provider_Gate {
 		$provider = AI_Provider_Factory::create_from_settings( $this->settings );
 		$client   = $provider->get_client();
 
-		// Resolved provider may differ from settings (fallback). Use the actual
-		// provider key for health bookkeeping so circuit state stays correct.
+		// The resolved provider may differ from the stored key (an unknown key
+		// resolves to the first registered provider). Use the actual provider
+		// key for health bookkeeping so circuit state stays correct.
 		$client->set_health_service( $this->health, $provider->get_provider_key() );
 
 		return $provider;

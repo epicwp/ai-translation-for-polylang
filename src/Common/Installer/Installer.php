@@ -18,10 +18,8 @@ use PLLAT\Common\Installer\Migrations\Migrate_To_3_1_0;
 use PLLAT\Common\Installer\Migrations\Migrate_To_3_2_0;
 use PLLAT\Common\Installer\Migrations\Migrate_To_3_3_0;
 use PLLAT\Common\Installer\Migrations\Migrate_To_3_4_0;
-use PLLAT\Common\Installer\Migrations\Migrate_To_3_5_0;
 use PLLAT\Common\Installer\Migrations\Migrate_To_3_6_0;
 use PLLAT\Common\Installer\Migrations\Migrate_To_3_7_0;
-use PLLAT\Common\Installer\Migrations\Migrate_To_3_8_0;
 use PLLAT\Common\Installer\Migrations\Migrate_To_3_9_0;
 use PLLAT\Common\Installer\Migrations\Migrate_To_3_10_0;
 use PLLAT\Common\Installer\Migrations\Migrate_To_3_11_0;
@@ -77,10 +75,8 @@ class Installer {
 		Migrate_To_3_2_0::class,
 		Migrate_To_3_3_0::class,
 		Migrate_To_3_4_0::class,
-		Migrate_To_3_5_0::class,
 		Migrate_To_3_6_0::class,
 		Migrate_To_3_7_0::class,
-		Migrate_To_3_8_0::class,
 		Migrate_To_3_9_0::class,
 		Migrate_To_3_10_0::class,
 		Migrate_To_3_11_0::class,
@@ -140,23 +136,6 @@ class Installer {
 			KEY status (status),
 			KEY heartbeat_stale (status, last_heartbeat),
 			KEY as_action_id (as_action_id)
-		) {$charset_collate};";
-
-		// Support access audit.
-		$audit_table = $wpdb->prefix . 'pllat_support_access_audit';
-		$sql_audit   = "CREATE TABLE {$audit_table} (
-			id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-			timestamp DATETIME NOT NULL,
-			user_id BIGINT UNSIGNED NOT NULL,
-			endpoint VARCHAR(255) NOT NULL,
-			method VARCHAR(10) NOT NULL,
-			ip VARCHAR(45) NULL,
-			user_agent VARCHAR(255) NULL,
-			response_code SMALLINT UNSIGNED NULL,
-			hit_count INT UNSIGNED NOT NULL DEFAULT 1,
-			PRIMARY KEY  (id),
-			KEY idx_timestamp (timestamp),
-			KEY idx_user_endpoint_time (user_id, endpoint, timestamp)
 		) {$charset_collate};";
 
 		// Provider health (circuit breaker per AI provider).
@@ -230,7 +209,6 @@ class Installer {
 
 		\dbDelta( $sql_runs );
 		\dbDelta( $sql_claims );
-		\dbDelta( $sql_audit );
 		\dbDelta( $sql_provider_health );
 		\dbDelta( $sql_activity_log );
 		\dbDelta( $sql_index );

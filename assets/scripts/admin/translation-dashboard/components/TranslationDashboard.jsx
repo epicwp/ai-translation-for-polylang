@@ -1,9 +1,6 @@
 import { useState } from "@wordpress/element";
 import { __ } from '@wordpress/i18n';
 import { useDashboardPolling } from "../hooks/useDashboardPolling";
-import { useDashboardActions } from "../hooks/useDashboardActions";
-import TabNavigation from "./TabNavigation";
-import StringsTab from "./StringsTab";
 import ContentTypeCard from "./ContentTypeCard";
 import ActivityPanel from "./ActivityPanel";
 import DashboardHeader from "./DashboardHeader";
@@ -14,7 +11,13 @@ import PreflightFailedDialog from "../../components/PreflightFailedDialog";
 
 // `__PLLAT_EDITION__` is a compile-time constant (webpack DefinePlugin). The
 // pro branches below are dead code in the free build, so the bulk actions,
-// the Strings tab and their hooks never reach the free bundle.
+// the Strings tab and their hooks never reach the free bundle. Their modules
+// are required inside the branch, so the free build never resolves them and
+// the free zip ships the sources without them.
+const useDashboardActions = __PLLAT_EDITION__ === 'pro' ? require("../hooks/useDashboardActions").useDashboardActions : null;
+const TabNavigation = __PLLAT_EDITION__ === 'pro' ? require("./TabNavigation").default : null;
+const StringsTab = __PLLAT_EDITION__ === 'pro' ? require("./StringsTab").default : null;
+
 const TranslationDashboard = () => {
   const { data, isFetching, isPolling, hasActiveTranslations, refetch } = useDashboardPolling();
   // __PLLAT_EDITION__ is a build-time constant (webpack DefinePlugin), so the hook

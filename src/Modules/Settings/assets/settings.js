@@ -1,25 +1,17 @@
 jQuery(document).ready(function($) {
     // ── API Provider Settings ──
 
-    // Show/hide API key fields based on selected provider
+    // Show only the API key field of the selected provider. With a single
+    // registered provider the field is plain text and its one key row stays.
     function toggleApiKeyFields() {
-        const activeApi = $('#pllat_translator_api').val();
-
-        // Check if the selected provider is disabled
-        const selectedOption = $('#pllat_translator_api option:selected');
-        if (selectedOption.prop('disabled')) {
+        const provider = $('select#pllat_translator_api');
+        if (!provider.length) {
             return;
         }
 
         $('.api-key-row').closest('tr').hide();
-        $('.api-key-row[data-api="' + activeApi + '"]').closest('tr').show();
+        $('.api-key-row[data-api="' + provider.val() + '"]').closest('tr').show();
     }
-
-    // Add styling for disabled options
-    $('#pllat_translator_api option:disabled').css({
-        'color': '#999',
-        'font-style': 'italic'
-    });
 
     $('#pllat_translator_api').on('change', toggleApiKeyFields);
     toggleApiKeyFields();

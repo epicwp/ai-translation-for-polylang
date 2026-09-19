@@ -20,10 +20,8 @@ use XWP\DI\Decorators\REST_Route;
  * Exposes the read-only diagnostic blob at GET /pllat/v1/system-report.
  *
  * Reuses the same `manage_options` guard as the preflight controller, so a
- * Support Access session (temporary administrator + Application Password) can
- * pull it remotely — and every pull is automatically captured by the existing
- * Support Access audit trail. The endpoint performs no writes, no billable
- * calls, and no outbound HTTP.
+ * REST client with `manage_options` credentials can pull it remotely. The
+ * endpoint performs no writes, no billable calls, and no outbound HTTP.
  */
 #[REST_Handler( namespace: 'pllat/v1', basename: 'system-report' )]
 class System_Report_REST_Controller extends \XWP_REST_Controller {

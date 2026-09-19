@@ -22,10 +22,13 @@ import ActionButtons from "./ActionButtons";
 import ErrorBanner from "./ErrorBanner";
 import ErrorSummaryBanner from "./ErrorSummaryBanner";
 import ImportingMessage from "./ImportingMessage";
-import InternalLinksPanel from "./InternalLinksPanel";
 import BuilderNotice from "./BuilderNotice";
 import PreflightFailedDialog from "../../components/PreflightFailedDialog";
 import usePreflight from "../../hooks/usePreflight";
+
+// Pro-only module, required inside the compile-time branch so the free build
+// never resolves it and the free zip ships the sources without it.
+const InternalLinksPanel = __PLLAT_EDITION__ === 'pro' ? require("./InternalLinksPanel").default : null;
 
 /**
  * Single Translator main component.

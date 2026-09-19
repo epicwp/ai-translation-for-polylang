@@ -4,7 +4,7 @@ Tags: polylang, ai translation, automatic translation, translation, chatgpt
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 4.22.2
+Stable tag: 4.22.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -217,6 +217,23 @@ Post in the support forum for this plugin on WordPress.org. The Support tab unde
 5. Languages > AI Settings: paste your OpenAI key, test the connection and save.
 6. The AI Translation box on the category edit screen: terms are translated the same way as posts.
 
+== Source code ==
+
+The admin screens are React applications whose minified bundles live in `dist/admin/` (`translation-dashboard.js` and `single-translator.js`); `dist/admin/admin.css` is built with Tailwind. The readable sources and the build configuration ship in this plugin next to the bundles:
+
+* `assets/scripts/admin/`: the JSX and JavaScript sources of the two bundles.
+* `assets/styles/admin-input.css` and `tailwind.config.js`: the source of `dist/admin/admin.css`.
+* `assets/images/`: the SVG files copied into `dist/images/`.
+* `webpack.config.js`, `package.json` and `package-lock.json`: the build configuration and the pinned toolchain (`@wordpress/scripts`).
+
+To rebuild the bundles from the plugin folder with Node.js 20 and npm installed:
+
+1. `npm ci` installs the pinned build dependencies.
+2. `npm run build:free` writes the JavaScript bundles to `dist-free/admin/` and the SVG files to `dist-free/images/`; compare them with `dist/admin/` and `dist/images/`.
+3. `npm run build:css` rebuilds `dist/admin/admin.css` from the Tailwind source.
+
+The complete source of the free edition, including these files, is public at https://github.com/epicwp/ai-translation-for-polylang, one tagged commit per release. All PHP code is unminified. The bundled PHP libraries under `vendor/` (Monolog, PHP-DI, x-wp/di, Action Scheduler, myclabs/php-enum) carry their own headers and license files.
+
 == External services ==
 
 This plugin connects to the OpenAI API to translate your content. OpenAI is a third-party service with its own terms and billing: you need your own OpenAI account and API key, and OpenAI charges you for the requests the plugin makes.
@@ -235,6 +252,14 @@ Before a translation starts, the preflight check sends one HTTP request to your 
 No other external requests are made. The plugin sends no usage data to the plugin author, and it does not contact WordPress.org or any other service itself. Links to our website inside the plugin are ordinary links, opened only when you click them.
 
 == Changelog ==
+
+= 4.22.3 =
+
+**Bug Fixes**
+
+* Fixed issues with provider handling to ensure smooth operation across editions
+* Removed unnecessary support-access traces for better privacy
+* Improved readability of source files in the exported zip
 
 = 4.22.2 =
 
@@ -395,12 +420,6 @@ No other external requests are made. The plugin sends no usage data to the plugi
 **Bug Fixes**
 
 * Fixed an issue that could cause the site to become unresponsive.
-
-= 4.18.3 =
-
-**Bug Fixes**
-
-* Fixed an issue that improved compatibility by removing unnecessary restrictions during setup.
 
 = Older versions =
 

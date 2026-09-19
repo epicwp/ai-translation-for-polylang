@@ -27,6 +27,13 @@ foreach ( glob( WP_PLUGIN_DIR . '/*/' . $pllat_other_main_file ) ?: array() as $
     }
 }
 
+// A module that owns data of its own brings an uninstall file next to its
+// code and hooks its per-site cleanup on `pllat_uninstall_site`. Composition
+// by file presence: the free zip does not contain the pro modules.
+foreach ( glob( __DIR__ . '/src/Modules/*/uninstall.php' ) ?: array() as $pllat_module_uninstall ) {
+    require_once $pllat_module_uninstall;
+}
+
 /**
  * Delete all plugin database tables for a single site
  *
@@ -42,7 +49,6 @@ function pllat_delete_database_tables() {
         // Current schema (v3.13).
         $wpdb->prefix . 'pllat_bulk_runs',
         $wpdb->prefix . 'pllat_claims',
-        $wpdb->prefix . 'pllat_support_access_audit',
         $wpdb->prefix . 'pllat_provider_health',
         $wpdb->prefix . 'pllat_activity_log',
         $wpdb->prefix . 'pllat_translation_index',
@@ -85,28 +91,10 @@ function pllat_delete_database_tables() {
     delete_option( 'pllat_explored_copy_meta_keys' );
     delete_option( 'pllat_explored_ignore_meta_keys' );
 
-    // Clean up support access user
-    $support_access = get_option( 'pllat_support_access' );
-    if ( is_array( $support_access ) && isset( $support_access['user_id'] ) ) {
-        require_once ABSPATH . 'wp-admin/includes/user.php';
-        wp_delete_user( $support_access['user_id'] );
-    }
-    delete_option( 'pllat_support_access' );
-
-    // Safety net: also clean up by username in case option was lost
-    $support_user = get_user_by( 'login', 'epicwpsolutions' );
-    if ( $support_user ) {
-        require_once ABSPATH . 'wp-admin/includes/user.php';
-        wp_delete_user( $support_user->ID );
-    }
-
-    // Remove the custom support diagnostic role. Self-contained: the
-    // Composer autoloader and plugin bootstrap are NOT loaded in the
-    // uninstall context, so we must not require() plugin class files here
-    // (a require() of a class the lean rewrite had removed previously made
-    // deleting the plugin fatal with a critical error). remove_role() is
-    // WordPress core and is available by the time uninstall.php runs.
-    remove_role( 'pllat_support_diagnostic' );
+    /**
+     * Fires once per site during uninstall, after the shared cleanup.
+     */
+    do_action( 'pllat_uninstall_site' );
 }
 
 /**

@@ -26,62 +26,20 @@ class AI_Provider_Factory {
      * @throws \Exception If provider cannot be created or configured.
      */
     public static function create_from_settings( Settings_Service $settings ): AI_Provider {
-        // OpenAI, Claude, Gemini, OpenRouter.
-        $active_api     = $settings->get_active_translation_api();
-        $original_api   = $active_api;
-        $using_fallback = false;
-
-        // Get provider from registry.
-        $provider = AI_Provider_Registry::get_provider( $active_api );
-        if ( null === $provider ) {
-            throw new \Exception( \sprintf( 'AI Provider not found: %s', \esc_html( $active_api ) ) );
-        }
-
-        // Check if selected provider is available, fallback to OpenAI if not.
-        if ( ! $provider->is_available() ) {
-            $fallback_provider = AI_Provider_Registry::get_fallback_provider();
-            if ( null === $fallback_provider ) {
-                throw new \Exception( 'No available AI provider found' );
-            }
-
-            // Log the fallback for debugging.
-            \do_action(
-                'pllat_log_warning',
-                \sprintf(
-                    'Provider "%s" is not available, falling back to OpenAI',
-                    $original_api,
-                ),
-            );
-
-            $provider       = $fallback_provider;
-            $active_api     = 'openai';
-            $using_fallback = true;
-
-            // Optionally update settings to reflect the fallback (temporary).
-            // This ensures UI consistency if settings are reloaded.
-            // NOTE: We're not permanently changing the user's selection.
-        }
+        $provider   = self::resolve_provider( $settings->get_active_translation_api() );
+        $active_api = $provider->get_provider_key();
 
         // Get credentials from settings.
         $api_key = $settings->get_translation_api_key( $active_api );
-        if ( null === $api_key || '' === $api_key ) {
-            // If we're using fallback and no API key is configured, provide helpful error.
-            if ( $using_fallback ) {
-                throw new \Exception(
-                    \sprintf(
-                        'Provider "%s" is not available in this edition. Please configure OpenAI API key to use translations.',
-                        \esc_html( $original_api ),
-                    ),
-                );
-            }
+        if ( '' === $api_key ) {
             throw new \Exception(
                 \sprintf( 'API key not configured for provider: %s', \esc_html( $active_api ) ),
             );
         }
 
+        // The stored model when there is one, else the provider's default.
         $model = $settings->get_translation_model( $active_api );
-        if ( null === $model || '' === $model ) {
-            // Use default model if not configured (especially for fallback).
+        if ( '' === $model ) {
             $model = $provider->get_default_model();
         }
 
@@ -131,75 +89,35 @@ class AI_Provider_Factory {
         $errors = array();
 
         try {
-            $active_api       = $settings->get_active_translation_api();
-            $check_api        = $active_api;
-            $is_using_fallback = false;
+            $provider   = self::resolve_provider( $settings->get_active_translation_api() );
+            $active_api = $provider->get_provider_key();
 
-            // Check if provider exists.
-            $provider = AI_Provider_Registry::get_provider( $active_api );
-            if ( null === $provider ) {
-                $errors[] = "Unknown AI provider: {$active_api}";
-                return $errors;
-            }
-
-            // Check if provider is available.
-            if ( ! $provider->is_available() ) {
-                // Check if fallback provider (OpenAI) is configured.
-                $fallback_provider = AI_Provider_Registry::get_fallback_provider();
-                if ( null !== $fallback_provider ) {
-                    $provider          = $fallback_provider;
-                    $check_api         = 'openai';
-                    $is_using_fallback = true;
-
-                    // Add info message about fallback.
-                    $errors[] = \sprintf(
-                        'Note: %s is not available in this edition. Will use OpenAI as fallback.',
-                        AI_Provider_Registry::get_provider( $active_api )->get_display_name(),
-                    );
-                } else {
-                    $errors[] = "No available AI providers found";
-                    return $errors;
-                }
-            }
-
-            // Check API key for the provider we'll actually use.
-            $api_key = $settings->get_translation_api_key( $check_api );
-            if ( null === $api_key || '' === $api_key ) {
+            $api_key = $settings->get_translation_api_key( $active_api );
+            if ( '' === $api_key ) {
                 $errors[] = "API key not configured for {$provider->get_display_name()}";
             }
 
-            // Check model.
-            $model = $settings->get_translation_model( $check_api );
-            if ( null === $model || '' === $model ) {
-                // Don't report as error if we can use default model.
-                if ( ! $is_using_fallback ) {
-                    $errors[] = "Model not configured for {$provider->get_display_name()}";
-                }
-            } else {
-                // Providers that take a free-form model ID (OpenRouter routes
-                // to hundreds of upstream models) expose an empty
-                // get_available_models(); the membership check would reject
-                // every valid model. Skip it for them — model validity is the
-                // live validate_configuration()'s concern. See support ticket
-                // TS-97853308 (#363): «Invalid model 'anthropic/claude-sonnet-4.5'».
-                $available_models = $provider->get_available_models();
-                $is_unknown_model = ! \array_key_exists( $model, $available_models );
-                if ( $is_unknown_model && ! $provider->supports_custom_model() ) {
-                    $errors[] = "Invalid model '{$model}' for {$provider->get_display_name()}";
-                }
+            $model = $settings->get_translation_model( $active_api );
+            if ( '' === $model ) {
+                $model = $provider->get_default_model();
+            }
+
+            // Providers that take a free-form model ID (OpenRouter routes
+            // to hundreds of upstream models) expose an empty
+            // get_available_models(); the membership check would reject
+            // every valid model. Skip it for them — model validity is the
+            // live validate_configuration()'s concern. See support ticket
+            // TS-97853308 (#363): «Invalid model 'anthropic/claude-sonnet-4.5'».
+            $is_unknown_model = ! \array_key_exists( $model, $provider->get_available_models() );
+            if ( $is_unknown_model && ! $provider->supports_custom_model() ) {
+                $errors[] = "Invalid model '{$model}' for {$provider->get_display_name()}";
             }
 
             // If we have minimum config, test provider validation.
-            if ( null !== $api_key && '' !== $api_key ) {
-                // Use default model if not configured.
-                if ( null === $model || '' === $model ) {
-                    $model = $provider->get_default_model();
-                }
-
+            if ( '' !== $api_key ) {
                 $test_provider = clone $provider;
                 $test_provider->configure( $api_key, $model );
-                $provider_errors = $test_provider->validate_configuration();
-                $errors          = \array_merge( $errors, $provider_errors );
+                $errors = \array_merge( $errors, $test_provider->validate_configuration() );
             }
         } catch ( \Exception $e ) {
             $errors[] = 'Configuration error: ' . $e->getMessage();
@@ -227,5 +145,34 @@ class AI_Provider_Factory {
         $configured_provider->configure( $api_key, $model );
 
         return $configured_provider;
+    }
+
+    /**
+     * The registered provider for a stored provider key.
+     *
+     * A key no registered provider answers to (a provider another module
+     * registers, a stale option) resolves to the first registered provider
+     * so the settings stay usable; the settings sanitizer stores that key
+     * on the next save. The settings page applies the same resolution
+     * (AI_Provider_Registry::resolve_provider()) without the log line.
+     *
+     * @param string $key The stored provider key.
+     * @return AI_Provider The provider to use.
+     * @throws \Exception When no provider is registered at all.
+     */
+    private static function resolve_provider( string $key ): AI_Provider {
+        $provider = AI_Provider_Registry::resolve_provider( $key );
+        if ( null === $provider ) {
+            throw new \Exception( 'No AI provider is registered' );
+        }
+
+        if ( $provider->get_provider_key() !== $key ) {
+            \do_action(
+                'pllat_log_warning',
+                \sprintf( 'Provider "%s" is not registered, using "%s"', $key, $provider->get_provider_key() ),
+            );
+        }
+
+        return $provider;
     }
 }

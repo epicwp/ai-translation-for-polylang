@@ -1695,46 +1695,6 @@
   cursor: not-allowed;
 }
 
-/* Support Access Card */
-
-.pllat-support-access-status {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  background-color: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  border-radius: 0.375rem;
-  font-size: 0.875rem;
-  color: #166534;
-}
-
-.pllat-support-access-status .dashicons {
-  color: #16a34a;
-  font-size: 1.25rem;
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-.pllat-credentials-textarea {
-  width: 100%;
-  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-  font-size: 13px;
-  padding: 12px;
-  background-color: #fff;
-  color: #1d2327;
-  border: 1px solid #8c8f94;
-  border-radius: 4px;
-  resize: none;
-  line-height: 1.6;
-}
-
-.pllat-credentials-textarea:focus {
-  outline: none;
-  border-color: #2271b1;
-  box-shadow: 0 0 0 1px #2271b1;
-}
-
 .pllat-support-tab-wrapper .pllat-message {
   margin-top: 1rem;
   padding: 0.75rem 1rem;

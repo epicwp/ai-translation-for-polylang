@@ -81,14 +81,6 @@ interface AI_Provider {
     public function get_api_key_description(): string;
 
     /**
-     * Check if the provider is available for selection.
-     * Can be used to control provider availability based on edition, beta mode, etc.
-     *
-     * @return bool True if provider can be selected, false otherwise.
-     */
-    public function is_available(): bool;
-
-    /**
      * Check if the provider supports function/tool calling.
      *
      * @return bool True if provider supports tool calling, false otherwise.

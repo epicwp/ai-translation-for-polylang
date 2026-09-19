@@ -149,57 +149,26 @@ class AI_Provider_Registry {
     }
 
     /**
-     * Get only available providers.
+     * The first registered provider: the one an unknown provider key
+     * resolves to (Core_Module registers OpenAI before any other module).
      *
-     * @return array<string,AI_Provider> Array of available providers.
+     * @return AI_Provider|null Null while nothing is registered.
      */
-    public static function get_available_providers(): array {
-        $available = array();
-        foreach ( self::$providers as $key => $provider ) {
-            if ( $provider->is_available() ) {
-                $available[ $key ] = $provider;
-            }
-        }
-        return $available;
+    public static function get_first_provider(): ?AI_Provider {
+        $first = \reset( self::$providers );
+        return false === $first ? null : $first;
     }
 
     /**
-     * Check if a specific provider is available.
+     * The provider a stored key stands for: the one registered under it, or
+     * the first registered provider when none answers to it (a provider
+     * another module registers, a stale option).
      *
-     * @param string $provider_key The provider key.
-     * @return bool True if provider is available, false otherwise.
+     * @param string $key The stored provider key.
+     * @return AI_Provider|null Null while nothing is registered.
      */
-    public static function is_provider_available( string $provider_key ): bool {
-        $provider = self::get_provider( $provider_key );
-        return $provider ? $provider->is_available() : false;
-    }
-
-    /**
-     * Get providers for options with availability status.
-     * Returns all providers but marks unavailable ones.
-     *
-     * @return array<string,array> Array of provider_key => array('name' => string, 'available' => bool).
-     */
-    public static function get_providers_for_options_with_availability(): array {
-        $options = array();
-        foreach ( self::$providers as $provider ) {
-            $key = $provider->get_provider_key();
-            $options[ $key ] = array(
-                'name'      => $provider->get_display_name(),
-                'available' => $provider->is_available(),
-            );
-        }
-        return $options;
-    }
-
-    /**
-     * Get the fallback provider (OpenAI).
-     *
-     * @return AI_Provider|null The fallback provider or null if not found.
-     */
-    public static function get_fallback_provider(): ?AI_Provider {
-        // OpenAI is the primary fallback provider
-        return self::get_provider( 'openai' );
+    public static function resolve_provider( string $key ): ?AI_Provider {
+        return self::$providers[ $key ] ?? self::get_first_provider();
     }
 
     /**

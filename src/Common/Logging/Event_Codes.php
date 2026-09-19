@@ -60,11 +60,6 @@ final class Event_Codes {
 	public const PROVIDER_CIRCUIT_CLOSED = 'provider_circuit_closed';
 	public const PROVIDER_RATE_LIMITED   = 'provider_rate_limited';
 
-	// Support access.
-	public const SUPPORT_ACCESS_GRANTED  = 'support_access_granted';
-	public const SUPPORT_ACCESS_REVOKED  = 'support_access_revoked';
-	public const SUPPORT_ACCESS_EXPIRED  = 'support_access_expired';
-
 	// Cancel / orphan.
 	public const ORPHAN_JOB_DETECTED     = 'orphan_job_detected';
 

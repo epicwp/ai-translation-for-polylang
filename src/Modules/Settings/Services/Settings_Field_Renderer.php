@@ -32,32 +32,27 @@ class Settings_Field_Renderer {
 	}
 
 	public function render_api_provider_field(): void {
-		$active_api = $this->settings_service->get_active_translation_api();
-		$providers  = AI_Provider_Registry::get_providers_for_options_with_availability();
+		$active_api = $this->active_provider_key();
+		$providers  = AI_Provider_Registry::get_providers_for_options();
+
+		// One registered provider: nothing to choose, so name it. The option
+		// is then absent from the form and the sanitizer stores that provider.
+		if ( 1 === \count( $providers ) ) {
+			?>
+			<span id="pllat_translator_api" class="pllat-provider-name"><?php echo \esc_html( (string) \reset( $providers ) ); ?></span>
+			<?php
+			return;
+		}
 		?>
 		<select name="pllat_translator_api" id="pllat_translator_api" class="regular-text">
-			<?php foreach ( $providers as $api_key => $provider_info ) : ?>
-				<?php
-				$is_available = $provider_info['available'];
-				$label        = $provider_info['name'];
-				if ( ! $is_available ) {
-					$label .= ' ' . \__( '(Coming Soon)', 'epicwp-ai-translation-for-polylang' );
-				}
-				?>
-				<option value="<?php echo \esc_attr( $api_key ); ?>"
-						<?php \selected( $active_api, $api_key ); ?>
-						<?php \disabled( ! $is_available ); ?>>
+			<?php foreach ( $providers as $api_key => $label ) : ?>
+				<option value="<?php echo \esc_attr( $api_key ); ?>" <?php \selected( $active_api, $api_key ); ?>>
 					<?php echo \esc_html( $label ); ?>
 				</option>
 			<?php endforeach; ?>
 		</select>
 		<p class="description">
 			<?php \esc_html_e( 'Select the AI provider for translations.', 'epicwp-ai-translation-for-polylang' ); ?>
-			<?php if ( ! AI_Provider_Registry::is_provider_available( $active_api ) ) : ?>
-				<br><strong style="color: #d63638;">
-					<?php \esc_html_e( 'Note: Your selected provider is not available yet. OpenAI will be used as fallback.', 'epicwp-ai-translation-for-polylang' ); ?>
-				</strong>
-			<?php endif; ?>
 		</p>
 		<?php
 	}
@@ -69,7 +64,7 @@ class Settings_Field_Renderer {
 		$provider      = $args['provider'];
 		$api_key_value = $this->settings_service->get_translation_api_key( $provider );
 		// The test endpoint pings the saved active provider, so an unsaved key cannot be tested.
-		$can_test = '' !== $api_key_value && $provider === $this->settings_service->get_active_translation_api();
+		$can_test = '' !== $api_key_value && $provider === $this->active_provider_key();
 		?>
 		<div class="api-key-row" data-api="<?php echo \esc_attr( $provider ); ?>">
 			<input type="password"
@@ -130,6 +125,17 @@ class Settings_Field_Renderer {
 			?>
 		</p>
 		<?php
+	}
+
+	/**
+	 * The provider the stored key stands for, resolved like AI_Provider_Factory
+	 * does: a key no registered provider answers to (a site that moved from
+	 * an edition with more providers) means the first registered provider, so
+	 * Test connection works before the settings are saved once.
+	 */
+	private function active_provider_key(): string {
+		$active = $this->settings_service->get_active_translation_api();
+		return AI_Provider_Registry::resolve_provider( $active )?->get_provider_key() ?? $active;
 	}
 
 	private function get_api_key_description( string $api ): string {

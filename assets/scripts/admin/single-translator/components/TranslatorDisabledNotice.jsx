@@ -7,7 +7,7 @@
 import { Notice } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
-export function LicenseNotice() {
+export function TranslatorDisabledNotice() {
 	return (
 		<Notice status="warning" isDismissible={false}>
 			{__('A valid Pro license is required to use the single translator', 'polylang-ai-automatic-translation')}.{' '}
@@ -18,4 +18,4 @@ export function LicenseNotice() {
 	);
 }
 
-export default LicenseNotice;
+export default TranslatorDisabledNotice;

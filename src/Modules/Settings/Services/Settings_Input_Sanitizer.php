@@ -24,12 +24,13 @@ class Settings_Input_Sanitizer {
 	 * @param mixed $value The raw input value.
 	 */
 	public function sanitize_api_provider( $value ): string {
-		if ( null === $value || ! \is_string( $value ) ) {
-			return 'openai';
+		$providers = AI_Provider_Registry::get_providers_for_options();
+		if ( \is_string( $value ) && \array_key_exists( $value, $providers ) ) {
+			return $value;
 		}
 
-		$providers = AI_Provider_Registry::get_providers_for_options();
-		return \array_key_exists( $value, $providers ) ? $value : 'openai';
+		// Unknown or absent (a single provider renders as text, not a select): the first registered provider.
+		return (string) ( \array_key_first( $providers ) ?? 'openai' );
 	}
 
 	/**
