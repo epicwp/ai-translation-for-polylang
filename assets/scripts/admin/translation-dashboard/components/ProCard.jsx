@@ -2,7 +2,8 @@ import { __ } from "@wordpress/i18n";
 
 /**
  * Free edition stand-in for the bulk actions: a sentence with the upgrade
- * link (localized by Upsell_Service). No disabled control on purpose.
+ * link (localized by Upsell_Service). No disabled control on purpose. The
+ * free entry (index.free.jsx) passes it to the dashboard as the card actions.
  */
 const ProCard = () => (
   <p className="pllat-m-0 pllat-text-xs pllat-text-gray-500">

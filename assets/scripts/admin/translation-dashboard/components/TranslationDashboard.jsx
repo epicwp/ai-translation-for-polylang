@@ -9,21 +9,20 @@ import InfoBox from "./InfoBox";
 import EmptyState from "./EmptyState";
 import PreflightFailedDialog from "../../components/PreflightFailedDialog";
 
-// `__PLLAT_EDITION__` is a compile-time constant (webpack DefinePlugin). The
-// pro branches below are dead code in the free build, so the bulk actions,
-// the Strings tab and their hooks never reach the free bundle. Their modules
-// are required inside the branch, so the free build never resolves them and
-// the free zip ships the sources without them.
-const useDashboardActions = __PLLAT_EDITION__ === 'pro' ? require("../hooks/useDashboardActions").useDashboardActions : null;
-const TabNavigation = __PLLAT_EDITION__ === 'pro' ? require("./TabNavigation").default : null;
-const StringsTab = __PLLAT_EDITION__ === 'pro' ? require("./StringsTab").default : null;
-
-const TranslationDashboard = () => {
+// The bundle entry (index.<edition>.jsx) composes the dashboard: the actions
+// hook, the tab navigation, the extra tabs, the card actions and the config
+// modal come in as props.
+const TranslationDashboard = ({
+  useActions = () => null,
+  TabNavigation = null,
+  tabs = {},
+  CardActions,
+  ConfigModal = null,
+}) => {
   const { data, isFetching, isPolling, hasActiveTranslations, refetch } = useDashboardPolling();
-  // __PLLAT_EDITION__ is a build-time constant (webpack DefinePlugin), so the hook
-  // order is fixed per bundle and the rules of hooks hold for each build.
-  const actions = __PLLAT_EDITION__ === 'pro' ? useDashboardActions(refetch) : null;
+  const actions = useActions(refetch);
   const [activeTab, setActiveTab] = useState("content");
+  const ActiveTab = activeTab !== "content" ? tabs[activeTab] : null;
 
   // Empty states, in priority order. The first two come from the localized
   // config so they show without waiting for the first fetch; the third needs
@@ -64,7 +63,7 @@ const TranslationDashboard = () => {
         <div className="pllat-flex-1 pllat-min-w-0">
           <DashboardHeader data={data} />
 
-          {__PLLAT_EDITION__ === 'pro' && (
+          {TabNavigation && (
             <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
           )}
 
@@ -112,6 +111,8 @@ const TranslationDashboard = () => {
                   currentStatus={contentType.translationState}
                   activeRunId={contentType.runId}
                   runProgress={contentType.runProgress}
+                  Actions={CardActions}
+                  ConfigModal={ConfigModal}
                 />
               ))}
             </div>
@@ -119,7 +120,7 @@ const TranslationDashboard = () => {
             )
           )}
 
-          {__PLLAT_EDITION__ === 'pro' && activeTab === "strings" && <StringsTab />}
+          {ActiveTab && <ActiveTab />}
 
         </div>
 
@@ -129,7 +130,7 @@ const TranslationDashboard = () => {
         </div>
       </div>
 
-      {__PLLAT_EDITION__ === 'pro' && actions.preflightFailure && (
+      {actions?.preflightFailure && (
         <PreflightFailedDialog
           preflight={actions.preflightFailure}
           scope="bulk"

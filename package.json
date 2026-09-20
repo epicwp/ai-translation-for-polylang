@@ -14,10 +14,10 @@
   },
   "sideEffects": false,
   "scripts": {
-    "build:js": "wp-scripts build --source-path=assets/scripts admin/translation-dashboard=admin/translation-dashboard/index.jsx admin/single-translator=admin/single-translator/index.jsx",
+    "build:js": "wp-scripts build",
     "build:free": "PLLAT_EDITION=free PLLAT_DIST_DIR=dist-free npm run build:js",
     "build": "npm run build:js && npm run build:css",
-    "start": "wp-scripts start --source-path=assets/scripts admin/translation-dashboard=admin/translation-dashboard/index.jsx admin/single-translator=admin/single-translator/index.jsx",
+    "start": "wp-scripts start",
     "build:css": "tailwindcss build -i ./assets/styles/admin-input.css -o ./dist/admin/admin.css",
     "watch:css": "tailwindcss build -i ./assets/styles/admin-input.css -o ./dist/admin/admin.css --watch",
     "test:scripts": "node --test scripts/*.test.js"

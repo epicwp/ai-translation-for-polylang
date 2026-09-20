@@ -5,6 +5,7 @@ namespace PLLAT\Content\Services;
 
 \defined( 'ABSPATH' ) || exit;
 
+use PLLAT\Common\Helpers;
 use PLLAT\Common\Interfaces\Language_Manager;
 use PLLAT\Content\Services\Traits\Reference_Parsing_Trait;
 use PLLAT\Translator\Models\Translatables\Translatable_Term;
@@ -91,7 +92,7 @@ class Term_Content_Service {
 				// Unserialize so WordPress can properly handle array storage.
 				// Translations are stored serialized in task table (TEXT column), but update_term_meta()
 				// expects the actual value type - it handles serialization internally.
-				$result = $meta_updater( $term_id, $reference_info['field'], \maybe_unserialize( $translation ) );
+				$result = $meta_updater( $term_id, $reference_info['field'], Helpers::maybe_unserialize( $translation ) );
 				break;
 			case 'custom_data':
 				\do_action(

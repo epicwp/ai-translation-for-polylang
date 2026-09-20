@@ -1,7 +1,7 @@
 /**
  * Pro-edition notice shown in place of the translator when the site has no
- * valid license. index.jsx mounts it behind `__PLLAT_EDITION__ === 'pro'`, so
- * the free bundle drops it.
+ * valid license. The pro entry (index.pro.jsx) mounts it instead of the
+ * translator (#532).
  */
 
 import { Notice } from '@wordpress/components';

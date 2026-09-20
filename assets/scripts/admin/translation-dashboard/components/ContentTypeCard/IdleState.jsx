@@ -1,8 +1,8 @@
 import { __ } from "@wordpress/i18n";
 
 const IdleState = ({ onConfigureTranslation }) => {
-  // Compile-time edition branch: only the pro dashboard localizes the license state.
-  const licenseValid = __PLLAT_EDITION__ === 'pro' ? window.pllat?.licenseValid || false : true;
+  // The pro dashboard localizes the license state (this file is pro-only).
+  const licenseValid = window.pllat?.licenseValid || false;
 
   const handleClick = () => {
     console.log("IdleState button clicked");

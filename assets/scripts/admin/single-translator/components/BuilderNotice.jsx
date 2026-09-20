@@ -1,7 +1,7 @@
 /**
  * Free-edition notice on posts whose layout a page builder owns: the layout
- * is copied as-is, translating it in place is Pro. SingleTranslator renders
- * it behind `__PLLAT_EDITION__ !== 'pro'`, so the pro bundle drops it.
+ * is copied as-is, translating it in place is Pro. The free entry
+ * (index.free.jsx) passes it to SingleTranslator as its notice.
  */
 
 import { useState } from '@wordpress/element';

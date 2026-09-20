@@ -8,7 +8,7 @@ use XWP\DI\Decorators\Action;
 use XWP\DI\Decorators\Handler;
 
 /**
- * Handles display and functionality of the bulk translation page in the admin area.
+ * Handles display and functionality of the translation dashboard page in the admin area.
  */
 #[Handler( tag: 'admin_menu', priority: 10, context: Handler::CTX_ADMIN )]
 class Admin_Page_Handler {

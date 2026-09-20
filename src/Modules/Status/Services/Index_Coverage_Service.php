@@ -5,6 +5,7 @@ namespace PLLAT\Status\Services;
 
 \defined( 'ABSPATH' ) || exit;
 
+use PLLAT\Common\Helpers;
 use PLLAT\Translation_Index\Repositories\Translation_Index_Repository;
 
 /**
@@ -101,7 +102,7 @@ class Index_Coverage_Service {
             if ( ! \is_string( $description ) || '' === $description ) {
                 continue;
             }
-            $map = \maybe_unserialize( $description );
+            $map = Helpers::maybe_unserialize( $description );
             if ( ! \is_array( $map ) ) {
                 continue;
             }

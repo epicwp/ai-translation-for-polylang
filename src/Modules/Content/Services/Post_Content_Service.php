@@ -5,6 +5,7 @@ namespace PLLAT\Content\Services;
 
 \defined( 'ABSPATH' ) || exit;
 
+use PLLAT\Common\Helpers;
 use PLLAT\Common\Interfaces\Language_Manager;
 use PLLAT\Content\Services\Traits\Reference_Parsing_Trait;
 use PLLAT\Translator\Models\Translatables\Translatable_Post;
@@ -81,7 +82,7 @@ class Post_Content_Service {
                 // expects the actual value type - it handles serialization internally.
                 // This matches ACF handler pattern (ACF_Post_Handler.php:104).
                 $translatable = Translatable_Post::get_instance( $post_id );
-                $result       = $translatable->update_meta( $reference_info['field'], \maybe_unserialize( $translation ) );
+                $result       = $translatable->update_meta( $reference_info['field'], Helpers::maybe_unserialize( $translation ) );
 
                 /**
                  * Fires after a post meta field has been updated with a translation.

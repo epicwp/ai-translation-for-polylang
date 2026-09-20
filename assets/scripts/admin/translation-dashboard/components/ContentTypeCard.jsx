@@ -1,13 +1,9 @@
 import { useState, useEffect, memo } from "@wordpress/element";
 import CardHeader from "./ContentTypeCard/CardHeader";
 import LanguageProgressList from "./ContentTypeCard/LanguageProgressList";
-import ProCard from "./ProCard";
 
-// Pro-only modules, required inside the compile-time branch so the free
-// build never resolves them (see TranslationDashboard.jsx).
-const TranslationActions = __PLLAT_EDITION__ === 'pro' ? require("./ContentTypeCard/TranslationActions").default : null;
-const BulkConfigModal = __PLLAT_EDITION__ === 'pro' ? require("./BulkConfigModal").default : null;
-
+// `Actions` renders under the progress list and `ConfigModal` (optional) next
+// to the card; both come from the bundle entry through TranslationDashboard.
 const ContentTypeCard = ({
   name,
   title,
@@ -23,6 +19,8 @@ const ContentTypeCard = ({
   runProgress = null,
   isAutoTranslateEnabled = false,
   configPath = null,
+  Actions,
+  ConfigModal = null,
 }) => {
   const [showConfigModal, setShowConfigModal] = useState(false);
   const [isStarting, setIsStarting] = useState(false);
@@ -81,25 +79,20 @@ const ContentTypeCard = ({
           <LanguageProgressList languageStats={languageStats} />
         </div>
 
-        {/* Compile-time edition branch: the free bundle keeps ProCard only. */}
-        {__PLLAT_EDITION__ === 'pro' ? (
-          <TranslationActions
-            hasUntranslatedItems={hasUntranslatedItems}
-            isAutoTranslateEnabled={isAutoTranslateEnabled}
-            currentStatus={currentStatus}
-            activeRunId={activeRunId}
-            runProgress={runProgress}
-            isStarting={isStarting}
-            onConfigureTranslation={handleConfigureClick}
-            onCancelRun={onCancelRun}
-          />
-        ) : (
-          <ProCard />
-        )}
+        <Actions
+          hasUntranslatedItems={hasUntranslatedItems}
+          isAutoTranslateEnabled={isAutoTranslateEnabled}
+          currentStatus={currentStatus}
+          activeRunId={activeRunId}
+          runProgress={runProgress}
+          isStarting={isStarting}
+          onConfigureTranslation={handleConfigureClick}
+          onCancelRun={onCancelRun}
+        />
       </div>
 
-      {__PLLAT_EDITION__ === 'pro' && (
-        <BulkConfigModal
+      {ConfigModal && (
+        <ConfigModal
           isOpen={showConfigModal}
           onClose={() => setShowConfigModal(false)}
           contentType={{

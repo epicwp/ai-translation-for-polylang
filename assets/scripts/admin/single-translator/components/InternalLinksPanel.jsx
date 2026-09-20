@@ -1,8 +1,9 @@
 /**
  * Internal link translation panel (Pro).
  *
- * SingleTranslator renders it behind the `__PLLAT_EDITION__` gate, so this
- * component and the internal-links REST call never reach the free bundle.
+ * The pro entry (index.pro.jsx) passes it to SingleTranslator as its extra
+ * panel, so this component and the internal-links REST call are part of the
+ * pro bundle only.
  */
 
 import { useState } from '@wordpress/element';

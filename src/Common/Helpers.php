@@ -244,6 +244,23 @@ class Helpers {
     }
 
     /**
+     * Unserializes a value the way maybe_unserialize() does, without
+     * instantiating classes: a serialized object comes back as
+     * __PHP_Incomplete_Class instead of a live object, so a crafted payload
+     * can never run a __wakeup() or __destruct().
+     *
+     * @param mixed $value A serialized string, or any other value.
+     * @return mixed The unserialized value, or the value as it was.
+     */
+    public static function maybe_unserialize( mixed $value ): mixed {
+        if ( ! \is_string( $value ) || ! \is_serialized( $value ) ) {
+            return $value;
+        }
+        // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize -- allowed_classes=false: no object is ever instantiated.
+        return \unserialize( \trim( $value ), array( 'allowed_classes' => false ) );
+    }
+
+    /**
      * Set the max execution time for the current request.
      *
      * @param int $time_limit The time limit.

@@ -12,6 +12,7 @@ namespace PLLAT\Translator\Services;
 
 \defined( 'ABSPATH' ) || exit;
 
+use PLLAT\Common\Helpers;
 use PLLAT\Content\Services\Content_Service;
 
 /**
@@ -79,7 +80,7 @@ class Field_Translator {
             return $value;
         }
 
-        $original_value = \maybe_unserialize( $value );
+        $original_value = Helpers::maybe_unserialize( $value );
 
         // Handle arrays: skip empty, skip unless explicitly allowed.
         if ( \is_array( $original_value ) ) {
