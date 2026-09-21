@@ -4,7 +4,7 @@ Tags: polylang, ai translation, automatic translation, translation, chatgpt
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 4.22.4
+Stable tag: 4.23.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -253,12 +253,33 @@ No other external requests are made. The plugin sends no usage data to the plugi
 
 == Changelog ==
 
+= 4.23.0 =
+
+**What's New**
+
+* Added a notice box to display attribution on the community screen.
+* Included attribution details in the Roundtable configuration.
+* Enabled identification using email and added support for email metadata.
+* Introduced an option to opt into SDK beta mode within the Roundtable feature.
+* Added a new Community tab under Languages for easier access to Roundtable SDK (local use).
+
+**Improvements**
+
+* Allowed configuration overrides for hub URL and project key to support local setups.
+
+**Bug Fixes**
+
+* Restricted the Community module to pro users only.
+
 = 4.22.4 =
 
 **Bug Fixes**
 
-* Fixed an issue with edition handling to ensure correct translation bundles
-* Improved security by safely processing meta values without risking unwanted code execution
+* Meta values are now unserialized without instantiating PHP classes, closing a possible object-injection path during translation write-back.
+
+**Free edition**
+
+* The free edition's shipped JavaScript sources no longer contain edition branches; the editions are composed at the bundle entries. No change in behaviour for Pro.
 
 = 4.22.3 =
 
@@ -418,12 +439,6 @@ No other external requests are made. The plugin sends no usage data to the plugi
 * Fixed issue with stuck translation tasks by improving worker handling
 * Improved preflight checks with clearer, actionable messages
 * Prevented accidental deletion of jobs by resetting their status correctly
-
-= 4.18.5 =
-
-**Bug Fixes**
-
-* Fixed an issue where incomplete AI translations incorrectly triggered the circuit breaker
 
 = Older versions =
 

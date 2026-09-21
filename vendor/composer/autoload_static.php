@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit56c6278e1f24ea363ffca2ea1085ca0d
+class ComposerStaticInita4c5b28026f598214299711f39e6a149
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -66,6 +66,10 @@ class ComposerStaticInit56c6278e1f24ea363ffca2ea1085ca0d
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
+        ),
+        'E' =>
+        array (
+            'EpicWP\\Roundtable\\' => 18,
         ),
         'D' =>
         array (
@@ -157,6 +161,10 @@ class ComposerStaticInit56c6278e1f24ea363ffca2ea1085ca0d
         'GuzzleHttp\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'EpicWP\\Roundtable\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/epicwp/wp-roundtable/src',
         ),
         'DI\\' =>
         array (
@@ -254,6 +262,36 @@ class ComposerStaticInit56c6278e1f24ea363ffca2ea1085ca0d
         'DI\\Proxy\\NativeProxyFactory' => __DIR__ . '/..' . '/php-di/php-di/src/Proxy/NativeProxyFactory.php',
         'DI\\Proxy\\ProxyFactory' => __DIR__ . '/..' . '/php-di/php-di/src/Proxy/ProxyFactory.php',
         'DI\\Proxy\\ProxyFactoryInterface' => __DIR__ . '/..' . '/php-di/php-di/src/Proxy/ProxyFactoryInterface.php',
+        'EpicWP\\Roundtable\\Admin\\Page' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/Admin/Page.php',
+        'EpicWP\\Roundtable\\CaseDraftController' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/CaseDraftController.php',
+        'EpicWP\\Roundtable\\CasesController' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/CasesController.php',
+        'EpicWP\\Roundtable\\Chat\\SseParser' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/Chat/SseParser.php',
+        'EpicWP\\Roundtable\\CommentsController' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/CommentsController.php',
+        'EpicWP\\Roundtable\\Config' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/Config.php',
+        'EpicWP\\Roundtable\\Consumer' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/Consumer.php',
+        'EpicWP\\Roundtable\\Event' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/Event.php',
+        'EpicWP\\Roundtable\\HistoryController' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/HistoryController.php',
+        'EpicWP\\Roundtable\\Html\\HtmlToMarkdown' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/Html/HtmlToMarkdown.php',
+        'EpicWP\\Roundtable\\Http\\CurlStreamingTransport' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/Http/CurlStreamingTransport.php',
+        'EpicWP\\Roundtable\\Http\\StreamingTransport' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/Http/StreamingTransport.php',
+        'EpicWP\\Roundtable\\Http\\Transport' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/Http/Transport.php',
+        'EpicWP\\Roundtable\\Http\\TransportException' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/Http/TransportException.php',
+        'EpicWP\\Roundtable\\Http\\TransportResponse' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/Http/TransportResponse.php',
+        'EpicWP\\Roundtable\\Http\\WpHttpTransport' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/Http/WpHttpTransport.php',
+        'EpicWP\\Roundtable\\HubClient' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/HubClient.php',
+        'EpicWP\\Roundtable\\HubException' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/HubException.php',
+        'EpicWP\\Roundtable\\MessageController' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/MessageController.php',
+        'EpicWP\\Roundtable\\MyCasesController' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/MyCasesController.php',
+        'EpicWP\\Roundtable\\ParticipatingCasesController' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/ParticipatingCasesController.php',
+        'EpicWP\\Roundtable\\PublishController' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/PublishController.php',
+        'EpicWP\\Roundtable\\Rest\\Gate' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/Rest/Gate.php',
+        'EpicWP\\Roundtable\\Roundtable' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/Roundtable.php',
+        'EpicWP\\Roundtable\\Session' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/Session.php',
+        'EpicWP\\Roundtable\\SessionController' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/SessionController.php',
+        'EpicWP\\Roundtable\\StreamController' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/StreamController.php',
+        'EpicWP\\Roundtable\\TopicController' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/TopicController.php',
+        'EpicWP\\Roundtable\\TurnResult' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/TurnResult.php',
+        'EpicWP\\Roundtable\\VotesController' => __DIR__ . '/..' . '/epicwp/wp-roundtable/src/VotesController.php',
         'GuzzleHttp\\BodySummarizer' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/BodySummarizer.php',
         'GuzzleHttp\\BodySummarizerInterface' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/BodySummarizerInterface.php',
         'GuzzleHttp\\Client' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Client.php',
@@ -764,10 +802,10 @@ class ComposerStaticInit56c6278e1f24ea363ffca2ea1085ca0d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit56c6278e1f24ea363ffca2ea1085ca0d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit56c6278e1f24ea363ffca2ea1085ca0d::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit56c6278e1f24ea363ffca2ea1085ca0d::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit56c6278e1f24ea363ffca2ea1085ca0d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita4c5b28026f598214299711f39e6a149::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita4c5b28026f598214299711f39e6a149::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInita4c5b28026f598214299711f39e6a149::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInita4c5b28026f598214299711f39e6a149::$classMap;
 
         }, null, ClassLoader::class);
     }

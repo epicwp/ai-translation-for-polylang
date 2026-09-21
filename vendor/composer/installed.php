@@ -37,6 +37,17 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'epicwp/wp-roundtable' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '47ce28cc7a1a5513d1dc417b8741f45b6609b865',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../epicwp/wp-roundtable',
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
+            'dev_requirement' => false,
+        ),
         'guzzlehttp/guzzle' => array(
             'pretty_version' => '7.8.2',
             'version' => '7.8.2.0',
