@@ -4,7 +4,7 @@ Tags: polylang, ai translation, automatic translation, translation, chatgpt
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 4.23.0
+Stable tag: 4.23.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -253,23 +253,23 @@ No other external requests are made. The plugin sends no usage data to the plugi
 
 == Changelog ==
 
+= 4.23.1 =
+
+**Bug Fixes**
+
+* Fixed an issue with admin context selection to improve compatibility with Polylang actions.
+
 = 4.23.0 =
 
 **What's New**
 
-* Added a notice box to display attribution on the community screen.
-* Included attribution details in the Roundtable configuration.
-* Enabled identification using email and added support for email metadata.
-* Introduced an option to opt into SDK beta mode within the Roundtable feature.
-* Added a new Community tab under Languages for easier access to Roundtable SDK (local use).
+* **Community tab**: a new Community section under Languages where you can browse topics from other users, submit bug reports, feature requests and questions with a rich text editor, and vote or comment on existing topics. Submissions are reviewed by the EPIC WP team before they become visible to the community. Available to licensed users.
+* Official topics and replies from the EPIC WP team are marked with a Maintainer badge.
+* The community screen stays clean: admin notices from other plugins are not shown there.
 
 **Improvements**
 
-* Allowed configuration overrides for hub URL and project key to support local setups.
-
-**Bug Fixes**
-
-* Restricted the Community module to pro users only.
+* Community submissions include your site's system report so we can help faster, visible only to the EPIC WP team.
 
 = 4.22.4 =
 
@@ -426,19 +426,6 @@ No other external requests are made. The plugin sends no usage data to the plugi
 **Bug Fixes**
 
 * Fixed an issue with the installer to ensure smooth rollback from the beta version
-
-= 4.18.6 =
-
-**Improvements**
-
-* Simplified job creation process for smoother translation management
-* Restored administrator role for support access to improve troubleshooting
-
-**Bug Fixes**
-
-* Fixed issue with stuck translation tasks by improving worker handling
-* Improved preflight checks with clearer, actionable messages
-* Prevented accidental deletion of jobs by resetting their status correctly
 
 = Older versions =
 

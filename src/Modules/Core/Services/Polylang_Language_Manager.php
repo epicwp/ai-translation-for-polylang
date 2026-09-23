@@ -17,6 +17,17 @@ use PLLAT\Common\Interfaces\Language_Manager;
  */
 class Polylang_Language_Manager implements Language_Manager {
     /**
+     * Polylang's own actions, fired where Polylang Pro fires them itself
+     * (modules/sync/sync-content.php, modules/sync-post/sync-post-model.php):
+     * copy_term() and copy_post_free() create a translation the way Polylang
+     * Pro does, so Polylang's sync module, Polylang Pro's ACF dispatcher and
+     * Polylang for WooCommerce treat it as one of Polylang's.
+     */
+    private const POLYLANG_DUPLICATE_TERM    = 'pll_duplicate_term';
+    private const POLYLANG_CREATED_SYNC_POST = 'pll_created_sync_post';
+    private const POLYLANG_SAVE_POST         = 'pll_save_post';
+
+    /**
      * Get the default language of the site.
      *
      * @return string The default language code.
@@ -349,7 +360,7 @@ class Polylang_Language_Manager implements Language_Manager {
 
         // Notify integrations (Polylang sync copies term metas, ACF copies fields).
         // PLL()->model->term->insert() does not fire this action itself.
-        \do_action( 'pll_duplicate_term', $term->term_id, $tr_term_id, $target_lang );
+        \do_action( self::POLYLANG_DUPLICATE_TERM, $term->term_id, $tr_term_id, $target_lang );
 
         return $tr_term_id;
     }
@@ -542,7 +553,7 @@ class Polylang_Language_Manager implements Language_Manager {
         // leaves all related objects (variations, etc.) on the source side,
         // resulting in silent broken translations for WC variable products
         // when running on Polylang Free + PLLWC.
-        \do_action( 'pll_created_sync_post', $source_id, $tr_id, $language );
+        \do_action( self::POLYLANG_CREATED_SYNC_POST, $source_id, $tr_id, $language );
 
         return $tr_id;
     }
@@ -615,7 +626,7 @@ class Polylang_Language_Manager implements Language_Manager {
             );
         }
 
-        \do_action( 'pll_save_post', $source_id, \get_post( $source_id ), $translations );
+        \do_action( self::POLYLANG_SAVE_POST, $source_id, \get_post( $source_id ), $translations );
 
         return $tr_id;
     }

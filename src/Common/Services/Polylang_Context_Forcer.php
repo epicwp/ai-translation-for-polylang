@@ -43,8 +43,9 @@ namespace PLLAT\Common\Services;
  * HTTP loopback is functionally equivalent to cron - it's a background process that
  * copies/creates content. The issue is that AS doesn't trigger `wp_doing_cron()`.
  *
- * This class simply makes AS requests detectable as the cron-like context they are,
- * aligning with Polylang's intended design.
+ * This class answers Polylang's `pll_context` filter (the documented way to choose
+ * the class Polylang instantiates, since Polylang 2.6) with `PLL_Admin` for those
+ * requests, so Polylang loads the same context it loads for cron.
  *
  * ## Timing Requirements
  *
@@ -59,7 +60,7 @@ namespace PLLAT\Common\Services;
  *
  * Then hooks fire:
  *   ├── plugins_loaded priority 0: Our DI container
- *   └── plugins_loaded priority 1: Polylang checks if(defined('PLL_ADMIN')) ← Already defined!
+ *   └── plugins_loaded priority 1: Polylang applies pll_context ← our filter answers PLL_Admin
  * ```
  *
  * @since 4.4.0
@@ -79,18 +80,13 @@ class Polylang_Context_Forcer {
 	);
 
 	/**
-	 * Initialize the context forcer.
+	 * Registers the context filter for Action Scheduler requests that run our actions.
 	 *
 	 * Must be called BEFORE Polylang loads (before plugins_loaded priority 1).
-	 * Safe to call multiple times - will only define PLL_ADMIN once.
 	 *
 	 * @return void
 	 */
 	public static function init(): void {
-		if ( defined( 'PLL_ADMIN' ) ) {
-			return;
-		}
-
 		if ( ! self::is_action_scheduler_request() ) {
 			return;
 		}
@@ -99,7 +95,21 @@ class Polylang_Context_Forcer {
 			return;
 		}
 
-		define( 'PLL_ADMIN', true );
+		\add_filter( 'pll_context', array( self::class, 'force_admin_context' ) );
+	}
+
+	/**
+	 * Answers Polylang's context filter with the admin class.
+	 *
+	 * Polylang's own admin choices (PLL_Settings, or PLL_Admin when PLL_ADMIN is
+	 * defined, as Polylang for WooCommerce does) are kept; a frontend or REST
+	 * context is replaced.
+	 *
+	 * @param string $class_name The class Polylang chose.
+	 * @return string
+	 */
+	public static function force_admin_context( string $class_name ): string {
+		return \in_array( $class_name, array( 'PLL_Settings', 'PLL_Admin' ), true ) ? $class_name : 'PLL_Admin';
 	}
 
 	/**
