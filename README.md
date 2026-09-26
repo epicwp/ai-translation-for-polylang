@@ -6,13 +6,11 @@ Free WordPress plugin for automatic AI translation with Polylang: translate post
 
 This is the free edition of Polylang AI Automatic Translation by EPIC WP. Both editions run the same translation engine; the [Pro edition](#pro-edition) adds bulk and automatic translation, page builder and custom field integrations, more AI providers and SEO meta.
 
-WordPress.org listing: https://wordpress.org/plugins/epicwp-ai-translation-for-polylang/ (submission in progress)
+WordPress.org listing: https://wordpress.org/plugins/epicwp-ai-translation-for-polylang/
 
-<!-- TODO once the wordpress.org listing is live, add the plugin badges:
 [![Plugin version](https://img.shields.io/wordpress/plugin/v/epicwp-ai-translation-for-polylang)](https://wordpress.org/plugins/epicwp-ai-translation-for-polylang/)
 [![Active installs](https://img.shields.io/wordpress/plugin/installs/active/epicwp-ai-translation-for-polylang)](https://wordpress.org/plugins/epicwp-ai-translation-for-polylang/)
 [![Rating](https://img.shields.io/wordpress/plugin/rating/epicwp-ai-translation-for-polylang)](https://wordpress.org/plugins/epicwp-ai-translation-for-polylang/)
--->
 
 ## What it does
 
@@ -71,7 +69,7 @@ Translations run in the background through Action Scheduler (bundled), so you ca
 ## Installation
 
 1. Install and activate Polylang (or Polylang Pro) and add your languages under Languages > Languages.
-2. Install EPICWP AI Translation for Polylang. Once the WordPress.org listing is live: Plugins > Add New, search for "EPICWP AI Translation for Polylang", install and activate. Until then: download the ZIP of the latest `vX.Y.Z` tag from the [tags page](https://github.com/epicwp/ai-translation-for-polylang/tags), unzip it, rename the folder to `epicwp-ai-translation-for-polylang`, upload it to `wp-content/plugins/` and activate the plugin. The tree is the plugin exactly as shipped, including `vendor/` and the built `dist/` bundles, so it runs as is.
+2. Install EPICWP AI Translation for Polylang from the WordPress.org directory: Plugins > Add New, search for "EPICWP AI Translation for Polylang", install and activate. For a manual install, download the ZIP of the latest `vX.Y.Z` tag from the [tags page](https://github.com/epicwp/ai-translation-for-polylang/tags), unzip it, rename the folder to `epicwp-ai-translation-for-polylang` and upload it to `wp-content/plugins/`; the tree is the plugin exactly as shipped, including `vendor/` and the built `dist/` bundles.
 3. Go to Languages > AI Settings, paste your OpenAI API key and save. The post types and taxonomies you can translate are the ones you enabled for translation in Polylang.
 4. Open a post, page or term. In the AI Translation box, select the target languages and click Start Translation.
 5. Follow progress in the box, or on the Languages > AI Translation dashboard.
