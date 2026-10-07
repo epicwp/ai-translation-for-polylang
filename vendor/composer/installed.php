@@ -40,7 +40,7 @@
         'epicwp/wp-roundtable' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '47ce28cc7a1a5513d1dc417b8741f45b6609b865',
+            'reference' => '0bcdf101342580d904e9015f0b2e7c1bc00b3d0d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../epicwp/wp-roundtable',
             'aliases' => array(

@@ -4,7 +4,7 @@ Tags: polylang, ai translation, automatic translation, translation, chatgpt
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 4.23.1
+Stable tag: 4.24.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -253,11 +253,21 @@ No other external requests are made. The plugin sends no usage data to the plugi
 
 == Changelog ==
 
+= 4.24.0 =
+
+**What's New**
+
+* Added a working reply button with one-level comment threading to improve community interactions
+
+**Bug Fixes**
+
+* Fixed compatibility with Yoast SEO to ensure term SEO fields work correctly
+
 = 4.23.1 =
 
 **Bug Fixes**
 
-* Fixed an issue with admin context selection to improve compatibility with Polylang actions.
+* Background translation requests now take Polylang's admin context through Polylang's own `pll_context` filter instead of defining its `PLL_ADMIN` constant, and the Polylang actions fired after a copy are referenced as Polylang's. Behaviour is unchanged.
 
 = 4.23.0 =
 
@@ -420,12 +430,6 @@ No other external requests are made. The plugin sends no usage data to the plugi
 * Corrected translation of complex fields and media content to ensure completeness.
 * Addressed various UI glitches including duplicate activity feed entries and misleading notices.
 * Fixed stability problems with pipeline processing to prevent stalled or infinite loops during translation tasks.
-
-= 4.18.7 =
-
-**Bug Fixes**
-
-* Fixed an issue with the installer to ensure smooth rollback from the beta version
 
 = Older versions =
 

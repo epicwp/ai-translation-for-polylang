@@ -195,8 +195,10 @@ export function fetchComments(caseId) {
  * Post a comment on a public topic.
  * @param {string} caseId
  * @param {string} body HTML comment body (the proxy converts it to markdown server-side)
+ * @param {string} [parentId] The comment this replies to (one level deep); omitted for a
+ *   top-level comment.
  * @returns {Promise<{comment:object}|{error:{kind:string}}>}
  */
-export function postComment(caseId, body) {
-  return post('/cases/' + encodeURIComponent(caseId) + '/comments', { body });
+export function postComment(caseId, body, parentId) {
+  return post('/cases/' + encodeURIComponent(caseId) + '/comments', parentId ? { body, parent_id: parentId } : { body });
 }

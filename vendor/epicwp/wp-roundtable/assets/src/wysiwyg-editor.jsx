@@ -41,7 +41,9 @@ export function htmlHasText(html) {
  * the editor's *initial* content only (re-feeding it into TinyMCE on every
  * keystroke would fight its own cursor/undo state). Every edit is reported
  * back via `onInput(html)`. Pass a changing `resetNonce` to clear the editor
- * in place (e.g. after a successful submit) without unmounting it.
+ * in place (e.g. after a successful submit) without unmounting it. Pass a
+ * changing `focusNonce` to move keyboard focus into the editor (e.g. when
+ * the comment composer enters reply mode).
  *
  * Falls back to a plain, fully-controlled `<textarea>` when `window.wp.editor`
  * isn't available (defensive — the host page's `wp_enqueue_editor()` call
@@ -49,11 +51,11 @@ export function htmlHasText(html) {
  *
  * @param {{id:string, value:string, onInput:(html:string)=>void, disabled?:boolean,
  *   toolbar1:string, blockFormats?:string, height?:number, rows?:number,
- *   placeholder?:string, resetNonce?:number, className?:string}} props
+ *   placeholder?:string, resetNonce?:number, focusNonce?:number, className?:string}} props
  */
 export function WysiwygEditor({
   id, value, onInput, disabled = false, toolbar1, blockFormats, height = 220,
-  rows = 8, placeholder, resetNonce = 0, className,
+  rows = 8, placeholder, resetNonce = 0, focusNonce = 0, className,
 }) {
   const onInputRef = useRef(onInput);
   onInputRef.current = onInput;
@@ -90,6 +92,16 @@ export function WysiwygEditor({
     ed.setContent('');
     onInputRef.current('');
   }, [resetNonce]);
+
+  useEffect(() => {
+    if (focusNonce <= 0) return;
+    if (!available) {
+      areaRef.current && areaRef.current.focus();
+      return;
+    }
+    const ed = window.tinymce && window.tinymce.get(id);
+    ed && ed.focus();
+  }, [focusNonce]);
 
   if (!available) {
     return (

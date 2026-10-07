@@ -97,14 +97,15 @@ final class CommentsController {
     public function handleCreate( // phpcs:ignore Squiz.Commenting.FunctionComment.IncorrectTypeHint -- `\WP_REST_Request<array<string, mixed>>` is a PHPStan generic; the native param type stays `\WP_REST_Request`.
         \WP_REST_Request $request,
     ): \WP_REST_Response {
-        $caseId = (string) $request->get_param( 'case_id' );
-        $body   = \trim( (string) $request->get_param( 'body' ) );
+        $caseId   = (string) $request->get_param( 'case_id' );
+        $body     = \trim( (string) $request->get_param( 'body' ) );
+        $parentId = $this->parentIdFrom( $request );
         if ( '' === $caseId || '' === $body ) {
             return new \WP_REST_Response( array( 'error' => array( 'kind' => 'invalid_request' ) ), 400 );
         }
 
         try {
-            $comment = $this->hubClient->createComment( $caseId, HtmlToMarkdown::convert( $body ) );
+            $comment = $this->hubClient->createComment( $caseId, HtmlToMarkdown::convert( $body ), $parentId );
         } catch ( \EpicWP\Roundtable\HubException $e ) {
             return new \WP_REST_Response(
                 array( 'error' => array( 'kind' => $e->kind() ) ),
@@ -113,6 +114,21 @@ final class CommentsController {
         }
 
         return new \WP_REST_Response( array( 'comment' => $comment ), 200 );
+    }
+
+    /**
+     * Read the optional `parent_id` param from the request (a reply's target comment id).
+     *
+     * @param \WP_REST_Request<array<string, mixed>> $request The incoming request.
+     *
+     * @return string|null The parent comment id, or null if not provided or not a non-empty
+     *                      string (a top-level comment).
+     */
+    private function parentIdFrom( // phpcs:ignore Squiz.Commenting.FunctionComment.IncorrectTypeHint -- `\WP_REST_Request<array<string, mixed>>` is a PHPStan generic; the native param type stays `\WP_REST_Request`.
+        \WP_REST_Request $request,
+    ): ?string {
+        $parentId = $request->get_param( 'parent_id' );
+        return \is_string( $parentId ) && '' !== $parentId ? $parentId : null;
     }
 
     /**

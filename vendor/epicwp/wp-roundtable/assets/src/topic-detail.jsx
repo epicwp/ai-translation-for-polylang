@@ -5,18 +5,18 @@ import { fetchComments, postComment } from './api.js';
 import { renderMarkdown } from './markdown.js';
 import { AgentAvatar, PersonAvatar } from './avatars.jsx';
 import { agentDisplayName } from './config.js';
-import { mapCommentToView } from './topics.js';
+import { buildThreadRows, mapCommentToView } from './topics.js';
 import { DisabledVote, VoteControl } from './vote-control.jsx';
 import { CommentEditor } from './comment-editor.jsx';
 import { CommentActions } from './comment-actions.jsx';
 import { htmlHasText } from './wysiwyg-editor.jsx';
 import { MaintainerBadge } from './badges.jsx';
 
-function CommentRow({ comment }) {
+export function CommentRow({ comment, isReply = false, onReply }) {
   const Ava = comment.isAgent ? AgentAvatar : PersonAvatar;
   const avaProps = comment.isAgent ? { size: 'sm' } : { initials: comment.initials, size: 'sm' };
   return (
-    <div class="rt-cm">
+    <div class={'rt-cm' + (isReply ? ' rt-cm-reply-row' : '')}>
       <Ava {...avaProps} class="rt-cm-ava" />
       <div class="rt-cm-body">
         <div class="rt-cm-who">
@@ -29,7 +29,7 @@ function CommentRow({ comment }) {
         {comment.isTombstone
           ? <p class="rt-cm-tomb">{comment.tombstoneLabel}</p>
           : <div class="rt-cm-txt rt-prose" dangerouslySetInnerHTML={{ __html: comment.html }} />}
-        {!comment.isTombstone && <CommentActions />}
+        {!comment.isTombstone && <CommentActions onReply={onReply} />}
       </div>
     </div>
   );
@@ -42,7 +42,9 @@ function repliesTitle(count, loading, error) {
   return count + ' replies';
 }
 
-function CommentComposer({ caseId, onPosted, disabled = false }) {
+function CommentComposer({
+  caseId, onPosted, disabled = false, replyTarget, focusNonce = 0, onCancelReply,
+}) {
   const [text, setText] = useState('');
   const [posting, setPosting] = useState(false);
   const [error, setError] = useState(false);
@@ -52,7 +54,7 @@ function CommentComposer({ caseId, onPosted, disabled = false }) {
     if (disabled || posting || !htmlHasText(text)) return;
     setPosting(true);
     setError(false);
-    const res = await postComment(caseId, text.trim());
+    const res = await postComment(caseId, text.trim(), replyTarget?.parentId);
     setPosting(false);
     if (res.error) {
       setError(true);
@@ -60,6 +62,7 @@ function CommentComposer({ caseId, onPosted, disabled = false }) {
     }
     setText('');
     setResetNonce((n) => n + 1);
+    onCancelReply && onCancelReply();
     onPosted();
   };
 
@@ -72,6 +75,9 @@ function CommentComposer({ caseId, onPosted, disabled = false }) {
       error={error}
       submitDisabled={disabled}
       resetNonce={resetNonce}
+      focusNonce={focusNonce}
+      replyTarget={replyTarget}
+      onCancelReply={onCancelReply}
     />
   );
 }
@@ -81,7 +87,15 @@ export function TopicDetail({ topic, onBack, onVoteChange }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [refreshNonce, setRefreshNonce] = useState(0);
+  const [replyTarget, setReplyTarget] = useState(null);
+  const [replyNonce, setReplyNonce] = useState(0);
   const agentName = agentDisplayName();
+
+  function startReply(target) {
+    setReplyTarget(target);
+    setReplyNonce((n) => n + 1);
+  }
+  const cancelReply = () => setReplyTarget(null);
 
   const loadComments = useCallback(async (cancelledRef) => {
     setLoading(true);
@@ -94,8 +108,10 @@ export function TopicDetail({ topic, onBack, onVoteChange }) {
       setComments([]);
       return;
     }
-    const rows = (res.comments || []).map((row) => mapCommentToView(row, agentName));
-    setComments(rows.reverse());
+    // Kept chronological (oldest-first, the hub's own order) — groupCommentThreads
+    // below both sorts top-level comments newest-first and orders each one's
+    // replies oldest-first from this same order.
+    setComments((res.comments || []).map((row) => mapCommentToView(row, agentName)));
   }, [topic.id, agentName]);
 
   useEffect(() => {
@@ -158,7 +174,14 @@ export function TopicDetail({ topic, onBack, onVoteChange }) {
             {!loading && !error && comments.length === 0 && <p class="rt-csec-empty">No comments yet.</p>}
             {!loading && !error && comments.length > 0 && (
               <div class="rt-cm-thread">
-                {comments.map((c) => <CommentRow key={c.id} comment={c} />)}
+                {buildThreadRows(comments).map((row) => (
+                  <CommentRow
+                    key={row.comment.id}
+                    comment={row.comment}
+                    isReply={row.isReply}
+                    onReply={() => startReply(row.replyTarget)}
+                  />
+                ))}
               </div>
             )}
           </Fragment>
@@ -173,6 +196,9 @@ export function TopicDetail({ topic, onBack, onVoteChange }) {
             onVoteChange && onVoteChange();
           }}
           disabled={topic.isPending}
+          replyTarget={replyTarget}
+          focusNonce={replyNonce}
+          onCancelReply={cancelReply}
         />
       </div>
     </div>

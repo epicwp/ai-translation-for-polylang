@@ -70,7 +70,26 @@ class Translatable_Term extends Base_Translatable {
      * @return mixed The meta value.
      */
     public function get_meta( string $key, bool $single = false ) {
-        return \get_term_meta( $this->id, $key, $single );
+        /**
+         * Filter to allow custom meta retrieval for terms.
+         * Integrations can use this to provide custom getters (e.g. Yoast's
+         * WPSEO_Taxonomy_Meta, which stores taxonomy-term SEO data outside
+         * the term meta table).
+         *
+         * @param callable $getter  Default getter function.
+         * @param int      $term_id Term ID.
+         * @param string   $key     Meta key.
+         * @param bool     $single  Whether to return single value.
+         */
+        $getter = \apply_filters(
+            'pllat_get_term_meta',
+            static fn( $id, $key, $single ) => \get_term_meta( $id, $key, $single ),
+            $this->id,
+            $key,
+            $single,
+        );
+
+        return $getter( $this->id, $key, $single );
     }
 
     /**

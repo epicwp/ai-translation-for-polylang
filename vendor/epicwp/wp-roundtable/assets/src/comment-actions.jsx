@@ -8,9 +8,11 @@ const UP_SVG = (
 );
 
 /**
- * Per-comment actions from the mockup. Voting/replies need hub APIs (post-MVP, hub §16).
+ * Per-comment actions. Reply is wired via `onReply` (one-level threading);
+ * comment voting still needs a hub API (post-MVP, hub §16) and stays disabled.
+ * @param {{onReply?:()=>void}} props
  */
-export function CommentActions() {
+export function CommentActions({ onReply }) {
   return (
     <div class="rt-cm-actions">
       <button
@@ -25,8 +27,8 @@ export function CommentActions() {
       <button
         type="button"
         class="rt-cm-action rt-cm-reply"
-        disabled
-        title="Nested replies — coming in a later release"
+        disabled={!onReply}
+        onClick={onReply}
       >
         Reply
       </button>

@@ -257,8 +257,12 @@ final class HubClient {
     /**
      * Post a new comment on a public case.
      *
-     * @param string $caseId The Case id.
-     * @param string $body   The comment body (markdown).
+     * @param string      $caseId   The Case id.
+     * @param string      $body     The comment body (markdown).
+     * @param string|null $parentId The id of the comment this replies to, or null for a
+     *                              top-level comment. Threading is one level deep — the hub
+     *                              silently flattens a reply-to-a-reply onto the grandparent.
+     *                              A reply's parent is always within the same case.
      *
      * @return array<string, mixed> The hub CommentResponse object.
      *
@@ -266,13 +270,14 @@ final class HubClient {
      *                  (403/429), a server error (5xx), a malformed response, or a network
      *                  failure. The project key is never in the message.
      */
-    public function createComment( string $caseId, string $body ): array {
+    public function createComment( string $caseId, string $body, ?string $parentId = null ): array {
         $url     = ( $this->config->hubBaseUrl ?? self::HUB_URL ) . '/cases/' . $caseId . '/comments';
         $payload = \array_merge(
             array(
                 'body'       => $body,
                 'subject_id' => $this->config->consumer->subjectId(),
             ),
+            $this->parentIdField( $parentId ),
             $this->emailField(),
             $this->licenceField(),
         );
@@ -639,6 +644,20 @@ final class HubClient {
         }
 
         return $decoded;
+    }
+
+    /**
+     * Optional `parent_id` field for a one-level-deep comment reply, when set.
+     *
+     * @param string|null $parentId The parent comment id, or null for a top-level comment.
+     *
+     * @return array<string, string> Zero or one keyed entry.
+     */
+    private function parentIdField( ?string $parentId ): array {
+        if ( null === $parentId ) {
+            return array();
+        }
+        return array( 'parent_id' => $parentId );
     }
 
     /**

@@ -94,6 +94,10 @@ body.wp-admin .rt-community-wrap > h1 { display:none; }
 #roundtable-app .rt-cm-thread .rt-cm { padding-bottom:18px; margin-bottom:18px; border-bottom:1px solid #eef1f5; }
 #roundtable-app .rt-cm-thread .rt-cm:last-child { padding-bottom:0; margin-bottom:0; border-bottom:none; }
 #roundtable-app .rt-cm-composer { margin-top:22px; padding-top:22px; border-top:1px solid var(--rt-line); }
+#roundtable-app .rt-reply-chip { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px; padding:6px 10px; background:#eceffe; border:1px solid rgba(56,88,233,.2); border-radius:8px; font-size:12.5px; color:var(--rt-ink-soft); }
+#roundtable-app .rt-reply-chip b { color:var(--rt-ink); font-weight:600; }
+#roundtable-app .rt-reply-chip-cancel { width:20px; height:20px; border:none; background:transparent; color:var(--rt-ink-faint); font-size:15px; line-height:1; border-radius:5px; cursor:pointer; padding:0; box-shadow:none; min-height:0; display:grid; place-items:center; }
+#roundtable-app .rt-reply-chip-cancel:hover { background:rgba(56,88,233,.12); color:var(--rt-ink); }
 #roundtable-app .rt-editor { background:var(--rt-panel); border:1px solid var(--rt-line); border-radius:10px; overflow:hidden; min-width:0; }
 #roundtable-app .rt-ed-top { display:flex; align-items:center; gap:8px; padding:8px 10px; border-bottom:1px solid #eef1f5; background:#fafbfd; }
 #roundtable-app .rt-ed-tabs { display:flex; gap:2px; }
@@ -111,6 +115,7 @@ body.wp-admin .rt-community-wrap > h1 { display:none; }
 #roundtable-app .rt-post-btn:hover { background:var(--rt-accent-ink); }
 #roundtable-app .rt-post-btn[disabled] { opacity:.6; cursor:default; }
 #roundtable-app .rt-cm { display:grid; grid-template-columns:32px 1fr; gap:12px; }
+#roundtable-app .rt-cm-reply-row { margin-left:44px; }
 #roundtable-app .rt-cm-who { font-size:13px; margin-bottom:5px; }
 #roundtable-app .rt-cm-who b { color:var(--rt-ink); font-weight:600; }
 #roundtable-app .rt-role-badge { font-size:11px; font-weight:600; color:var(--rt-accent-ink); background:#eceffe; border-radius:6px; padding:1px 7px; margin-left:6px; }
