@@ -4,7 +4,7 @@ Tags: polylang, ai translation, automatic translation, translation, chatgpt
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 4.24.0
+Stable tag: 4.24.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -253,6 +253,12 @@ No other external requests are made. The plugin sends no usage data to the plugi
 
 == Changelog ==
 
+= 4.24.1 =
+
+**Bug Fixes**
+
+* Fixed an issue where unnecessary files were included in the Pro version package
+
 = 4.24.0 =
 
 **What's New**
@@ -404,32 +410,6 @@ No other external requests are made. The plugin sends no usage data to the plugi
 * Resolved crashes when translating empty repeater or group fields.
 * Prevented loss of custom instructions during translation requests.
 * Fixed issues with URL preservation and label-value skipping in translations.
-
-= 4.19.0 =
-
-**What's New**
-
-* Added a new progress indicator to show prime operation status in the dashboard.
-* Introduced a migration ledger and fail-safe migration runner for smoother upgrades.
-* Added a System Report endpoint for remote diagnosis and index coverage checks.
-* Enabled parallel processing with a new concurrency filter for translation workers.
-* Launched a new Strings translation tab in the dashboard with improved user interface and chunked translation support.
-
-**Improvements**
-
-* Improved real-time progress updates and eliminated startup delays in the dashboard.
-* Enhanced translation filters and post-list AI column accuracy for better content management.
-* Streamlined user interface elements including cancel buttons and notification visuals.
-* Refined the single-translator experience with clearer feedback and auto-scroll for notices.
-* Optimized backend processes for better performance and reliability during translation runs.
-
-**Bug Fixes**
-
-* Fixed issues with bulk translation progress and post-list filters showing incorrect data.
-* Resolved authentication problems with Single Translator REST routes.
-* Corrected translation of complex fields and media content to ensure completeness.
-* Addressed various UI glitches including duplicate activity feed entries and misleading notices.
-* Fixed stability problems with pipeline processing to prevent stalled or infinite loops during translation tasks.
 
 = Older versions =
 
