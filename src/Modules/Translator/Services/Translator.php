@@ -113,6 +113,13 @@ class Translator {
      * the field is failed instead, letting the job's own attempt counter take
      * over rather than looping on a source that never settles.
      *
+     * batch_state is handed to every gap field in the unit (see
+     * Lean_Job_Worker::translate_fields()), so a state whose reference names a
+     * different field isn't this field's — same check freeze_source() already
+     * makes. Without it, that foreign state's fingerprint never matches this
+     * field's own source, so every field but the one that produced the state
+     * burns a restart on a run where nothing actually changed.
+     *
      * @param array<string, mixed> $context Translation context, modified in place.
      * @param string               $source  Source document as read this run.
      * @return array<string, mixed>|null Reusable batch state, or null to start over.
@@ -125,6 +132,16 @@ class Translator {
         $context['source_fingerprint'] = $fingerprint;
 
         if ( null === $state ) {
+            return null;
+        }
+
+        if ( isset( $state['reference'] ) && ( $context['reference'] ?? null ) !== $state['reference'] ) {
+            // Same cleanup as the drift-restart path below, minus the restart
+            // count and warning: this field never drifted, it just inherited
+            // a sibling's leftover state, so it starts over as if there were
+            // none.
+            unset( $context['batch_state'] );
+
             return null;
         }
 

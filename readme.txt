@@ -4,7 +4,7 @@ Tags: polylang, ai translation, automatic translation, translation, chatgpt
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 4.25.0
+Stable tag: 4.25.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -253,6 +253,12 @@ No other external requests are made. The plugin sends no usage data to the plugi
 
 == Changelog ==
 
+= 4.25.1 =
+
+**Bug Fixes**
+
+* Fixed an issue with batch processing to ensure smoother translation handling
+
 = 4.25.0 =
 
 **What's New**
@@ -379,27 +385,6 @@ No other external requests are made. The plugin sends no usage data to the plugi
 * Restored the option to translate Bricks array content
 * The single-post translator no longer reports completion before translation actually starts
 * Content edited during a translation run is now picked up correctly
-
-= 4.21.0 =
-
-**What's New**
-
-* Added token price display for every translation model in the selection dropdown
-* Added new Claude models Sonnet 5 and Opus 4.8 with optimized performance settings
-* Set OpenAI default model to GPT-5.4-nano for improved translations
-* Enabled Claude translations using the native Anthropic Messages API for better integration
-* Refreshed and updated all provider model lists with improved settings
-
-**Improvements**
-
-* Improved handling of Gemini 3 models to reduce unnecessary processing during translations
-* Updated Gemini integration to support new authentication keys seamlessly
-
-**Bug Fixes**
-
-* Fixed issue where AI refusals were being written into blank translation fields
-* Fixed max output tokens setting to ensure a minimum limit of 16,000 tokens
-* Fixed Claude client to avoid conflicts with WordPress internals
 
 = Older versions =
 
