@@ -4,7 +4,7 @@ Tags: polylang, ai translation, automatic translation, translation, chatgpt
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 4.24.1
+Stable tag: 4.25.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -253,6 +253,17 @@ No other external requests are made. The plugin sends no usage data to the plugi
 
 == Changelog ==
 
+= 4.25.0 =
+
+**What's New**
+
+* Added support for the latest GPT-6 models for improved translation quality.
+* Migrated sites away from retiring GPT-4o and GPT-4.1 models to ensure continued service.
+
+**Bug Fixes**
+
+* Fixed an issue where Yoast SEO settings were unintentionally overwritten during term translations.
+
 = 4.24.1 =
 
 **Bug Fixes**
@@ -389,27 +400,6 @@ No other external requests are made. The plugin sends no usage data to the plugi
 * Fixed issue where AI refusals were being written into blank translation fields
 * Fixed max output tokens setting to ensure a minimum limit of 16,000 tokens
 * Fixed Claude client to avoid conflicts with WordPress internals
-
-= 4.20.0 =
-
-**What's New**
-
-* Added a new feature to customize AI translation prompts with the System Prompt Enricher.
-* Enabled carrying custom instructions for each translation run to improve translation accuracy.
-
-**Improvements**
-
-* Improved the AI status column to now appear on the Pages list for easier monitoring.
-* Enhanced translation context by including website-specific information in every prompt.
-* Refined URL and path preservation during translation to keep links intact.
-* Improved handling of label and value fields to ensure only non-translatable slugs are skipped, preserving readable text.
-
-**Bug Fixes**
-
-* Fixed incorrect time display on translated language cards.
-* Resolved crashes when translating empty repeater or group fields.
-* Prevented loss of custom instructions during translation requests.
-* Fixed issues with URL preservation and label-value skipping in translations.
 
 = Older versions =
 

@@ -67,38 +67,36 @@ class OpenAI_Provider implements AI_Provider {
      *
      * Labels carry input/output price per 1M tokens so the dropdown can be read
      * as the cost decision it usually is. Standard-tier list prices, correct as
-     * of 2026-07-17 — they need an occasional look, since OpenAI does move them.
+     * of 2026-10-22 — they need an occasional look, since OpenAI does move them.
      *
      * @return array<string,string> Array of model_key => display_name.
      */
     public function get_available_models(): array {
         return array(
+            'gpt-6-luna'    => 'GPT-6 Luna — $0.10 / $0.50 per 1M',
+            'gpt-6-sol'     => 'GPT-6 Sol — $2.00 / $10.00 per 1M',
             'gpt-5.4-nano'  => 'GPT-5.4 Nano — $0.20 / $1.25 per 1M',
             'gpt-5.4-mini'  => 'GPT-5.4 Mini — $0.75 / $4.50 per 1M',
             'gpt-5.4'       => 'GPT-5.4 — $2.50 / $15.00 per 1M',
-            'gpt-5.6-luna'  => 'GPT-5.6 Luna — $1.00 / $6.00 per 1M',
-            'gpt-5.6-terra' => 'GPT-5.6 Terra — $2.50 / $15.00 per 1M',
+            'gpt-5.6-luna'  => 'GPT-5.6 Luna — $0.20 / $1.20 per 1M',
+            'gpt-5.6-terra' => 'GPT-5.6 Terra — $2.00 / $12.00 per 1M',
             'gpt-5.2'       => 'GPT-5.2 — $1.75 / $14.00 per 1M',
             'gpt-5.1'       => 'GPT-5.1 — $1.25 / $10.00 per 1M',
             'gpt-5'         => 'GPT-5 — $1.25 / $10.00 per 1M',
-            'gpt-4.1'       => 'GPT-4.1 — $2.00 / $8.00 per 1M',
-            'gpt-4.1-mini'  => 'GPT-4.1 Mini — $0.40 / $1.60 per 1M',
-            'gpt-4o'        => 'GPT-4o — $2.50 / $10.00 per 1M',
-            'gpt-4o-mini'   => 'GPT-4o Mini — $0.15 / $0.60 per 1M',
         );
     }
 
     /**
      * Get the default model for this provider.
      *
-     * Cheapest credible translation model on any provider ($0.20/$1.25 per 1M
-     * vs gpt-4.1's $2.00/$8.00), and it does not reason by default. Only
-     * applies where no model was saved; existing gpt-4.1 selections stand.
+     * Cheapest credible translation model on any provider ($0.10/$0.50 per 1M,
+     * half of gpt-5.4-nano). It reasons by default, so get_model_params() pins
+     * it to "none". Only applies where no model was saved.
      *
      * @return string The default model key.
      */
     public function get_default_model(): string {
-        return 'gpt-5.4-nano';
+        return 'gpt-6-luna';
     }
 
     /**
@@ -109,9 +107,8 @@ class OpenAI_Provider implements AI_Provider {
      * these report 0 reasoning tokens at "none" and still translate correctly.
      *
      * GPT-5 predates "none" and bottoms out at "minimal". GPT-5.1/5.2/5.4
-     * default to "none" already; GPT-5.5/5.6 accept it but default to "medium",
-     * so it has to be sent explicitly. The gpt-4.1 and gpt-4o families never
-     * reason and take no parameter at all.
+     * default to "none" already; GPT-5.5/5.6 and GPT-6 Luna/Sol accept it but
+     * default to "medium", so it has to be sent explicitly.
      *
      * Reasoning models also reject max_tokens in favour of max_completion_tokens.
      *
@@ -136,6 +133,8 @@ class OpenAI_Provider implements AI_Provider {
             'gpt-5.4-nano'  => $none,
             'gpt-5.6-luna'  => $none,
             'gpt-5.6-terra' => $none,
+            'gpt-6-luna'    => $none,
+            'gpt-6-sol'     => $none,
         );
 
         return $params[ $model ] ?? array();

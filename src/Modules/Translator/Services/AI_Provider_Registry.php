@@ -190,7 +190,7 @@ class AI_Provider_Registry {
      */
     public static function get_default_model_for_provider( string $provider_key ): string {
         $provider = self::get_provider( $provider_key );
-        return $provider ? $provider->get_default_model() : 'gpt-4.1';
+        return $provider ? $provider->get_default_model() : 'gpt-6-luna';
     }
 
     /**

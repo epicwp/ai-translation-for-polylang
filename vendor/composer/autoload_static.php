@@ -513,6 +513,7 @@ class ComposerStaticInita4c5b28026f598214299711f39e6a149
         'PLLAT\\Common\\Installer\\Migrations\\Migrate_To_3_14_0' => __DIR__ . '/../..' . '/src/Common/Installer/Migrations/Migrate_To_3_14_0.php',
         'PLLAT\\Common\\Installer\\Migrations\\Migrate_To_3_15_0' => __DIR__ . '/../..' . '/src/Common/Installer/Migrations/Migrate_To_3_15_0.php',
         'PLLAT\\Common\\Installer\\Migrations\\Migrate_To_3_16_0' => __DIR__ . '/../..' . '/src/Common/Installer/Migrations/Migrate_To_3_16_0.php',
+        'PLLAT\\Common\\Installer\\Migrations\\Migrate_To_3_17_0' => __DIR__ . '/../..' . '/src/Common/Installer/Migrations/Migrate_To_3_17_0.php',
         'PLLAT\\Common\\Installer\\Migrations\\Migrate_To_3_1_0' => __DIR__ . '/../..' . '/src/Common/Installer/Migrations/Migrate_To_3_1_0.php',
         'PLLAT\\Common\\Installer\\Migrations\\Migrate_To_3_2_0' => __DIR__ . '/../..' . '/src/Common/Installer/Migrations/Migrate_To_3_2_0.php',
         'PLLAT\\Common\\Installer\\Migrations\\Migrate_To_3_3_0' => __DIR__ . '/../..' . '/src/Common/Installer/Migrations/Migrate_To_3_3_0.php',

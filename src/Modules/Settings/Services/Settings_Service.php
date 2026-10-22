@@ -89,8 +89,19 @@ class Settings_Service {
         $api ??= $this->get_active_translation_api();
 
         $provider      = \PLLAT\Translator\Services\AI_Provider_Registry::get_provider( $api );
-        $default_model = $provider ? $provider->get_default_model() : 'gpt-4o';
-        return $this->get_option( "pllat_{$api}_translation_model", $default_model );
+        $default_model = $provider ? $provider->get_default_model() : 'gpt-6-luna';
+        $model         = $this->get_option( "pllat_{$api}_translation_model", $default_model );
+
+        // A model the provider no longer offers (retired upstream) fails
+        // validation and stops every translation. The form sanitizer already
+        // maps unknown models to the default on save; hold the same rule on
+        // read for values it never saw, e.g. after a reinstall, which skips
+        // migrations but keeps settings.
+        if ( $provider && ! $provider->supports_custom_model() && ! \array_key_exists( $model, $provider->get_available_models() ) ) {
+            return $default_model;
+        }
+
+        return $model;
     }
 
     /**

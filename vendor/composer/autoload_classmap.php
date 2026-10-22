@@ -324,6 +324,7 @@ return array(
     'PLLAT\\Common\\Installer\\Migrations\\Migrate_To_3_14_0' => $baseDir . '/src/Common/Installer/Migrations/Migrate_To_3_14_0.php',
     'PLLAT\\Common\\Installer\\Migrations\\Migrate_To_3_15_0' => $baseDir . '/src/Common/Installer/Migrations/Migrate_To_3_15_0.php',
     'PLLAT\\Common\\Installer\\Migrations\\Migrate_To_3_16_0' => $baseDir . '/src/Common/Installer/Migrations/Migrate_To_3_16_0.php',
+    'PLLAT\\Common\\Installer\\Migrations\\Migrate_To_3_17_0' => $baseDir . '/src/Common/Installer/Migrations/Migrate_To_3_17_0.php',
     'PLLAT\\Common\\Installer\\Migrations\\Migrate_To_3_1_0' => $baseDir . '/src/Common/Installer/Migrations/Migrate_To_3_1_0.php',
     'PLLAT\\Common\\Installer\\Migrations\\Migrate_To_3_2_0' => $baseDir . '/src/Common/Installer/Migrations/Migrate_To_3_2_0.php',
     'PLLAT\\Common\\Installer\\Migrations\\Migrate_To_3_3_0' => $baseDir . '/src/Common/Installer/Migrations/Migrate_To_3_3_0.php',

@@ -28,6 +28,7 @@ use PLLAT\Common\Installer\Migrations\Migrate_To_3_13_0;
 use PLLAT\Common\Installer\Migrations\Migrate_To_3_14_0;
 use PLLAT\Common\Installer\Migrations\Migrate_To_3_15_0;
 use PLLAT\Common\Installer\Migrations\Migrate_To_3_16_0;
+use PLLAT\Common\Installer\Migrations\Migrate_To_3_17_0;
 use PLLAT\Common\Installer\Migrations\Migration_Helpers;
 
 /**
@@ -85,6 +86,7 @@ class Installer {
 		Migrate_To_3_14_0::class,
 		Migrate_To_3_15_0::class,
 		Migrate_To_3_16_0::class,
+		Migrate_To_3_17_0::class,
 	);
 
 	/**
