@@ -95,6 +95,15 @@ class Meta_Box_Handler {
      * @return void
      */
     public function render_post_meta_box( \WP_Post $post ): void {
+        // New post screen: no assets are enqueued yet, there is nothing to translate.
+        if ( 'auto-draft' === $post->post_status ) {
+            echo '<p>' . \esc_html__(
+                'Save this post first to translate it.',
+                'epicwp-ai-translation-for-polylang',
+            ) . '</p>';
+            return;
+        }
+
         // Render React app container.
         // Any-to-any translation: works from any language post.
         echo '<div id="pllat-single-translator-root" data-type="post" data-id="' . \esc_attr(

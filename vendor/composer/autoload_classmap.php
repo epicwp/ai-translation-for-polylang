@@ -344,6 +344,7 @@ return array(
     'PLLAT\\Common\\Services\\Async_Dispatcher' => $baseDir . '/src/Common/Services/Async_Dispatcher.php',
     'PLLAT\\Common\\Services\\Field_Validators\\Base_Field_Validator' => $baseDir . '/src/Common/Services/Field_Validators/Base_Field_Validator.php',
     'PLLAT\\Common\\Services\\Field_Validators\\Field_Validator_Interface' => $baseDir . '/src/Common/Services/Field_Validators/Field_Validator_Interface.php',
+    'PLLAT\\Common\\Services\\Future_Post_Status_Guard' => $baseDir . '/src/Common/Services/Future_Post_Status_Guard.php',
     'PLLAT\\Common\\Services\\JSON_Patch_Service' => $baseDir . '/src/Common/Services/JSON_Patch_Service.php',
     'PLLAT\\Common\\Services\\Polylang_Context_Forcer' => $baseDir . '/src/Common/Services/Polylang_Context_Forcer.php',
     'PLLAT\\Common\\Services\\Rate_Limiter_Service' => $baseDir . '/src/Common/Services/Rate_Limiter_Service.php',

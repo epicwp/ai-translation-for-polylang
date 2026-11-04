@@ -5,6 +5,8 @@ namespace PLLAT\Translator\Models;
 
 \defined( 'ABSPATH' ) || exit;
 
+use PLLAT\Common\Helpers;
+
 /**
  * Immutable value object representing the user's translation intent.
  *
@@ -127,6 +129,20 @@ final class Run_Spec {
                 'post_types'  => '' !== $post_type ? array( $post_type ) : array(),
                 'source_lang' => $source_lang,
                 'id_list'     => array( $post_id ),
+                // Single-translate only: a scheduled post can be translated
+                // ahead of its publish date so the translation stays
+                // Polylang-linked and goes live at the same moment as the
+                // source (issue #468 / TS-57452941). Bulk runs are untouched
+                // — they never set post_query['post_status'] and keep
+                // falling back to Helpers::post_statuses_for() (publish-only,
+                // or +inherit for media translation). Merging on top of that
+                // same resolver here (rather than hard-coding) keeps the
+                // attachment/'inherit' case working for single-translating
+                // media.
+                'post_status' => \array_values( \array_unique( \array_merge(
+                    Helpers::post_statuses_for( '' !== $post_type ? array( $post_type ) : array() ),
+                    array( 'future' ),
+                ) ) ),
             ),
             term_query: null,
             target_languages: $target_languages,

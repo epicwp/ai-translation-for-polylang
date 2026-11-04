@@ -4,7 +4,7 @@ Tags: polylang, ai translation, automatic translation, translation, chatgpt
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 4.25.1
+Stable tag: 4.26.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -253,6 +253,21 @@ No other external requests are made. The plugin sends no usage data to the plugi
 
 == Changelog ==
 
+= 4.26.0 =
+
+**What's New**
+
+* Show progress for batch translations within individual fields
+* Allow translating scheduled posts before their publish date
+
+**Bug Fixes**
+
+* Improve handling of existing post translations to avoid fallback issues
+* Exclude WooCommerce attribute data from AI translations to prevent errors
+* Remove leftover pro-only support data when uninstalling the pro version alongside the free edition
+* Fix issues with support access expiration and loading during scheduled tasks
+* Enhance handling of formatting placeholders to prevent translation failures
+
 = 4.25.1 =
 
 **Bug Fixes**
@@ -369,22 +384,6 @@ No other external requests are made. The plugin sends no usage data to the plugi
 * Bricks page content is no longer silently skipped when translations run in the background
 * Translation runs now stop with a clear error when your AI provider account is out of credits, instead of appearing stuck
 * Saving a translation no longer clears related custom fields in other languages
-
-= 4.21.1 =
-
-**Improvements**
-
-* More reliable handling of large translations with slow AI responses
-* Clearer error reporting when a translation fails, so issues are easier to resolve
-
-**Bug Fixes**
-
-* Translating no longer overwrites ACF repeater content in the source language
-* Translations no longer conflict with Polylang field synchronization while being written
-* Empty translations from OpenRouter reasoning models are handled correctly
-* Restored the option to translate Bricks array content
-* The single-post translator no longer reports completion before translation actually starts
-* Content edited during a translation run is now picked up correctly
 
 = Older versions =
 

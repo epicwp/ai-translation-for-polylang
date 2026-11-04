@@ -219,8 +219,9 @@ class Translator_Markup extends Translator {
                     );
                     // phpcs:enable WordPress.Security.EscapeOutput.ExceptionNotEscaped
                 }
-                // Recoverable drop (LLM rephrased a wrapper away): restore()
-                // omits the absent wrapper; keep the translated field.
+                // Recoverable drop (LLM rephrased a wrapper away or broke a
+                // formatting-only one): restore() omits that wrapper; keep
+                // the translated field.
                 $value = $this->inline_tag_replacer->restore( $value, $original['tag_map'] );
             }
 

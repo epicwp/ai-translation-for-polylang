@@ -143,6 +143,10 @@ class Translation_Batch_Service {
                     // Survives a restart so repeated drift on the same field
                     // converges on Translator::MAX_DRIFT_RESTARTS.
                     'restarts'           => (int) ( $context['restarts'] ?? 0 ),
+                    // Lets the status endpoint surface intra-field batch
+                    // progress (next_batch / total_batches) so a single large
+                    // field shows advancing state instead of a flat zero.
+                    'total_batches'      => $total_batches,
                     // Lets the next run detect that the source was edited
                     // while this continuation was pending, in which case the
                     // frozen patch paths above no longer resolve.
@@ -536,21 +540,26 @@ class Translation_Batch_Service {
      */
     private function get_format_instructions( bool $has_placeholders = false ): string {
         $example_input  = $has_placeholders
-            ? 'Input: [{"id": 1, "text": "Hello ⟨1⟩world⟨/1⟩"}, {"id": 2, "text": "Goodbye"}]'
+            ? 'Input: [{"id": 1, "text": "Read the ⟨1⟩full ⟨2⟩terms⟨/2⟩⟨/1⟩ first."}, {"id": 2, "text": "Goodbye"}]'
             : 'Input: [{"id": 1, "text": "Hello world"}, {"id": 2, "text": "Goodbye"}]';
         $example_output = $has_placeholders
-            ? 'Output: {"translations": [{"id": 1, "text": "Hallo ⟨1⟩wereld⟨/1⟩"}, {"id": 2, "text": "Tot ziens"}]}'
-            : 'Output: {"translations": [{"id": 1, "text": "Hallo wereld"}, {"id": 2, "text": "Tot ziens"}]}';
+            ? 'Output: {"translations": [{"id": 1, "text": "<translation of item 1, with ⟨1⟩⟨2⟩...⟨/2⟩⟨/1⟩ around the translated words>"}, {"id": 2, "text": "<translation of item 2>"}]}'
+            : 'Output: {"translations": [{"id": 1, "text": "<translation of item 1>"}, {"id": 2, "text": "<translation of item 2>"}]}';
         $example        = $example_input . "\n" . $example_output;
 
-        $rules = "1. Translate EVERY item - do not skip any ID\n";
+        $rules = array( 'Translate EVERY item - do not skip any ID' );
 
         if ( $has_placeholders ) {
-            $rules .= "2. Keep placeholders ⟨N⟩, ⟨/N⟩, and ⟨N/⟩ EXACTLY as they appear (do not add, remove, or modify)\n";
+            $rules[] = 'Use every placeholder ⟨N⟩, ⟨/N⟩ and ⟨N/⟩ exactly once, unchanged, and keep each ⟨N⟩...⟨/N⟩ pair correctly nested. A placeholder may move to follow the word order of the translation';
         }
 
-        $rules .= "3. Do not translate URLs, code, or technical terms\n";
-        $rules .= '4. Preserve HTML entities like &amp; &nbsp; &quot; exactly as written';
+        $rules[] = 'Do not translate URLs, code, or technical terms';
+        $rules[] = 'Preserve HTML entities like &amp; &nbsp; &quot; exactly as written';
+
+        $numbered_rules = array();
+        foreach ( $rules as $index => $rule ) {
+            $numbered_rules[] = ( $index + 1 ) . '. ' . $rule;
+        }
 
         return "\n\n"
             . "INPUT FORMAT:\n"
@@ -565,7 +574,7 @@ class Translation_Batch_Service {
             . $example . "\n"
             . "\n"
             . "CRITICAL RULES:\n"
-            . $rules;
+            . \implode( "\n", $numbered_rules );
     }
 
     /**

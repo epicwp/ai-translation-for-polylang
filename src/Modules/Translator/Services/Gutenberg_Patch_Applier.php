@@ -150,9 +150,9 @@ class Gutenberg_Patch_Applier {
             throw new \Exception( "Invalid placeholder structure in translation for path: {$path}" );
         }
 
-        // Recoverable: the LLM rephrased a wrapped phrase away (an inline
-        // formatting wrapper it could not preserve). Keep the translated
-        // field — restore() omits the absent wrapper — instead of failing
+        // Recoverable: the LLM rephrased a wrapped phrase away or broke a
+        // formatting-only wrapper it could not preserve. Keep the translated
+        // field — restore() omits that wrapper — instead of failing
         // the field and burning retries on deterministic model behaviour.
         return $this->inline_tag_replacer->restore( $value, $tag_map );
     }

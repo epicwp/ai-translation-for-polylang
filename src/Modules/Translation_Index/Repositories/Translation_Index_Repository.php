@@ -352,18 +352,25 @@ class Translation_Index_Repository {
 			\set_transient( $src_cache_key, $aggregates, 60 );
 		}
 
-		// Done from index: target_id NOT NULL AND outdated_at NULL AND content_status in (publish, active).
-		$done_sql = "
+		// Done from index: target_id NOT NULL AND outdated_at NULL AND content_status in
+		// (translatable post statuses, 'active' for terms).
+		$done_statuses = \array_merge( Helpers::post_statuses_for( $post_types ), array( 'active' ) );
+		$ds_ph         = \implode( ',', \array_fill( 0, \count( $done_statuses ), '%s' ) );
+		$done_sql      = "
 			SELECT source_kind, content_subtype, target_lang, COUNT(*) AS done
 			FROM {$wpdb->prefix}pllat_translation_index
 			WHERE source_lang = %s
 			  AND target_id IS NOT NULL
 			  AND outdated_at IS NULL
-			  AND content_status IN ('publish', 'active')
+			  AND content_status IN ({$ds_ph})
 			GROUP BY source_kind, content_subtype, target_lang
 		";
-		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $done_sql is literal SQL plus the prefixed table name; values are prepared.
-		$done_rows = $wpdb->get_results( $wpdb->prepare( $done_sql, $source_lang ), \ARRAY_A );
+
+		$done_rows = $wpdb->get_results(
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $done_sql is literal SQL plus the prefixed table name and a placeholder list sized to $done_statuses; values are prepared.
+			$wpdb->prepare( $done_sql, $source_lang, ...$done_statuses ),
+			\ARRAY_A,
+		);
 		foreach ( $done_rows ?? array() as $row ) {
 			$key = "{$row['source_kind']}|{$row['content_subtype']}|{$row['target_lang']}";
 			if ( isset( $aggregates[ $key ] ) ) {

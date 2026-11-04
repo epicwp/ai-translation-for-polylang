@@ -56,7 +56,7 @@ class Settings_Form {
 			'pllat_debug_settings_group',
 			'pllat_debug_mode',
 			array(
-				'default'           => true,
+				'default'           => false,
 				'sanitize_callback' => array( $this->sanitizer, 'sanitize_checkbox' ),
 			),
 		);

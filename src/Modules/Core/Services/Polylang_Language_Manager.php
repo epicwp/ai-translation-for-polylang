@@ -260,6 +260,13 @@ class Polylang_Language_Manager implements Language_Manager {
      * @return int The post ID in the target language, or 0 if not found.
      */
     public function copy_post( int $source_id, string $target_lang ): int {
+        // Adopt an existing translation (e.g. created and linked manually)
+        // instead of overwriting its content with the source's (issue #471).
+        $existing_translation = $this->get_post_translation( $source_id, $target_lang );
+        if ( $existing_translation ) {
+            return $existing_translation;
+        }
+
         $is_pro = $this->is_pro();
 
         $result = $is_pro ? $this->copy_post_pro( $source_id, $target_lang ) : $this->copy_post_free(
@@ -442,7 +449,7 @@ class Polylang_Language_Manager implements Language_Manager {
             $post_id = \method_exists( \PLL()->sync_post_model, 'copy' ) ? \PLL()->sync_post_model->copy(
                 $source_id,
                 $language,
-                false,
+                'copy',
             ) : \PLL()->sync_post_model->copy_post( $source_id, $language, false );
 
             return $post_id;
@@ -490,8 +497,6 @@ class Polylang_Language_Manager implements Language_Manager {
             return 0;
         }
 
-        // Get the translated post.
-        $tr_id   = \PLL()->model->post->get( $source_id, $pll_language );
         $post    = \get_post( $source_id );
         $tr_post = $post;
 
@@ -500,13 +505,11 @@ class Polylang_Language_Manager implements Language_Manager {
             return 0;
         }
 
-        // If the post is not translated, create a new post.
-        if ( ! $tr_id ) {
-            $tr_id = $this->create_translation_post( $source_id, $tr_post, $language );
+        // Callers only get here when no translation exists yet: create it.
+        $tr_id = $this->create_translation_post( $source_id, $tr_post, $language );
 
-            if ( 0 === $tr_id ) {
-                return 0;
-            }
+        if ( 0 === $tr_id ) {
+            return 0;
         }
 
         $tr_post->ID          = $tr_id;

@@ -175,17 +175,7 @@ class Helpers {
      * @return array<int, string> Post status slugs.
      */
     public static function get_translatable_post_statuses(): array {
-        /**
-         * Filter the post statuses that are eligible for translation.
-         *
-         * @param array<int, string> $statuses Post status slugs.
-         */
-        $statuses = \apply_filters(
-            'pllat_translatable_post_statuses',
-            self::post_statuses_for( self::get_active_post_types() ),
-        );
-
-        return \array_values( \array_unique( $statuses ) );
+        return self::post_statuses_for( self::get_active_post_types() );
     }
 
     /**
@@ -195,7 +185,8 @@ class Helpers {
      * injected Language_Manager), so this never touches Polylang directly.
      * Attachments use the 'inherit' status, so 'inherit' is in scope exactly
      * when Polylang has media translation enabled (i.e. 'attachment' is an
-     * active translated post type).
+     * active translated post type). The `pllat_translatable_post_statuses`
+     * filter is applied here so every status decision honours it.
      *
      * @param array<int, string> $active_post_types
      * @return array<int, string>
@@ -205,7 +196,15 @@ class Helpers {
         if ( \in_array( 'attachment', $active_post_types, true ) ) {
             $statuses[] = 'inherit';
         }
-        return $statuses;
+
+        /**
+         * Filter the post statuses that are eligible for translation.
+         *
+         * @param array<int, string> $statuses Post status slugs.
+         */
+        $statuses = \apply_filters( 'pllat_translatable_post_statuses', $statuses );
+
+        return \array_values( \array_unique( $statuses ) );
     }
 
     /**

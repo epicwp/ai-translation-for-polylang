@@ -6,6 +6,7 @@ namespace PLLAT\Translator\Services;
 \defined( 'ABSPATH' ) || exit;
 
 use PLLAT\Common\Interfaces\Language_Manager;
+use PLLAT\Common\Services\Future_Post_Status_Guard;
 use PLLAT\Common\Services\Rate_Limiter_Service;
 use PLLAT\Content\Services\Content_Service;
 use PLLAT\Translation_Index\Handlers\Pipeline_Tick_Handler;
@@ -346,7 +347,7 @@ class Lean_Job_Worker {
         // value written below onto the source post (ticket TS-79430082).
         $this->language_manager->suspend_meta_sync();
 
-        try {
+        $write_fields = function () use ( $unit, $translations, $target_id ): void {
             foreach ( $translations as $reference => $value ) {
                 try {
                     $this->content_service->write_field_translation(
@@ -372,6 +373,20 @@ class Lean_Job_Worker {
                         ),
                     );
                 }
+            }
+        };
+
+        try {
+            // A 'future' target's own post_date_gmt can slip into the past
+            // while this run is queued (delayed AS, broken wp-cron): each
+            // per-field wp_update_post() below would otherwise re-derive the
+            // status as 'publish' and go live before the source (issue #468 /
+            // TS-57452941). Pinned only for post targets — the guard is a
+            // no-op for term IDs (see Future_Post_Status_Guard).
+            if ( 'post' === $unit['source_kind'] ) {
+                Future_Post_Status_Guard::around( $target_id, $write_fields );
+            } else {
+                $write_fields();
             }
         } finally {
             $this->language_manager->resume_meta_sync();

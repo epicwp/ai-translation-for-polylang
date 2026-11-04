@@ -11,7 +11,7 @@ import { getStatusDisplay, getStatusColors, formatDate } from '../utils/language
  * Get inline status display (icon + text).
  *
  * @param {string} status - Translation status (unified from backend)
- * @param {Object|null} progress - Progress data {completed: int, fields: string[]} for active claims
+ * @param {Object|null} progress - Progress data {completed: int, fields: string[], batch?: {completed: int, total: int}} for active claims
  * @param {number|null} translatedAt - Translation timestamp (unified from backend)
  * @param {boolean} isRunning - Whether this language is currently being translated by user
  * @returns {JSX.Element|null} Status display
@@ -63,13 +63,28 @@ function getInlineStatus(status, progress, translatedAt, isRunning) {
 	if (status === 'in_progress') {
 		const completed = progress?.completed ?? 0;
 		const fields    = progress?.fields ?? [];
-		const label     = completed === 0
-			? __('Translating…', 'polylang-ai-automatic-translation')
-			: sprintf(
+		const batch     = progress?.batch ?? null;
+
+		// A single field larger than the batch size reports zero completed
+		// fields until its last batch finishes. Surface batch progress so the
+		// card advances instead of sitting on "Translating…" (issue #437).
+		let label;
+		if (completed > 0) {
+			label = sprintf(
 				/* translators: %d: number of fields completed so far */
 				_n('%d field translated', '%d fields translated', completed, 'polylang-ai-automatic-translation'),
 				completed,
 			);
+		} else if (batch && batch.total > 0) {
+			label = sprintf(
+				/* translators: 1: current batch number, 2: total number of batches */
+				__('Translating large field (part %1$d of %2$d)…', 'polylang-ai-automatic-translation'),
+				Math.min(batch.completed + 1, batch.total),
+				batch.total,
+			);
+		} else {
+			label = __('Translating…', 'polylang-ai-automatic-translation');
+		}
 
 		const inline = (
 			<div style={{
@@ -171,7 +186,7 @@ function getInlineStatus(status, progress, translatedAt, isRunning) {
  * @param {string} props.languageName - Language name
  * @param {string} props.status - Translation status (unified from backend)
  * @param {number|null} props.translatedAt - Translation timestamp (unified from backend)
- * @param {Object|null} props.progress - Progress data {completed: int, fields: string[]} for active claims
+ * @param {Object|null} props.progress - Progress data {completed: int, fields: string[], batch?: {completed: int, total: int}} for active claims
  * @param {boolean} props.isRunning - Whether this language is currently being translated
  * @param {boolean} props.selected - Whether language is selected
  * @param {Function} props.onToggle - Callback when card is toggled

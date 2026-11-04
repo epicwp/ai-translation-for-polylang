@@ -71,14 +71,48 @@ class Inline_Tag_Replacer {
     );
 
     /**
+     * Inline tags that are purely presentational: losing one only loses
+     * styling, never content or meaning. A broken placeholder of these tags
+     * is dropped instead of failing the field (see placeholder_state()).
+     *
+     * Every other tag in INLINE_TAGS is load-bearing and stays strict:
+     * a (href), br (line break), abbr/acronym/dfn (title), bdo (dir),
+     * time (datetime), q (adds quotes), cite/code/kbd/samp/var (semantic
+     * content markers). When unsure, a tag belongs there, not here.
+     * The class is derived from the stored 'tag', so persisted tag_maps
+     * in batch_state keep their shape.
+     *
+     * @var array<string>
+     */
+    private const FORMATTING_TAGS = array(
+        'b',
+        'big',
+        'del',
+        'em',
+        'i',
+        'ins',
+        'mark',
+        's',
+        'small',
+        'span',
+        'strike',
+        'strong',
+        'sub',
+        'sup',
+        'tt',
+        'u',
+    );
+
+    /**
      * Get the placeholder format instruction for LLM system prompt.
      *
      * @return string Instruction text.
      */
     public static function get_prompt_instruction(): string {
         return 'The text contains numbered placeholders in the format ⟨N⟩text⟨/N⟩ (opening/closing) or ⟨N/⟩ (self-closing). ' .
-            'These represent HTML formatting tags. You MUST preserve all placeholders exactly as they appear, ' .
-            'including their nesting order. For example, ⟨1⟩⟨2⟩text⟨/2⟩⟨/1⟩ must remain properly nested after translation.';
+            'These represent HTML formatting tags. Use every placeholder exactly once and unchanged, and keep each pair ' .
+            'correctly nested: ⟨1⟩⟨2⟩text⟨/2⟩⟨/1⟩ must remain properly nested after translation. ' .
+            'A placeholder may move to follow the word order of the translation, as long as it wraps the same words.';
     }
 
     /**
@@ -196,6 +230,8 @@ class Inline_Tag_Replacer {
      * @return string HTML with restored tags.
      */
     public function restore( string $text, array $tag_map ): string {
+        $text = $this->strip_dropped( $text, $tag_map );
+
         // Restore self-closing tags.
         $result = \preg_replace_callback(
             '/' . \preg_quote( self::PLACEHOLDER_OPEN, '/' ) . '(\d+)\/' . \preg_quote(
@@ -311,19 +347,20 @@ class Inline_Tag_Replacer {
     /**
      * Whether a translation that fails validate() is still safely restorable.
      *
-     * True ONLY when every defect is a non-self-closing tag_map id that is
-     * ENTIRELY absent from the text (0 open, 0 close): the LLM legitimately
-     * rephrased the wrapped phrase away (e.g. an <em> around one word that
-     * has no clean target rendering — observed deterministically on real
-     * content). restore() then yields the translated text without that one
-     * wrapper, so the field stays translated instead of hard-failing and
-     * burning retries. Genuine corruption — an id present that the map does
-     * not know, a non-self-closing id with only one of open/close, or an
-     * absent self-closing id — is NOT recoverable and must still fail.
+     * True ONLY when every defect is droppable (see placeholder_state()):
+     * - a non-self-closing id that is ENTIRELY absent (the LLM rephrased the
+     *   wrapped phrase away, observed deterministically on real content), or
+     * - any broken placeholder of a FORMATTING_TAGS tag (open-only,
+     *   close-only, duplicated, reversed): losing it only loses styling.
+     * restore() then omits those wrappers, so the field stays translated
+     * instead of hard-failing and burning retries. Genuine corruption, an id
+     * the map does not know or a partially present / absent self-closing
+     * load-bearing tag (a link that lost its close, a missing <br/>), is NOT
+     * recoverable and must still fail.
      *
      * @param string                                                            $text    Translated text with placeholders.
      * @param array<int, array{tag: string, attrs: string, self_closing: bool}> $tag_map Original tag map.
-     * @return bool True if the only defects are dropped non-self-closing wrappers.
+     * @return bool True if the only defects are droppable wrappers.
      */
     public function is_recoverable( string $text, array $tag_map ): bool {
         $found_pattern = '/' . \preg_quote( self::PLACEHOLDER_OPEN, '/' ) . '\/?(\d+)\/?' . \preg_quote(
@@ -341,7 +378,7 @@ class Inline_Tag_Replacer {
 
         $has_droppable = false;
         foreach ( $tag_map as $id => $info ) {
-            $state = $this->placeholder_state( (int) $id, (bool) $info['self_closing'], $text );
+            $state = $this->placeholder_state( (int) $id, $info, $text );
             if ( 'corrupt' === $state ) {
                 return false;
             }
@@ -352,15 +389,57 @@ class Inline_Tag_Replacer {
     }
 
     /**
+     * Remove every placeholder token (open, close, self-close) of each id
+     * placeholder_state() classifies as 'drop', so a dropped wrapper leaves
+     * neither a stray placeholder nor a half tag behind.
+     *
+     * @param string                                                            $text    Translated text with placeholders.
+     * @param array<int, array{tag: string, attrs: string, self_closing: bool}> $tag_map Original tag map.
+     * @return string Text without the dropped ids' placeholders.
+     */
+    private function strip_dropped( string $text, array $tag_map ): string {
+        foreach ( $tag_map as $id => $info ) {
+            if ( 'drop' !== $this->placeholder_state( (int) $id, $info, $text ) ) {
+                continue;
+            }
+            $text = (string) \preg_replace(
+                '/' . \preg_quote( self::PLACEHOLDER_OPEN, '/' ) . '\/?' . (int) $id . '\/?' . \preg_quote(
+                    self::PLACEHOLDER_CLOSE,
+                    '/',
+                ) . '/',
+                '',
+                $text,
+            );
+        }
+
+        return $text;
+    }
+
+    /**
      * Classify one tag_map id against the translated text.
+     *
+     * @param int                                                   $id   Placeholder id.
+     * @param array{tag: string, attrs: string, self_closing: bool} $info Tag map entry.
+     * @param string                                                $text Translated text with placeholders.
+     * @return string 'ok' (intact), 'drop' (safe to omit), or 'corrupt' (broken structure).
+     */
+    private function placeholder_state( int $id, array $info, string $text ): string {
+        return \in_array( $info['tag'], self::FORMATTING_TAGS, true )
+            ? $this->formatting_state( $id, (bool) $info['self_closing'], $text )
+            : $this->load_bearing_state( $id, (bool) $info['self_closing'], $text );
+    }
+
+    /**
+     * Classify a load-bearing id (strict): a non-self-closing id needs both
+     * open and close ('ok') and is 'drop' only when entirely absent; a
+     * self-closing id must be present. Anything else is 'corrupt'.
      *
      * @param int    $id           Placeholder id.
      * @param bool   $self_closing Whether the original tag was self-closing.
      * @param string $text         Translated text with placeholders.
-     * @return string 'ok' (intact), 'drop' (entirely absent non-self-closing
-     *                wrapper — safe to omit), or 'corrupt' (broken structure).
+     * @return string 'ok', 'drop', or 'corrupt'.
      */
-    private function placeholder_state( int $id, bool $self_closing, string $text ): string {
+    private function load_bearing_state( int $id, bool $self_closing, string $text ): string {
         $open_q  = \preg_quote( self::PLACEHOLDER_OPEN, '/' );
         $close_q = \preg_quote( self::PLACEHOLDER_CLOSE, '/' );
 
@@ -379,5 +458,30 @@ class Inline_Tag_Replacer {
             return 'drop';
         }
         return 'corrupt';
+    }
+
+    /**
+     * Classify a FORMATTING_TAGS id: 'ok' when well-formed (exactly one open
+     * before exactly one close, or exactly one self-close), otherwise 'drop'
+     * (absent, open-only, close-only, duplicated or reversed). Never
+     * 'corrupt': losing the wrapper only loses styling.
+     *
+     * @param int    $id           Placeholder id.
+     * @param bool   $self_closing Whether the original tag was self-closing.
+     * @param string $text         Translated text with placeholders.
+     * @return string 'ok' or 'drop'.
+     */
+    private function formatting_state( int $id, bool $self_closing, string $text ): string {
+        $self  = self::PLACEHOLDER_OPEN . $id . '/' . self::PLACEHOLDER_CLOSE;
+        $open  = self::PLACEHOLDER_OPEN . $id . self::PLACEHOLDER_CLOSE;
+        $close = self::PLACEHOLDER_OPEN . '/' . $id . self::PLACEHOLDER_CLOSE;
+
+        $well_formed = $self_closing
+            ? 1 === \substr_count( $text, $self )
+            : 1 === \substr_count( $text, $open )
+                && 1 === \substr_count( $text, $close )
+                && \strpos( $text, $open ) < \strpos( $text, $close );
+
+        return $well_formed ? 'ok' : 'drop';
     }
 }

@@ -76,7 +76,13 @@ class Translation_Status_Builder_Service {
             'job_id'         => $claim ? (int) $claim['id'] : null,
             'created_at'     => $claim ? (int) $claim['created_at'] : null,
             'progress'       => $claim
-                ? $this->build_progress( $type, $id, $lang_to, (int) $claim['created_at'] )
+                ? $this->build_progress(
+                    $type,
+                    $id,
+                    $lang_to,
+                    (int) $claim['created_at'],
+                    $claim['batch_state'] ?? null,
+                )
                 : null,
         );
 
@@ -93,13 +99,21 @@ class Translation_Status_Builder_Service {
      * `_custom_data|`) via Reference_Parsing_Trait. Ordered newest-first;
      * frontend tooltip shows the full list, inline shows the count.
      *
-     * @param string $type             Content type ('post' or 'term').
-     * @param int    $id               Source content ID.
-     * @param string $lang_to          Target language slug.
-     * @param int    $claim_created_at Claim creation timestamp.
-     * @return array{completed:int, fields:array<int, string>}
+     * A single field larger than the batch size is translated across many
+     * continuations and only appears in the completed list once its last
+     * batch finishes. When such a field is mid-flight the claim carries a
+     * `batch_state` with `next_batch`/`total_batches`; those are surfaced as a
+     * `batch` sub-payload so the UI can show advancing progress instead of a
+     * flat zero (issue #437).
+     *
+     * @param string      $type             Content type ('post' or 'term').
+     * @param int         $id               Source content ID.
+     * @param string      $lang_to          Target language slug.
+     * @param int         $claim_created_at Claim creation timestamp.
+     * @param string|null $batch_state_json Raw batch_state JSON from the claim, or null.
+     * @return array{completed:int, fields:array<int, string>, batch?:array{completed:int, total:int}}
      */
-    private function build_progress( string $type, int $id, string $lang_to, int $claim_created_at ): array {
+    private function build_progress( string $type, int $id, string $lang_to, int $claim_created_at, ?string $batch_state_json = null ): array {
         global $wpdb;
 
         // pllat_activity_log.logged_at is written by the worker as GMT (via
@@ -133,9 +147,42 @@ class Translation_Status_Builder_Service {
             $fields[] = $this->parse_reference( $reference )['field'];
         }
 
-        return array(
+        $progress = array(
             'completed' => \count( $fields ),
             'fields'    => $fields,
+        );
+
+        $batch = $this->build_batch_progress( $batch_state_json );
+        if ( null !== $batch ) {
+            $progress['batch'] = $batch;
+        }
+
+        return $progress;
+    }
+
+    /**
+     * Derive intra-field batch progress from a claim's persisted batch_state.
+     *
+     * `next_batch` is the count of batches already completed (the 0-based index
+     * of the batch to resume from); `total_batches` is how many the field spans.
+     * Returns null when no multi-batch field is in flight.
+     *
+     * @param string|null $batch_state_json Raw batch_state JSON from the claim.
+     * @return array{completed:int, total:int}|null
+     */
+    private function build_batch_progress( ?string $batch_state_json ): ?array {
+        if ( null === $batch_state_json || '' === $batch_state_json ) {
+            return null;
+        }
+
+        $state = \json_decode( $batch_state_json, true );
+        if ( ! \is_array( $state ) || ! isset( $state['total_batches'] ) ) {
+            return null;
+        }
+
+        return array(
+            'completed' => (int) ( $state['next_batch'] ?? 0 ),
+            'total'     => (int) $state['total_batches'],
         );
     }
 
@@ -208,7 +255,7 @@ class Translation_Status_Builder_Service {
         $table = $wpdb->prefix . 'pllat_claims';
         $row   = $wpdb->get_row(
             $wpdb->prepare(
-                "SELECT id, run_id, status, created_at FROM {$table}
+                "SELECT id, run_id, status, created_at, batch_state FROM {$table}
                  WHERE source_kind = %s AND source_id = %d AND target_lang = %s
                    AND run_id IS NOT NULL
                    AND status IN ('pending', 'in_progress')

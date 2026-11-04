@@ -34,7 +34,7 @@ class Loopback_Check implements Preflight_Check {
     }
 
     public function run( Preflight_Scope $scope, array $context = array() ): Preflight_Check_Result {
-        $url = \add_query_arg( 'pllat_loopback', '1', \site_url( '/' ) );
+        $url = \add_query_arg( 'pllat_loopback', '1', \home_url( '/' ) );
 
         $response = \wp_remote_get(
             $url,

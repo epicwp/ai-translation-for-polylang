@@ -207,6 +207,14 @@ class Single_Translation_REST_Controller extends \XWP_REST_Controller {
                 if ( \function_exists( 'pll_is_translated_post_type' )
                     && isset( $GLOBALS['polylang'] ) ) {
                     $allowed_statuses = \PLLAT\Common\Helpers::post_statuses_for( \PLLAT\Common\Helpers::get_active_post_types() );
+                    // Single-translate only: a scheduled post can be
+                    // translated ahead of its publish date (issue #468 /
+                    // TS-57452941) so it stays Polylang-linked and goes live
+                    // with the source. Bulk scope resolution (Helpers::
+                    // post_statuses_for(), used by the claim/reconciliation
+                    // queries and the dashboard) is untouched — this gate
+                    // only widens the single-post REST path.
+                    $allowed_statuses[] = 'future';
                     if ( ! \in_array( $post->post_status, $allowed_statuses, true ) ) {
                         return new \WP_REST_Response(
                             array(

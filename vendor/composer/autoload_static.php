@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita4c5b28026f598214299711f39e6a149
+class ComposerStaticInit847f218ff60d32eabdeb62ed7ea8baa5
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -23,18 +23,18 @@ class ComposerStaticInita4c5b28026f598214299711f39e6a149
     );
 
     public static $prefixLengthsPsr4 = array (
-        'X' =>
+        'X' => 
         array (
             'XWP\\Helper\\Traits\\' => 18,
             'XWP\\Helper\\Functions\\' => 21,
             'XWP\\Helper\\Classes\\' => 19,
             'XWP\\DI\\' => 7,
         ),
-        'S' =>
+        'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
         ),
-        'P' =>
+        'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
@@ -44,149 +44,149 @@ class ComposerStaticInita4c5b28026f598214299711f39e6a149
             'PLLAT\\' => 6,
             'PHPHtmlParser\\' => 14,
         ),
-        'M' =>
+        'M' => 
         array (
             'MyCLabs\\Enum\\' => 13,
         ),
-        'L' =>
+        'L' => 
         array (
             'Laravel\\SerializableClosure\\' => 28,
         ),
-        'I' =>
+        'I' => 
         array (
             'Invoker\\' => 8,
         ),
-        'H' =>
+        'H' => 
         array (
             'Http\\Promise\\' => 13,
             'Http\\Client\\' => 12,
         ),
-        'G' =>
+        'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
         ),
-        'E' =>
+        'E' => 
         array (
             'EpicWP\\Roundtable\\' => 18,
         ),
-        'D' =>
+        'D' => 
         array (
             'DI\\' => 3,
         ),
-        'A' =>
+        'A' => 
         array (
             'Automattic\\Jetpack\\Autoloader\\' => 30,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'XWP\\Helper\\Traits\\' =>
+        'XWP\\Helper\\Traits\\' => 
         array (
             0 => __DIR__ . '/..' . '/x-wp/helper-traits',
         ),
-        'XWP\\Helper\\Functions\\' =>
+        'XWP\\Helper\\Functions\\' => 
         array (
             0 => __DIR__ . '/..' . '/x-wp/helper-functions',
         ),
-        'XWP\\Helper\\Classes\\' =>
+        'XWP\\Helper\\Classes\\' => 
         array (
             0 => __DIR__ . '/..' . '/x-wp/helper-classes',
         ),
-        'XWP\\DI\\' =>
+        'XWP\\DI\\' => 
         array (
             0 => __DIR__ . '/..' . '/x-wp/di/src',
         ),
-        'Symfony\\Polyfill\\Mbstring\\' =>
+        'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Psr\\Http\\Message\\' =>
+        'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'Psr\\Http\\Client\\' =>
+        'Psr\\Http\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-client/src',
         ),
-        'Psr\\Container\\' =>
+        'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'PLLAT\\Dependencies\\' =>
+        'PLLAT\\Dependencies\\' => 
         array (
             0 => __DIR__ . '/..' . '/prefixed',
         ),
-        'PLLAT\\Common\\' =>
+        'PLLAT\\Common\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/Common',
         ),
-        'PLLAT\\' =>
+        'PLLAT\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/Modules',
         ),
-        'PHPHtmlParser\\' =>
+        'PHPHtmlParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/paquettg/php-html-parser/src/PHPHtmlParser',
         ),
-        'MyCLabs\\Enum\\' =>
+        'MyCLabs\\Enum\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
         ),
-        'Laravel\\SerializableClosure\\' =>
+        'Laravel\\SerializableClosure\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/serializable-closure/src',
         ),
-        'Invoker\\' =>
+        'Invoker\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-di/invoker/src',
         ),
-        'Http\\Promise\\' =>
+        'Http\\Promise\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-http/promise/src',
         ),
-        'Http\\Client\\' =>
+        'Http\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-http/httplug/src',
         ),
-        'GuzzleHttp\\Psr7\\' =>
+        'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'GuzzleHttp\\Promise\\' =>
+        'GuzzleHttp\\Promise\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
         ),
-        'GuzzleHttp\\' =>
+        'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'EpicWP\\Roundtable\\' =>
+        'EpicWP\\Roundtable\\' => 
         array (
             0 => __DIR__ . '/..' . '/epicwp/wp-roundtable/src',
         ),
-        'DI\\' =>
+        'DI\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-di/php-di/src',
         ),
-        'Automattic\\Jetpack\\Autoloader\\' =>
+        'Automattic\\Jetpack\\Autoloader\\' => 
         array (
             0 => __DIR__ . '/..' . '/automattic/jetpack-autoloader/src',
         ),
     );
 
     public static $prefixesPsr0 = array (
-        's' =>
+        's' => 
         array (
-            'stringEncode' =>
+            'stringEncode' => 
             array (
                 0 => __DIR__ . '/..' . '/paquettg/string-encode/src',
             ),
         ),
-        'R' =>
+        'R' => 
         array (
-            'Rs\\Json' =>
+            'Rs\\Json' => 
             array (
                 0 => __DIR__ . '/..' . '/php-jsonpatch/php-jsonpatch/src',
                 1 => __DIR__ . '/..' . '/php-jsonpointer/php-jsonpointer/src',
@@ -533,6 +533,7 @@ class ComposerStaticInita4c5b28026f598214299711f39e6a149
         'PLLAT\\Common\\Services\\Async_Dispatcher' => __DIR__ . '/../..' . '/src/Common/Services/Async_Dispatcher.php',
         'PLLAT\\Common\\Services\\Field_Validators\\Base_Field_Validator' => __DIR__ . '/../..' . '/src/Common/Services/Field_Validators/Base_Field_Validator.php',
         'PLLAT\\Common\\Services\\Field_Validators\\Field_Validator_Interface' => __DIR__ . '/../..' . '/src/Common/Services/Field_Validators/Field_Validator_Interface.php',
+        'PLLAT\\Common\\Services\\Future_Post_Status_Guard' => __DIR__ . '/../..' . '/src/Common/Services/Future_Post_Status_Guard.php',
         'PLLAT\\Common\\Services\\JSON_Patch_Service' => __DIR__ . '/../..' . '/src/Common/Services/JSON_Patch_Service.php',
         'PLLAT\\Common\\Services\\Polylang_Context_Forcer' => __DIR__ . '/../..' . '/src/Common/Services/Polylang_Context_Forcer.php',
         'PLLAT\\Common\\Services\\Rate_Limiter_Service' => __DIR__ . '/../..' . '/src/Common/Services/Rate_Limiter_Service.php',
@@ -803,10 +804,10 @@ class ComposerStaticInita4c5b28026f598214299711f39e6a149
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita4c5b28026f598214299711f39e6a149::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita4c5b28026f598214299711f39e6a149::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInita4c5b28026f598214299711f39e6a149::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInita4c5b28026f598214299711f39e6a149::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit847f218ff60d32eabdeb62ed7ea8baa5::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit847f218ff60d32eabdeb62ed7ea8baa5::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit847f218ff60d32eabdeb62ed7ea8baa5::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit847f218ff60d32eabdeb62ed7ea8baa5::$classMap;
 
         }, null, ClassLoader::class);
     }
