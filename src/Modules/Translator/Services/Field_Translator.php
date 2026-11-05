@@ -25,6 +25,13 @@ use PLLAT\Content\Services\Content_Service;
  */
 class Field_Translator {
     /**
+     * References process_field() returned for without calling the provider.
+     *
+     * @var array<int, string>
+     */
+    private array $bypassed = array();
+
+    /**
      * Constructor.
      *
      * @param Translator        $text_translator   Standard text translator.
@@ -39,6 +46,17 @@ class Field_Translator {
         private Content_Service $content_service,
         private AI_Client $ai_client,
     ) {
+    }
+
+    /**
+     * Return the references that bypassed the provider since the last call, and clear the list.
+     *
+     * @return array<int, string>
+     */
+    public function take_bypassed(): array {
+        $bypassed       = $this->bypassed;
+        $this->bypassed = array();
+        return $bypassed;
     }
 
     /**
@@ -60,6 +78,7 @@ class Field_Translator {
         array $context = array(),
     ): string {
         if ( null === $value ) {
+            $this->bypassed[] = $reference;
             return '';
         }
 
@@ -77,6 +96,7 @@ class Field_Translator {
         // multibyte characters. preg_match returns false on invalid UTF-8,
         // which falls through and is translated as before.
         if ( \is_string( $value ) && 1 === \preg_match( '/^[\p{Z}\s]*$/u', $value ) ) {
+            $this->bypassed[] = $reference;
             return $value;
         }
 
@@ -85,6 +105,7 @@ class Field_Translator {
         // Handle arrays: skip empty, skip unless explicitly allowed.
         if ( \is_array( $original_value ) ) {
             if ( array() === \array_filter( $original_value ) ) {
+                $this->bypassed[] = $reference;
                 return '';
             }
             /**
@@ -95,6 +116,7 @@ class Field_Translator {
              * @return bool Whether to allow array translation.
              */
             if ( ! \apply_filters( 'pllat_allow_array_translation_for_field', false, $reference ) ) {
+                $this->bypassed[] = $reference;
                 return \maybe_serialize( $original_value );
             }
         }

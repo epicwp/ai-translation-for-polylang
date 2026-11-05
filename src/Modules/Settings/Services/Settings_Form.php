@@ -175,7 +175,7 @@ class Settings_Form {
 			'pllat-settings',
 			\plugins_url( '../assets/settings.js', __FILE__ ),
 			array( 'jquery' ),
-			'1.0.0',
+			PLLAT_PLUGIN_VERSION,
 			true,
 		);
 
@@ -199,7 +199,7 @@ class Settings_Form {
 			'pllat-support-tab',
 			\plugins_url( '../assets/support-tab.js', __FILE__ ),
 			array( 'jquery' ),
-			'1.0.0',
+			PLLAT_PLUGIN_VERSION,
 			true,
 		);
 

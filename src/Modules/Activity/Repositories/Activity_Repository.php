@@ -321,4 +321,265 @@ class Activity_Repository {
             "SELECT COUNT(*) FROM {$runs} WHERE status IN ('pending', 'running', 'processing')",
         ) > 0;
     }
+
+    /**
+     * Newest activity row of any status for a unit.
+     *
+     * @param string $kind Source kind.
+     * @param int    $id   Source ID.
+     * @param string $lang Target language.
+     * @return array{status:string, error_message:?string, logged_at:string, run_id:?int}|null
+     */
+    public function latest_outcome_for_unit( string $kind, int $id, string $lang ): ?array {
+        global $wpdb;
+        $al = $wpdb->prefix . 'pllat_activity_log';
+
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- table name from prefix.
+        $row = $wpdb->get_row(
+            $wpdb->prepare(
+                "SELECT status, error_message, logged_at, run_id
+                 FROM {$al}
+                 WHERE source_kind = %s AND source_id = %d AND target_lang = %s
+                 ORDER BY id DESC
+                 LIMIT 1",
+                $kind,
+                $id,
+                $lang,
+            ),
+            ARRAY_A,
+        );
+
+        if ( ! \is_array( $row ) ) {
+            return null;
+        }
+
+        return array(
+            'status'        => (string) $row['status'],
+            'error_message' => null === $row['error_message'] ? null : (string) $row['error_message'],
+            'logged_at'     => (string) $row['logged_at'],
+            'run_id'        => null === $row['run_id'] ? null : (int) $row['run_id'],
+        );
+    }
+
+    /**
+     * Units touched by a run, one entry per unit, newest first.
+     *
+     * Outcome precedence: completed (translated) > skipped > failed.
+     *
+     * @param int $run_id Run ID.
+     * @param int $limit  Max units.
+     * @return array<int, array{source_kind:string, source_id:int, target_lang:string, outcome:string, error_message:?string, logged_at:string}>
+     */
+    public function find_units_for_run( int $run_id, int $limit ): array {
+        global $wpdb;
+        $al = $wpdb->prefix . 'pllat_activity_log';
+
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- table name from prefix.
+        $rows = $wpdb->get_results(
+            $wpdb->prepare(
+                "SELECT
+                    source_kind,
+                    source_id,
+                    target_lang,
+                    MAX(status = 'completed') AS has_completed,
+                    MAX(status = 'skipped') AS has_skipped,
+                    SUBSTRING_INDEX(GROUP_CONCAT(IF(status = 'skipped', error_message, NULL) ORDER BY id DESC SEPARATOR 0x1F), 0x1F, 1) AS skipped_message,
+                    SUBSTRING_INDEX(GROUP_CONCAT(IF(status = 'failed', error_message, NULL) ORDER BY id DESC SEPARATOR 0x1F), 0x1F, 1) AS failed_message,
+                    MAX(logged_at) AS logged_at
+                 FROM {$al}
+                 WHERE run_id = %d
+                 GROUP BY source_kind, source_id, target_lang
+                 ORDER BY MAX(logged_at) DESC, MAX(id) DESC
+                 LIMIT %d",
+                $run_id,
+                $limit,
+            ),
+            ARRAY_A,
+        );
+
+        if ( ! \is_array( $rows ) ) {
+            return array();
+        }
+
+        $units = array();
+        foreach ( $rows as $row ) {
+            $outcome = 'failed';
+            $message = $row['failed_message'];
+            if ( '1' === (string) $row['has_completed'] ) {
+                $outcome = 'translated';
+                $message = null;
+            } elseif ( '1' === (string) $row['has_skipped'] ) {
+                $outcome = 'skipped';
+                $message = $row['skipped_message'];
+            }
+
+            $units[] = array(
+                'source_kind'   => (string) $row['source_kind'],
+                'source_id'     => (int) $row['source_id'],
+                'target_lang'   => (string) $row['target_lang'],
+                'outcome'       => $outcome,
+                'error_message' => null === $message || '' === $message ? null : (string) $message,
+                'logged_at'     => (string) $row['logged_at'],
+            );
+        }
+
+        return $units;
+    }
+
+    /**
+     * Units whose newest activity row is a failure and that have no current translation.
+     *
+     * @param array{kind?:string, subtype?:string, lang?:string} $filters Optional filters.
+     * @param int                                                $offset  Row offset.
+     * @param int                                                $limit   Max rows.
+     * @return array<int, array<string, mixed>>
+     */
+    public function find_failed_units( array $filters, int $offset, int $limit ): array {
+        global $wpdb;
+
+        [ $where, $args ] = $this->failed_units_where( $filters );
+        $args[]           = $limit;
+        $args[]           = $offset;
+
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared -- table names from prefix, $where built from fixed fragments.
+        $rows = $wpdb->get_results(
+            $wpdb->prepare(
+                "SELECT
+                    al.source_kind,
+                    al.source_id,
+                    al.target_lang,
+                    COALESCE(i.content_subtype, '') AS content_subtype,
+                    al.error_message,
+                    al.logged_at,
+                    al.run_id
+                {$this->failed_units_from()}
+                WHERE {$where}
+                ORDER BY al.logged_at DESC, al.id DESC
+                LIMIT %d OFFSET %d",
+                ...$args,
+            ),
+            ARRAY_A,
+        );
+
+        return \is_array( $rows ) ? $rows : array();
+    }
+
+    /**
+     * Count units matching find_failed_units().
+     *
+     * @param array{kind?:string, subtype?:string, lang?:string} $filters Optional filters.
+     * @return int
+     */
+    public function count_failed_units( array $filters ): int {
+        global $wpdb;
+
+        [ $where, $args ] = $this->failed_units_where( $filters );
+
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- table names from prefix, $where built from fixed fragments.
+        $sql = $this->prepare_args( "SELECT COUNT(*) {$this->failed_units_from()} WHERE {$where}", $args );
+
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $sql is literal SQL plus the prefixed table name and a placeholder list sized to $params; values are prepared.
+        return (int) $wpdb->get_var( $sql );
+    }
+
+    /**
+     * Failed-unit counts keyed "{kind}|{subtype}|{lang}".
+     *
+     * @return array<string, int>
+     */
+    public function count_failed_by_pair(): array {
+        global $wpdb;
+
+        [ $where, $args ] = $this->failed_units_where( array() );
+
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- table names from prefix, $where built from fixed fragments.
+        $sql = $this->prepare_args(
+            "SELECT al.source_kind, COALESCE(i.content_subtype, '') AS content_subtype, al.target_lang, COUNT(*) AS cnt
+            {$this->failed_units_from()}
+            WHERE {$where}
+            GROUP BY al.source_kind, COALESCE(i.content_subtype, ''), al.target_lang",
+            $args,
+        );
+
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $sql is literal SQL plus the prefixed table name and a placeholder list sized to $params; values are prepared.
+        $rows = $wpdb->get_results( $sql, ARRAY_A );
+
+        $pairs = array();
+        foreach ( \is_array( $rows ) ? $rows : array() as $row ) {
+            $key           = $row['source_kind'] . '|' . $row['content_subtype'] . '|' . $row['target_lang'];
+            $pairs[ $key ] = ( $pairs[ $key ] ?? 0 ) + (int) $row['cnt'];
+        }
+
+        return $pairs;
+    }
+
+    /**
+     * FROM/JOIN clause selecting each unit's newest activity row, joined to the index.
+     *
+     * @return string
+     */
+    private function failed_units_from(): string {
+        global $wpdb;
+        $al  = $wpdb->prefix . 'pllat_activity_log';
+        $idx = $this->index_table();
+
+        return "FROM {$al} al
+                JOIN (
+                    SELECT MAX(id) AS max_id
+                    FROM {$al}
+                    GROUP BY source_kind, source_id, target_lang
+                ) latest ON latest.max_id = al.id
+                LEFT JOIN {$idx} i
+                    ON i.source_kind = al.source_kind
+                    AND i.source_id  = al.source_id
+                    AND i.target_lang = al.target_lang";
+    }
+
+    /**
+     * WHERE fragment and prepare() args for the failed-units queries.
+     *
+     * @param array{kind?:string, subtype?:string, lang?:string} $filters Optional filters.
+     * @return array{0:string, 1:array<int, string>}
+     */
+    private function failed_units_where( array $filters ): array {
+        $where = array(
+            "al.status = 'failed'",
+            '(i.target_id IS NULL OR i.outdated_at IS NOT NULL)',
+            'al.logged_at >= ( UTC_TIMESTAMP() - INTERVAL 90 DAY )',
+        );
+        $args  = array();
+
+        if ( isset( $filters['kind'] ) && '' !== $filters['kind'] ) {
+            $where[] = 'al.source_kind = %s';
+            $args[]  = $filters['kind'];
+        }
+        if ( isset( $filters['subtype'] ) && '' !== $filters['subtype'] ) {
+            $where[] = 'i.content_subtype = %s';
+            $args[]  = $filters['subtype'];
+        }
+        if ( isset( $filters['lang'] ) && '' !== $filters['lang'] ) {
+            $where[] = 'al.target_lang = %s';
+            $args[]  = $filters['lang'];
+        }
+
+        return array( implode( ' AND ', $where ), $args );
+    }
+
+    /**
+     * Run wpdb::prepare() only when the query has placeholders.
+     *
+     * @param string            $sql  SQL with %s placeholders.
+     * @param array<int, mixed> $args Placeholder values.
+     * @return string
+     */
+    private function prepare_args( string $sql, array $args ): string {
+        global $wpdb;
+
+        if ( 0 === count( $args ) ) {
+            return $sql;
+        }
+
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $sql is literal SQL plus the prefixed table name and a placeholder list sized to $params; values are prepared.
+        return (string) $wpdb->prepare( $sql, ...$args );
+    }
 }

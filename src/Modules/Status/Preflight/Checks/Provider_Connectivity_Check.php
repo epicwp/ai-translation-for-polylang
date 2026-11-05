@@ -16,6 +16,7 @@ use PLLAT\Status\Preflight\Preflight_Check;
 use PLLAT\Status\Preflight\Preflight_Check_Result;
 use PLLAT\Status\Preflight\Preflight_Level;
 use PLLAT\Status\Preflight\Preflight_Scope;
+use PLLAT\Status\Preflight\Provider_Connectivity_Tester;
 use PLLAT\Status\Preflight\Provider_Validation_Gateway;
 
 /**
@@ -28,7 +29,17 @@ class Provider_Connectivity_Check implements Preflight_Check {
     private const STALE_AFTER_SECONDS = 86400;
     public const OPTION_PREFIX        = 'pllat_provider_connectivity_';
 
-    public function __construct( private Provider_Validation_Gateway $gateway ) {}
+    /**
+     * Constructor.
+     *
+     * @param Provider_Validation_Gateway  $gateway Active provider lookup.
+     * @param Provider_Connectivity_Tester $tester  Live provider test, run when the cached pass is stale.
+     */
+    public function __construct(
+        private Provider_Validation_Gateway $gateway,
+        private Provider_Connectivity_Tester $tester,
+    ) {
+    }
 
     public function get_name(): string {
         return 'provider_connectivity';
@@ -69,6 +80,13 @@ class Provider_Connectivity_Check implements Preflight_Check {
         $tested_at = (int) ( $option['tested_at'] ?? 0 );
         $age       = \time() - $tested_at;
 
+        if ( $success && $age > self::STALE_AFTER_SECONDS ) {
+            // A pass older than a day says nothing about the key now: test again instead of warning.
+            $option  = $this->tester->test_active_provider();
+            $success = $option['success'];
+            $age     = 0;
+        }
+
         if ( ! $success ) {
             return new Preflight_Check_Result(
                 $this->get_name(),
@@ -82,20 +100,6 @@ class Provider_Connectivity_Check implements Preflight_Check {
                 null,
                 $admin_link,
                 $admin_link_label,
-            );
-        }
-
-        if ( $age > self::STALE_AFTER_SECONDS ) {
-            return new Preflight_Check_Result(
-                $this->get_name(),
-                Preflight_Level::Warn,
-                \sprintf(
-                    'Last connectivity test for %s was %d hours ago.',
-                    $provider,
-                    (int) ( $age / 3600 ),
-                ),
-                'Click "Re-test" below to confirm the provider is still reachable.',
-                null,
             );
         }
 

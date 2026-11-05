@@ -14,6 +14,7 @@ namespace PLLAT\Single_Translator\Services;
 
 use PLLAT\Common\Interfaces\Language_Manager;
 use PLLAT\Content\Services\Traits\Reference_Parsing_Trait;
+use PLLAT\Translation_Index\Repositories\Translation_Field_State_Repository;
 use PLLAT\Translation_Index\Repositories\Translation_Index_Repository;
 
 /**
@@ -43,11 +44,13 @@ class Translation_Status_Builder_Service {
      * Constructor.
      *
      * @param Language_Manager             $language_manager The language manager.
-     * @param Translation_Index_Repository $index_repository The translation index repository.
+     * @param Translation_Index_Repository       $index_repository       The translation index repository.
+     * @param Translation_Field_State_Repository $field_state_repository The per-field translation state.
      */
     public function __construct(
         private Language_Manager $language_manager,
         private Translation_Index_Repository $index_repository,
+        private Translation_Field_State_Repository $field_state_repository,
     ) {
     }
 
@@ -86,7 +89,15 @@ class Translation_Status_Builder_Service {
                 : null,
         );
 
-        $status = $this->apply_status_value( $status, $index_row, $claim, $type, $translation_id );
+        $status = $this->apply_status_value(
+            $status,
+            $index_row,
+            $claim,
+            $type,
+            $id,
+            $lang_to,
+            $translation_id,
+        );
 
         return $status;
     }
@@ -297,10 +308,12 @@ class Translation_Status_Builder_Service {
      * @param array|null $index_row      Translation index row or null.
      * @param array|null $claim          Active claim row or null.
      * @param string     $type           Content type.
+     * @param int        $id             Source content ID.
+     * @param string     $lang_to        Target language slug.
      * @param int        $translation_id Resolved target ID.
      * @return array Status array with status field set.
      */
-    private function apply_status_value( array $status, ?array $index_row, ?array $claim, string $type, int $translation_id ): array {
+    private function apply_status_value( array $status, ?array $index_row, ?array $claim, string $type, int $id, string $lang_to, int $translation_id ): array {
         if ( null !== $claim ) {
             $claim_status    = (string) $claim['status'];
             $status['status'] = 'in_progress' === $claim_status ? 'in_progress' : 'queued';
@@ -314,7 +327,12 @@ class Translation_Status_Builder_Service {
                 $status['status'] = 'outdated';
             } else {
                 $status['status']        = 'translated';
-                $status['translated_at'] = $this->get_translation_timestamp( $type, $translation_id );
+                $status['translated_at'] = $this->get_translation_timestamp(
+                    $type,
+                    $id,
+                    $lang_to,
+                    $translation_id,
+                );
             }
 
             return $status;
@@ -328,10 +346,12 @@ class Translation_Status_Builder_Service {
      * Get the timestamp for when a translation was last modified.
      *
      * @param string $type           Content type (post or term).
+     * @param int    $id             Source content ID.
+     * @param string $lang_to        Target language slug.
      * @param int    $translation_id The translation target ID.
      * @return int Timestamp or 0 if not available.
      */
-    private function get_translation_timestamp( string $type, int $translation_id ): int {
+    private function get_translation_timestamp( string $type, int $id, string $lang_to, int $translation_id ): int {
         if ( 'post' === $type ) {
             // Use the GMT modified time so translated_at is a true absolute
             // instant. post_modified is a site-LOCAL string and WordPress runs
@@ -343,7 +363,11 @@ class Translation_Status_Builder_Service {
             return false !== $modified_gmt ? (int) $modified_gmt : 0;
         }
 
-        $term = \get_term( $translation_id );
-        return $term && ! \is_wp_error( $term ) ? \time() : 0;
+        // Terms carry no modified time; the field state records when the plugin last wrote the pair.
+        return $this->field_state_repository->latest_translated_at(
+            Translation_Index_Repository::KIND_TERM,
+            $id,
+            $lang_to,
+        );
     }
 }

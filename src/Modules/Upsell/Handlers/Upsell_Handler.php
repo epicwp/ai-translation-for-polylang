@@ -105,6 +105,10 @@ class Upsell_Handler {
                 'epicwp-ai-translation-for-polylang',
             ),
             \__(
+                'AI agents: let Claude, Cursor or any MCP client check progress, start translations and report problems, through the WordPress Abilities API and the MCP Adapter.',
+                'epicwp-ai-translation-for-polylang',
+            ),
+            \__(
                 'Auto-Translate 24/7 (upcoming): new and edited content is translated automatically.',
                 'epicwp-ai-translation-for-polylang',
             ),

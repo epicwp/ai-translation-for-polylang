@@ -15,6 +15,7 @@ namespace PLLAT\Single_Translator;
 use PLLAT\Single_Translator\Controllers\Single_Translation_REST_Controller;
 use PLLAT\Single_Translator\Handlers\Meta_Box_Handler;
 use PLLAT\Single_Translator\Services\Single_Translation_Service;
+use PLLAT\Single_Translator\Services\Single_Translation_Start_Service;
 use XWP\DI\Decorators\Module;
 
 /**
@@ -33,6 +34,7 @@ use XWP\DI\Decorators\Module;
     ),
     services: array(
         Single_Translation_Service::class,
+        Single_Translation_Start_Service::class,
     ),
 )]
 class Single_Translator_Module {

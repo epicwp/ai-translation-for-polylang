@@ -4,7 +4,7 @@ Tags: polylang, ai translation, automatic translation, translation, chatgpt
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 4.26.0
+Stable tag: 4.27.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,7 @@ The free edition is complete for translating content one item at a time. The Pro
 * ✅ Dashboard with coverage and activity feed
 * ✅ Preflight checks, error log and debug log
 * ✅ Bulk translation of post types, taxonomies and the whole site
+* ✅ AI agents: let Claude, Cursor or any MCP client check progress, start translations and report problems, through the WordPress Abilities API and the MCP Adapter.
 * ✅ Elementor, Bricks, ACF and WooCommerce translated in place
 * ✅ Custom field management (translate, copy or ignore per field)
 * ✅ SEO meta for Yoast SEO, Rank Math, All in One SEO, SEOPress, Slim SEO, Squirrly SEO, The SEO Framework and SEO Engine Pro
@@ -253,6 +254,22 @@ No other external requests are made. The plugin sends no usage data to the plugi
 
 == Changelog ==
 
+= 4.27.0 =
+
+**What's New**
+
+* Added AI agent tools powered by WordPress Abilities API to enhance automatic translation management.
+
+**Improvements**
+
+* Improved the AI Agents tab and server instructions for easier setup and use.
+* Updated settings page scripts to ensure better compatibility with the plugin version.
+
+**Bug Fixes**
+
+* Fixed task status to correctly show units parked between batches as in progress.
+* Resolved issues found during production testing to improve overall stability.
+
 = 4.26.0 =
 
 **What's New**
@@ -262,8 +279,12 @@ No other external requests are made. The plugin sends no usage data to the plugi
 
 **Bug Fixes**
 
-* Improve handling of existing post translations to avoid fallback issues
-* Exclude WooCommerce attribute data from AI translations to prevent errors
+* Keep an existing manually linked translation instead of overwriting it with a copy of the source
+* Exclude WooCommerce attribute meta from AI translation so product variations keep matching, and allow removing percent-encoded meta keys
+* Fix the loopback check on WordPress installs in a subdirectory, which blocked every translation
+* Extend temporary support access from 24 hours to 3 days
+* Show a "save this post first" notice in the AI Translation box on the new-post screen instead of an empty box
+* Apply the translatable post statuses filter everywhere, including claiming, reconciliation and dashboard counts
 * Remove leftover pro-only support data when uninstalling the pro version alongside the free edition
 * Fix issues with support access expiration and loading during scheduled tasks
 * Enhance handling of formatting placeholders to prevent translation failures
@@ -375,15 +396,6 @@ No other external requests are made. The plugin sends no usage data to the plugi
 
 * Fixed translation of component blocks in Gutenberg content for better accuracy.
 * Fixed issue with source text freezing during batch translations to ensure smooth processing.
-
-= 4.21.2 =
-
-**Bug Fixes**
-
-* Elementor HTML widget content is now translated
-* Bricks page content is no longer silently skipped when translations run in the background
-* Translation runs now stop with a clear error when your AI provider account is out of credits, instead of appearing stuck
-* Saving a translation no longer clears related custom fields in other languages
 
 = Older versions =
 

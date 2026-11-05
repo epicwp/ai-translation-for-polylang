@@ -220,6 +220,11 @@ export function SingleTranslator({ notice = null, extraPanel = null }) {
       if (err?.code === 'pllat_nothing_to_translate') {
         setNoWorkMessage(err.message || '');
         setUiState('no_work');
+      } else if (err?.code === 'pllat_run_already_active') {
+        // A run is already going for this item. useTranslationActions
+        // shows the message as the action error; keep following that run
+        // instead of reporting a failure.
+        startPolling();
       } else if (err?.code !== 'pllat_preflight_failed' && err?.code !== 'pllat_index_not_ready') {
         // Preflight 422s are already handled by useTranslationActions
         // (sets preflightFailure → modal). Other errors land on the

@@ -16,14 +16,14 @@ namespace PLLAT\Common\Logging;
  * Masks sensitive data in log context arrays before writing to log files.
  *
  * Scrubs:
- * - Keys matching /api_key|authorization|bearer|token/i -> [REDACTED]
+ * - Keys matching /api_key|authorization|bearer|token/i -> [REDACTED] (token counters such as total_tokens are kept)
  * - OpenAI key pattern /sk-[a-zA-Z0-9]{20,}/ in string values -> sk-***
  * - Anthropic key pattern /sk-ant-[a-zA-Z0-9-]{20,}/ in string values -> sk-ant-***
  * - String values > 4096 bytes -> "first 2KB [TRUNCATED N bytes] last 2KB"
  */
 class Sensitive_Data_Scrubber {
 
-	private const REDACT_KEY_PATTERN    = '/api[-_]?key|authorization|bearer|token/i';
+	private const REDACT_KEY_PATTERN    = '/api[-_]?key|authorization|bearer|token(?!s)/i';
 	private const OPENAI_KEY_PATTERN    = '/sk-[a-zA-Z0-9]{20,}/';
 	private const ANTHROPIC_KEY_PATTERN = '/sk-ant-[a-zA-Z0-9-]{20,}/';
 	private const MAX_VALUE_BYTES       = 4096;

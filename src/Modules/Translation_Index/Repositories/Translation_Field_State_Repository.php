@@ -115,4 +115,30 @@ class Translation_Field_State_Repository {
             array( '%s', '%d' ),
         );
     }
+
+    /**
+     * Unix time of the last field the plugin wrote for a pair, 0 when it never wrote one.
+     *
+     * UNIX_TIMESTAMP() reads the DATETIME in the same session time zone NOW()
+     * wrote it in, so the instant is right whatever that zone is.
+     *
+     * @param string $source_kind Source kind (post or term).
+     * @param int    $source_id   Source ID.
+     * @param string $target_lang Target language slug.
+     * @return int
+     */
+    public function latest_translated_at( string $source_kind, int $source_id, string $target_lang ): int {
+        global $wpdb;
+        $table = $wpdb->prefix . 'pllat_translation_field_state';
+        return (int) $wpdb->get_var(
+            $wpdb->prepare(
+                // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- table name from prefix; no user input.
+                "SELECT UNIX_TIMESTAMP(MAX(translated_at)) FROM {$table}
+                 WHERE source_kind = %s AND source_id = %d AND target_lang = %s",
+                $source_kind,
+                $source_id,
+                $target_lang,
+            ),
+        );
+    }
 }

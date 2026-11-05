@@ -43,6 +43,28 @@ class Run_Spec_Repository {
         return $this->hydrate_rows( $rows );
     }
 
+    /**
+     * The most recent runs that are no longer active, newest first.
+     *
+     * @param int $limit Maximum number of runs.
+     * @return array<int, array<string, mixed>>
+     */
+    public function find_recent( int $limit ): array {
+        global $wpdb;
+        $rows = $wpdb->get_results(
+            $wpdb->prepare(
+                "SELECT id, status, spec, started_at, completed_at, last_heartbeat
+                 FROM {$wpdb->prefix}pllat_bulk_runs
+                 WHERE status NOT IN ('pending', 'processing')
+                 ORDER BY id DESC
+                 LIMIT %d",
+                $limit,
+            ),
+            \ARRAY_A,
+        );
+        return $this->hydrate_rows( $rows );
+    }
+
     public function find_by_id( int $run_id ): ?array {
         global $wpdb;
         $row = $wpdb->get_row(

@@ -5,11 +5,11 @@ namespace PLLAT\Admin\Services;
 
 \defined( 'ABSPATH' ) || exit;
 
-use PLLAT\Common\Helpers;
 use PLLAT\Common\Interfaces\Language_Manager;
 use PLLAT\Common\Traits\Run_Progress_Trait;
 use PLLAT\Translation_Index\Repositories\Translation_Index_Repository;
 use PLLAT\Translator\Repositories\Run_Spec_Repository;
+use PLLAT\Translator\Services\Run_Progress_Service;
 
 /**
  *
@@ -25,6 +25,7 @@ class Dashboard_Data_Service {
         private Language_Manager $language_manager,
         private Run_Spec_Repository $run_spec_repository,
         private Translation_Index_Repository $translation_index,
+        private Run_Progress_Service $run_progress,
     ) {
     }
 
@@ -321,40 +322,20 @@ class Dashboard_Data_Service {
      * Build run-progress payload from activity_log + claims for a run.
      *
      * Unit = distinct (source_kind, source_id, target_lang) triplet.
-     * Completed units: triplets with at least one 'completed' field in activity_log.
+     * Completed units: triplets with at least one 'completed' field in activity_log; skipped units count as done.
      * Active units: rows in pllat_claims still pending or in_progress.
      * Total: limit × target_lang_count when spec has a limit; else dynamic sum.
      *
      * @return array<string, mixed>|null
      */
     private function compute_run_progress( int $run_id, int $started_at ): ?array {
-        global $wpdb;
+        $counts = $this->run_progress->counts_for_run( $run_id );
 
-        $log_row = $wpdb->get_row(
-            $wpdb->prepare(
-                "SELECT
-                    COUNT(DISTINCT CONCAT(source_kind,'|',source_id,'|',target_lang)) AS processed,
-                    COUNT(DISTINCT IF(status='completed', CONCAT(source_kind,'|',source_id,'|',target_lang), NULL)) AS completed_units
-                 FROM {$wpdb->prefix}pllat_activity_log WHERE run_id = %d",
-                $run_id,
-            ),
-            \ARRAY_A,
-        );
-
-        $claim_row = $wpdb->get_row(
-            $wpdb->prepare(
-                "SELECT SUM(status='in_progress') AS in_progress, SUM(status='pending') AS pending
-                 FROM {$wpdb->prefix}pllat_claims WHERE run_id = %d",
-                $run_id,
-            ),
-            \ARRAY_A,
-        );
-
-        $processed   = (int) ( $log_row['processed'] ?? 0 );
-        $completed   = (int) ( $log_row['completed_units'] ?? 0 );
-        $failed      = $processed - $completed;
-        $in_progress = (int) ( $claim_row['in_progress'] ?? 0 );
-        $pending     = (int) ( $claim_row['pending'] ?? 0 );
+        // A skipped unit is done, not failed.
+        $completed   = $counts['completed'] + $counts['skipped'];
+        $failed      = $counts['failed'];
+        $in_progress = $counts['in_progress'];
+        $pending     = $counts['pending'];
 
         $run   = $this->run_spec_repository->find_by_id( $run_id );
         $limit = $run ? $run['spec']->limit() : null;
@@ -374,7 +355,7 @@ class Dashboard_Data_Service {
         // count is independent of translation state, so the denominator is
         // stable (no flicker between worker units).
         $lang_count   = \max( 1, \count( $run['spec']->target_languages() ) );
-        $source_posts = $this->count_source_posts_in_scope( $run['spec'] );
+        $source_posts = $this->run_progress->count_source_posts_in_scope( $run['spec'] );
         $post_factor  = null === $source_posts ? $limit : \min( $limit, $source_posts );
 
         $total = $post_factor * $lang_count;
@@ -392,59 +373,6 @@ class Dashboard_Data_Service {
             ),
             $started_at,
         );
-    }
-
-    /**
-     * Count the source posts a run could translate, for the progress
-     * denominator. Mirrors Job_Claim_Service's candidate scope: posts of the
-     * run's post_type(s), in a translatable status, in the run's source
-     * language (Polylang `language` taxonomy), optionally limited to the spec's
-     * id_list. Counts source posts only — not units — and ignores translation
-     * state, so the denominator is stable across polls.
-     *
-     * Returns null when the run has no post_query (term-only run) so the caller
-     * keeps the limit-based denominator unchanged.
-     */
-    private function count_source_posts_in_scope( \PLLAT\Translator\Models\Run_Spec $spec ): ?int {
-        $query = $spec->post_query();
-        if ( null === $query ) {
-            return null;
-        }
-        $post_types = ( isset( $query['post_types'] ) && \is_array( $query['post_types'] ) )
-            ? \array_values( \array_map( 'strval', $query['post_types'] ) )
-            : array();
-        $source_lang = (string) ( $query['source_lang'] ?? '' );
-        if ( 0 === \count( $post_types ) || '' === $source_lang ) {
-            return null;
-        }
-
-        global $wpdb;
-        $pt_ph         = \implode( ',', \array_fill( 0, \count( $post_types ), '%s' ) );
-        $post_statuses = Helpers::post_statuses_for( $post_types );
-        $ps_ph         = \implode( ',', \array_fill( 0, \count( $post_statuses ), '%s' ) );
-
-        $id_clause  = '';
-        $id_params  = array();
-        if ( isset( $query['id_list'] ) && \is_array( $query['id_list'] ) && \count( $query['id_list'] ) > 0 ) {
-            $id_ph     = \implode( ',', \array_fill( 0, \count( $query['id_list'] ), '%d' ) );
-            $id_clause = "AND p.ID IN ({$id_ph}) ";
-            $id_params = \array_map( 'intval', \array_values( $query['id_list'] ) );
-        }
-
-        $sql = "SELECT COUNT(DISTINCT p.ID)
-            FROM {$wpdb->posts} p
-            INNER JOIN {$wpdb->term_relationships} ll_rel ON ll_rel.object_id = p.ID
-            INNER JOIN {$wpdb->term_taxonomy} ll_tax ON ll_tax.term_taxonomy_id = ll_rel.term_taxonomy_id AND ll_tax.taxonomy = 'language'
-            INNER JOIN {$wpdb->terms} ll ON ll.term_id = ll_tax.term_id
-            WHERE p.post_type IN ({$pt_ph})
-              AND p.post_status IN ({$ps_ph})
-              AND ll.slug = %s
-              {$id_clause}";
-
-        $params = \array_merge( $post_types, $post_statuses, array( $source_lang ), $id_params );
-
-        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- placeholders built above; values in $params.
-        return (int) $wpdb->get_var( $wpdb->prepare( $sql, ...$params ) );
     }
 
     /**

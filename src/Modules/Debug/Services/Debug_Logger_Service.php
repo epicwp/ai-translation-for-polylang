@@ -214,7 +214,10 @@ class Debug_Logger_Service {
 			$friendly_context['AI Model'] = $context['model'];
 		}
 		if ( isset( $context['total_tokens'] ) ) {
-			$friendly_context['Tokens Used'] = \number_format( $context['total_tokens'] );
+			// Files written before 4.27.0-beta.5 hold '[REDACTED]' here (the scrubber matched *_tokens).
+			$friendly_context['Tokens Used'] = \is_numeric( $context['total_tokens'] )
+				? \number_format( (float) $context['total_tokens'] )
+				: (string) $context['total_tokens'];
 		}
 		if ( isset( $context['reference'] ) ) {
 			$friendly_context['Field'] = $context['reference'];

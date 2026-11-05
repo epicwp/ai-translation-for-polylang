@@ -103,6 +103,7 @@ class Lean_Job_Worker {
 
             $gap_fields = $this->compute_gap_fields( $unit );
             if ( 0 === \count( $gap_fields ) ) {
+                $this->activity_writer->record_skipped( $unit, 'no_gap_fields', $this->current_run_id );
                 $this->index_repository->clear_outdated(
                     $unit['source_kind'],
                     $unit['source_id'],
@@ -113,6 +114,8 @@ class Lean_Job_Worker {
             }
 
             try {
+                // Discard references a previous unit left behind when it threw mid-translation.
+                $this->field_translator->take_bypassed();
                 $translations = $this->translate_fields( $unit, $gap_fields );
             } catch ( \PLLAT\Translator\Exceptions\Batch_Continuation_Exception $e ) {
                 $this->claim_lifecycle->persist_batch_state( $unit['job_id'], $e->get_batch_state() );
@@ -155,6 +158,12 @@ class Lean_Job_Worker {
                 return;
             }
 
+            if ( $run_id > 0 && $this->claim_lifecycle->is_run_cancelled( $run_id ) ) {
+                // Cancelled while this unit was at the provider: the claim is
+                // gone, so drop the result instead of landing it after the cancel.
+                return;
+            }
+
             try {
                 $written_target_id = $this->write_back( $unit, $translations );
             } catch ( \PLLAT\Translator\Exceptions\Field_Write_Rejected_Exception $e ) {
@@ -191,7 +200,7 @@ class Lean_Job_Worker {
             }
 
             $this->record_field_state( $unit, $translations );
-            $this->activity_writer->record_success( $unit, $translations, $this->current_run_id );
+            $this->record_outcome( $unit, $translations );
             /**
              * Fires once every translated field of a unit has been written to its target.
              *
@@ -502,6 +511,22 @@ class Lean_Job_Worker {
         );
 
         return $target_id;
+    }
+
+    /**
+     * Log a written unit as completed, or skipped when every field bypassed the provider.
+     *
+     * @param array<string, mixed> $unit
+     * @param array<string, mixed> $translations reference => translated value
+     */
+    private function record_outcome( array $unit, array $translations ): void {
+        $bypassed   = $this->field_translator->take_bypassed();
+        $translated = \array_diff_key( $translations, \array_flip( $bypassed ) );
+        if ( \count( $translated ) > 0 ) {
+            $this->activity_writer->record_success( $unit, $translated, $this->current_run_id );
+            return;
+        }
+        $this->activity_writer->record_skipped( $unit, 'no_translatable_content', $this->current_run_id );
     }
 
     /**

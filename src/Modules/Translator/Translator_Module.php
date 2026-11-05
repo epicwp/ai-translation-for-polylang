@@ -29,6 +29,7 @@ use PLLAT\Translator\Services\Job_Claim_Service;
 use PLLAT\Translator\Services\Lean_Job_Worker;
 use PLLAT\Translator\Services\Provider_Health_Service;
 use PLLAT\Translator\Services\Run_Completion_Service;
+use PLLAT\Translator\Services\Run_Progress_Service;
 use PLLAT\Translator\Services\Run_Spec_Service;
 use PLLAT\Translator\Services\System_Prompt_Enricher;
 use PLLAT\Translator\Services\Translator;
@@ -59,6 +60,7 @@ use XWP\DI\Interfaces\Can_Initialize;
         Job_Claim_Service::class,
         Cancel_Service::class,
         Run_Completion_Service::class,
+        Run_Progress_Service::class,
         Claim_Lifecycle::class,
         Activity_Writer::class,
         Lean_Job_Worker::class,

@@ -16,6 +16,8 @@ use PLLAT\Common\Interfaces\Language_Manager;
 use PLLAT\Single_Translator\Services\Translation_Status_Builder_Service;
 use PLLAT\Status\Services\Health_Service;
 use PLLAT\Translator\Enums\TranslatableMetaKey;
+use PLLAT\Translator\Models\Run_Spec;
+use PLLAT\Translator\Repositories\Run_Spec_Repository;
 use PLLAT\Translator\Services\Cancel_Service;
 
 /**
@@ -33,12 +35,14 @@ class Single_Translation_Service {
      * @param Translation_Status_Builder_Service $status_builder   The status builder service.
      * @param Health_Service                     $health_service   The health service.
      * @param Cancel_Service                     $cancel_service   The cancel service.
+     * @param Run_Spec_Repository                $run_repository   The run repository.
      */
     public function __construct(
         private Language_Manager $language_manager,
         private Translation_Status_Builder_Service $status_builder,
         private Health_Service $health_service,
         private Cancel_Service $cancel_service,
+        private Run_Spec_Repository $run_repository,
     ) {
     }
 
@@ -70,6 +74,25 @@ class Single_Translation_Service {
                 'scheduler_health' => $scheduler_health,
             ),
         );
+    }
+
+    /**
+     * Whether the current user can edit the content item.
+     *
+     * @param string $type Content type (post or term).
+     * @param int    $id   Content ID.
+     * @return bool Whether the user can edit. False for unknown types and missing items.
+     */
+    public static function user_can_edit( string $type, int $id ): bool {
+        if ( 'post' === $type ) {
+            return \get_post( $id ) instanceof \WP_Post && \current_user_can( 'edit_post', $id );
+        }
+
+        if ( 'term' === $type ) {
+            return \get_term( $id ) instanceof \WP_Term && \current_user_can( 'edit_term', $id );
+        }
+
+        return false;
     }
 
     /**
@@ -113,13 +136,25 @@ class Single_Translation_Service {
     }
 
     /**
+     * Find the run_id of an active (pending/in_progress) claim for this content,
+     * or of an active single run for it that has not claimed a unit yet.
+     *
+     * @param string $type Content type (post or term).
+     * @param int    $id   Source content ID.
+     * @return int|null Run ID or null if none found.
+     */
+    public function find_active_run_id( string $type, int $id ): ?int {
+        return $this->find_claimed_run_id( $type, $id ) ?? $this->find_single_run_id( $type, $id );
+    }
+
+    /**
      * Find the run_id of an active (pending/in_progress) claim for this content.
      *
      * @param string $type Content type (post or term).
      * @param int    $id   Source content ID.
      * @return int|null Run ID or null if none found.
      */
-    private function find_active_run_id( string $type, int $id ): ?int {
+    private function find_claimed_run_id( string $type, int $id ): ?int {
         global $wpdb;
 
         $table  = $wpdb->prefix . 'pllat_claims';
@@ -135,6 +170,40 @@ class Single_Translation_Service {
         );
 
         return null !== $run_id ? (int) $run_id : null;
+    }
+
+    /**
+     * Find an active run whose spec is a single run for this content.
+     *
+     * A fresh run has no claim rows until its first worker tick, so the
+     * claims table alone misses it.
+     *
+     * @param string $type Content type (post or term).
+     * @param int    $id   Source content ID.
+     * @return int|null Run ID or null if none found.
+     */
+    private function find_single_run_id( string $type, int $id ): ?int {
+        foreach ( $this->run_repository->find_active() as $run ) {
+            if ( $this->is_single_run_for( $run['spec'], $type, $id ) ) {
+                return (int) $run['id'];
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Whether the spec is a single run for this content.
+     *
+     * @param Run_Spec $spec Run spec.
+     * @param string   $type Content type (post or term).
+     * @param int      $id   Source content ID.
+     * @return bool
+     */
+    private function is_single_run_for( Run_Spec $spec, string $type, int $id ): bool {
+        $query = 'post' === $type ? $spec->post_query() : $spec->term_query();
+
+        return array( $id ) === ( $query['id_list'] ?? null );
     }
 
     /**
